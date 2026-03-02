@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text ↔ Voice App</title>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=paeBYdqb"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #4e73df, #1cc88a);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .container {
+        background: white;
+        width: 95%;
+        max-width: 500px;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        position: relative;
+      }
+      .back-button {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: #f6c23e;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 14px;
+      }
+      .back-button:hover {
+        background: #e0b02b;
+      }
+      .tab-buttons {
+        display: flex;
+        margin-bottom: 15px;
+        margin-top: 35px; /* beri ruang agar tidak bertabrakan dengan tombol kembali */
+      }
+      .tab-buttons button {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .active {
+        background: #4e73df;
+        color: white;
+      }
+      .inactive {
+        background: #ddd;
+      }
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 8px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+      }
+      button.action {
+        margin-top: 10px;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        background: #1cc88a;
+        color: white;
+        font-weight: bold;
+      }
+      button.action:hover {
+        opacity: 0.9;
+      }
+      .status {
+        margin-top: 10px;
+        font-size: 14px;
+        color: gray;
+      }
+      .hidden {
+        display: none;
+      }
+      /* NAVBAR */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #4e73df;
+        padding: 12px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+      }
+
+      .navbar h1 {
+        color: white;
+        font-size: 18px;
+        margin: 0;
+      }
+
+      .navbar a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        background: #1cc88a;
+        padding: 6px 14px;
+        border-radius: 8px;
+        transition: 0.3s;
+      }
+
+      .navbar a:hover {
+        background: #17a673;
+      }
+
+      /* beri jarak agar container tidak ketutup navbar */
+      body {
+        padding-top: 70px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- NAVBAR -->
+      <div class="navbar">
+        <h1>Text ↔ Voice</h1>
+        <a href="../index.html">🏠 Home</a>
+      </div>
+
+      <h2>🔊 Text ↔ Voice App</h2>
+
+      <div class="tab-buttons">
+        <button id="ttsTab" class="active" onclick="showTTS()">🔊 TTS</button>
+        <button id="sttTab" class="inactive" onclick="showSTT()">🎤 STT</button>
+      </div>
+
+      <!-- TTS SECTION -->
+      <div id="ttsSection">
+        <textarea id="ttsText" placeholder="Ketik teks..."></textarea>
+        <p style="text-align: left">Silakan Pilih Suara</p>
+        <select id="voiceSelect">
+          <option value="Indonesian Female">Indonesian Female</option>
+          <option value="Indonesian Male">Indonesian Male</option>
+          <option value="UK English Female">UK English Female</option>
+          <option value="US English Male">US English Male</option>
+          <option value="Japanese Male">Japanese Male</option>
+          <option value="Japanese Female">Japanese Female</option>
+        </select>
+        <button class="action" onclick="speak()">Ubah ke Suara</button>
+        <button class="action" onclick="stopTTS()">Stop</button>
+      </div>
+
+      <!-- STT SECTION -->
+      <div id="sttSection" class="hidden">
+        <button class="action" onclick="startListening()">Mulai Rekam</button>
+        <textarea
+          id="sttResult"
+          placeholder="Hasil suara muncul di sini..."
+        ></textarea>
+        <button class="action" onclick="stopSTT()">Stop Rekam</button>
+      </div>
+
+      <p class="status" id="status">Status: Idle</p>
+    </div>
+
+    <script>
+      // Fungsi tombol kembali
+      function goBack() {
+        // Pilihan 1: kembali ke halaman sebelumnya (paling umum)
+        window.history.back();
+
+        // Alternatif lain (pilih salah satu saja, uncomment jika ingin pakai):
+        // window.location.href = "index.html";          // ke halaman tertentu
+        // window.location.href = "/";                    // ke homepage
+        // window.close();                                // tutup tab (hanya berhasil di beberapa kasus)
+      }
+
+      let recognition;
+
+      // TAB SWITCH
+      function showTTS() {
+        document.getElementById("ttsSection").classList.remove("hidden");
+        document.getElementById("sttSection").classList.add("hidden");
+        document.getElementById("ttsTab").classList.add("active");
+        document.getElementById("ttsTab").classList.remove("inactive");
+        document.getElementById("sttTab").classList.remove("active");
+        document.getElementById("sttTab").classList.add("inactive");
+      }
+
+      function showSTT() {
+        document.getElementById("sttSection").classList.remove("hidden");
+        document.getElementById("ttsSection").classList.add("hidden");
+        document.getElementById("sttTab").classList.add("active");
+        document.getElementById("sttTab").classList.remove("inactive");
+        document.getElementById("ttsTab").classList.remove("active");
+        document.getElementById("ttsTab").classList.add("inactive");
+      }
+
+      // TTS (ResponsiveVoice)
+      function speak() {
+        let text = document.getElementById("ttsText").value;
+        let selectedVoice = document.getElementById("voiceSelect").value;
+        if (text.trim() === "") {
+          alert("Teks kosong!");
+          return;
+        }
+        document.getElementById("status").innerText =
+          "Status: Menggunakan suara " + selectedVoice;
+        responsiveVoice.speak(text, selectedVoice, {
+          rate: 0.9,
+          pitch: 1,
+          volume: 1,
+          onend: function () {
+            document.getElementById("status").innerText = "Status: Selesai";
+          },
+        });
+      }
+
+      function stopTTS() {
+        responsiveVoice.cancel();
+        document.getElementById("status").innerText = "Status: Dihentikan";
+      }
+
+      // STT
+      function startListening() {
+        if (
+          !("webkitSpeechRecognition" in window) &&
+          !("SpeechRecognition" in window)
+        ) {
+          alert("Gunakan Google Chrome untuk fitur STT.");
+          return;
+        }
+        recognition = new (
+          window.SpeechRecognition || window.webkitSpeechRecognition
+        )();
+        recognition.lang = "id-ID";
+        recognition.continuous = true;
+        recognition.start();
+        document.getElementById("status").innerText = "Status: Mendengarkan...";
+        recognition.onresult = function (event) {
+          document.getElementById("sttResult").value =
+            event.results[event.results.length - 1][0].transcript;
+        };
+        recognition.onend = function () {
+          document.getElementById("status").innerText =
+            "Status: Rekaman berhenti";
+        };
+      }
+
+      function stopSTT() {
+        if (recognition) {
+          recognition.stop();
+          document.getElementById("status").innerText =
+            "Status: Rekaman dihentikan";
+        }
+      }
+    </script>
+  </body>
+</html>

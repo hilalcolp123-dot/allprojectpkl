@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="id" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enkripsi & Dekripsi - AES-256</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="encode.css"/>
+  </head>
+
+  <body class="bg-gradient-green">
+    <nav class="navbar navbar-dark navbar-green p-3 mb-4">
+      <div class="container d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <a href="../index.html" class="btn btn-outline-light btn-sm me-3">
+            <i class="fas fa-arrow-left"></i> Kembali
+          </a>
+          <span class="navbar-brand mb-0 h1 fs-4">
+            <i class="fas fa-shield-alt me-2"></i>Enkripsi & Dekripsi 
+          </span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container pb-5">
+      <!-- Alerts Container -->
+      <div id="alertsContainer"></div>
+
+      <!-- Form Utama -->
+      <form id="cipherForm">
+        <div class="row g-4">
+          <!-- Input Kata Asli -->
+          <div class="col-lg-4">
+            <div class="card h-100">
+              <div class="card-header green">
+                <i class="fas fa-edit me-2"></i>
+                <span id="inputLabel">Teks Asli</span>
+              </div>
+              <div class="card-body">
+                <textarea
+                  class="form-control"
+                  id="inputTextarea"
+                  rows="5"
+                  placeholder="Masukkan teks di sini..."
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Input Key -->
+          <div class="col-lg-4">
+            <div class="card h-100">
+              <div class="card-header green">
+                <i class="fas fa-key me-2"></i> Kunci / Password
+              </div>
+              <div class="card-body d-flex flex-column justify-content-center">
+                <div class="mb-3">
+                  <label class="form-label">Masukkan Password</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="aesKey"
+                    placeholder="Contoh: P@ssw0rd123"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Format Huruf</label>
+                  <select class="form-select" id="caseMode">
+                    <option value="maintain">Pertahankan asli</option>
+                    <option value="upper">HURUF BESAR</option>
+                    <option value="lower">huruf kecil</option>
+                  </select>
+                </div>
+                <small class="text-muted">
+                  <i class="fas fa-info-circle me-1"></i>
+                  Password ini digunakan untuk mengenkripsi dan mendekripsi.
+                  SIMPAN PASSWORD INI!
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Output Hasil -->
+          <div class="col-lg-4">
+            <div class="card h-100">
+              <div
+                class="card-header green d-flex justify-content-between align-items-center"
+              >
+                <span>
+                  <i class="fas fa-lock me-2"></i>
+                  <span id="outputLabel">Teks Enkripsi</span>
+                </span>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-secondary"
+                  onclick="copyToClipboard('resultTextarea')"
+                >
+                  <i class="fas fa-copy"></i> Salin
+                </button>
+              </div>
+              <div class="card-body">
+                <textarea
+                  class="form-control"
+                  id="resultTextarea"
+                  rows="5"
+                  readonly
+                  placeholder="Hasil akan muncul di sini..."
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tombol Aksi -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+              <button
+                type="button"
+                id="modeToggleBtn"
+                onclick="toggleEncryptDecrypt()"
+                class="btn btn-outline-secondary"
+                title="Ganti Mode"
+              >
+                <i class="fas fa-exchange-alt" id="modeToggleIcon"></i>
+              </button>
+              <button
+                type="button"
+                id="encryptDecryptBtn"
+                onclick="processAES()"
+                class="btn btn-primary-custom"
+              >
+                <i class="fas fa-lock me-2" id="encryptDecryptIcon"></i>
+                <span id="encryptDecryptText">Enkripsi</span>
+              </button>
+              <button
+                type="button"
+                onclick="clearAesForm()"
+                class="btn btn-outline-danger"
+              >
+                <i class="fas fa-eraser me-2"></i> Bersihkan
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Cara Penggunaan -->
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="card shadow-sm border-0">
+            <div class="card-header green text-white">
+              <i class="fas fa-book-open me-2"></i> Panduan Penggunaan & Detail
+              Fitur
+            </div>
+            <div class="card-body">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <div class="p-3 border rounded-3 bg-light h-100">
+                    <div class="d-flex align-items-center mb-3">
+                      <div
+                        class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                        style="width: 32px; height: 32px"
+                      >
+                        1
+                      </div>
+                      <h6 class="mb-0 fw-bold">
+                        Cara Enkripsi (Mengunci Pesan)
+                      </h6>
+                    </div>
+                    <ul class="small mb-0 list-unstyled">
+                      <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i
+                        >Pastikan tombol utama berwarna biru bertuliskan
+                        <strong>"Enkripsi"</strong>.
+                      </li>
+                      <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i
+                        >Ketik pesan rahasia Anda pada kolom
+                        <strong>Teks Asli</strong>.
+                      </li>
+                      <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i
+                        >Masukkan password pada kolom <strong>Kunci</strong>.
+                      </li>
+                      <li>
+                        <i class="fas fa-check-circle text-success me-2"></i
+                        >Klik tombol <strong>Enkripsi</strong>. Kode acak akan
+                        muncul di kolom kanan.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3 border rounded-3 bg-light h-100">
+                    <div class="d-flex align-items-center mb-3">
+                      <div
+                        class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                        style="width: 32px; height: 32px"
+                      >
+                        2
+                      </div>
+                      <h6 class="mb-0 fw-bold">
+                        Cara Dekripsi (Membuka Pesan)
+                      </h6>
+                    </div>
+                    <ul class="small mb-0 list-unstyled">
+                      <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i
+                        >Klik tombol
+                        <i class="fas fa-exchange-alt mx-1"></i> untuk pindah ke
+                        mode <strong>Dekripsi</strong> (Tombol Hijau).
+                      </li>
+                      <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i
+                        >Tempel kode acak (Ciphertext) di kolom
+                        <strong>Teks Terenkripsi</strong>.
+                      </li>
+                      <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i
+                        >Masukkan password yang digunakan saat mengunci tadi.
+                      </li>
+                      <li>
+                        <i class="fas fa-check-circle text-success me-2"></i
+                        >Klik tombol <strong>Dekripsi</strong> untuk melihat
+                        pesan aslinya.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <h6 class="fw-bold mb-3">
+                  <i class="fas fa-info-circle me-2 text-primary"></i>Mengenal
+                  Fungsi Tombol
+                </h6>
+                <div class="row row-cols-1 row-cols-md-2 g-3">
+                  <div class="col">
+                    <div class="d-flex align-items-start p-2 border-bottom">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary me-3"
+                        style="width: 40px"
+                      >
+                        <i class="fas fa-exchange-alt"></i>
+                      </button>
+                      <div>
+                        <strong class="d-block small"
+                          >Ganti Mode (Toggle)</strong
+                        >
+                        <span class="text-muted small"
+                          >Berfungsi menukar posisi antara mode Enkripsi
+                          (mengunci) dan Dekripsi (membuka).</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="d-flex align-items-start p-2 border-bottom">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary me-3"
+                        style="width: 40px"
+                      >
+                        <i class="fas fa-copy"></i>
+                      </button>
+                      <div>
+                        <strong class="d-block small">Salin Teks</strong>
+                        <span class="text-muted small"
+                          >Menyalin hasil enkripsi/dekripsi ke clipboard agar
+                          mudah dikirim (WA/Email).</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="d-flex align-items-start p-2 border-bottom">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-danger me-3"
+                        style="width: 40px"
+                      >
+                        <i class="fas fa-eraser"></i>
+                      </button>
+                      <div>
+                        <strong class="d-block small">Bersihkan Form</strong>
+                        <span class="text-muted small"
+                          >Menghapus semua inputan dan mereset kunci. Gunakan
+                          ini sebelum membuat pesan baru.</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="d-flex align-items-start p-2 border-bottom">
+                      <div class="me-3 text-center" style="width: 40px">
+                        <i class="fas fa-font text-secondary"></i>
+                      </div>
+                      <div>
+                        <strong class="d-block small">Format Huruf</strong>
+                        <span class="text-muted small"
+                          >Otomatis mengubah teks menjadi HURUF KAPITAL atau
+                          huruf kecil jika diinginkan.</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="alert alert-danger mt-4 mb-0 border-0 shadow-sm">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-shield-virus fs-3 me-3"></i>
+                  <div>
+                    <h6 class="alert-heading fw-bold mb-1">
+                      Catatan Keamanan Penting:
+                    </h6>
+                    <p class="small mb-0">
+                      Algoritma <strong>AES-256</strong> bersifat satu arah
+                      tanpa celah. Jika Anda lupa password atau salah memasukkan
+                      kunci (meskipun hanya kurang satu spasi), pesan
+                      <strong>tidak akan pernah bisa dibuka kembali</strong>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="encode.js"></script>
+    <script>
+      // Mode management for AES page
+      let isDecryptMode = false;
+
+      function toggleEncryptDecrypt() {
+        isDecryptMode = !isDecryptMode;
+
+        const btn = document.getElementById("encryptDecryptBtn");
+        const icon = document.getElementById("encryptDecryptIcon");
+        const text = document.getElementById("encryptDecryptText");
+        const inputLabel = document.getElementById("inputLabel");
+        const outputLabel = document.getElementById("outputLabel");
+
+        if (isDecryptMode) {
+          // Switch to decrypt mode
+          btn.classList.remove("btn-primary-custom");
+          btn.classList.add("btn-outline-success");
+          icon.classList.remove("fa-lock");
+          icon.classList.add("fa-unlock");
+          text.textContent = "Dekripsi";
+          inputLabel.textContent = "Teks Terenkripsi";
+          outputLabel.textContent = "Hasil Dekripsi";
+        } else {
+          // Switch to encrypt mode
+          btn.classList.remove("btn-outline-success");
+          btn.classList.add("btn-primary-custom");
+          icon.classList.remove("fa-unlock");
+          icon.classList.add("fa-lock");
+          text.textContent = "Enkripsi";
+          inputLabel.textContent = "Teks Asli";
+          outputLabel.textContent = "Teks Enkripsi";
+        }
+
+        // Clear the textareas when switching mode
+        document.getElementById("inputTextarea").value = "";
+        document.getElementById("resultTextarea").value = "";
+      }
+
+      function clearAesForm() {
+        document.getElementById("inputTextarea").value = "";
+        document.getElementById("resultTextarea").value = "";
+        document.getElementById("aesKey").value = "";
+        document.getElementById("caseMode").value = "maintain";
+
+        // Reset to encrypt mode
+        if (isDecryptMode) {
+          toggleEncryptDecrypt();
+        }
+      }
+
+      // Process AES - handles both encrypt and decrypt
+      async function processAES() {
+        const inputText = document.getElementById("inputTextarea").value;
+        const key = document.getElementById("aesKey").value;
+        const caseMode = document.getElementById("caseMode").value;
+
+        if (!key) {
+          showAlert("Masukkan kunci/password!", "danger");
+          return;
+        }
+
+        let result;
+        if (isDecryptMode) {
+          if (!inputText.trim()) {
+            showAlert("Masukkan teks yang ingin didekripsi!", "danger");
+            return;
+          }
+          result = await aes256Decrypt(inputText, key, caseMode);
+        } else {
+          if (!inputText.trim()) {
+            showAlert("Masukkan teks yang ingin dienkripsi!", "danger");
+            return;
+          }
+          result = await aes256Encrypt(inputText, key, caseMode);
+        }
+
+        document.getElementById("resultTextarea").value = result;
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        // Set initial mode to encrypt
+        isDecryptMode = false;
+      });
+    </script>
+  </body>
+</html>

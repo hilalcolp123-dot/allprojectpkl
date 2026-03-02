@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anime Finder</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Anime Finder</h1>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search anime...">
+            <button id="searchBtn">Search</button>
+        </div>
+        <select id="genreSelect">
+            <option value="">Filter by Genre</option>
+        </select>
+            <select id="ratingSelect">
+                    <option value="all">All Ratings</option>
+                    <option value="safe">Safe Only</option>
+                    <option value="adult">17+ Allowed</option>
+            </select>
+        <button id="themeToggle">🌙 Dark Mode</button>
+    </header>
+
+    <h2 style="padding-left:20px;">❤️ My Favorites</h2>
+<div id="favoriteContainer" class="anime-grid"></div>
+
+    <main>
+        <div id="animeContainer" class="anime-grid">
+            <!-- Anime cards will appear here -->
+        </div>
+    </main>
+
+<script src="js/main.js"></script>
+</body>
+</html>
