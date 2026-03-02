@@ -89,54 +89,12 @@
       .hidden {
         display: none;
       }
-      /* NAVBAR */
-      .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: #4e73df;
-        padding: 12px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-      }
-
-      .navbar h1 {
-        color: white;
-        font-size: 18px;
-        margin: 0;
-      }
-
-      .navbar a {
-        text-decoration: none;
-        color: white;
-        font-weight: bold;
-        background: #1cc88a;
-        padding: 6px 14px;
-        border-radius: 8px;
-        transition: 0.3s;
-      }
-
-      .navbar a:hover {
-        background: #17a673;
-      }
-
-      /* beri jarak agar container tidak ketutup navbar */
-      body {
-        padding-top: 70px;
-      }
     </style>
   </head>
   <body>
     <div class="container">
-      <!-- NAVBAR -->
-      <div class="navbar">
-        <h1>Text ↔ Voice</h1>
-        <a href="../index.html">🏠 Home</a>
-      </div>
+      <!-- Tombol Kembali -->
+      <button class="back-button" onclick="window.location.href='../index.html'">← Kembali</button>
 
       <h2>🔊 Text ↔ Voice App</h2>
 
