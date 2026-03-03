@@ -257,11 +257,18 @@
         overflow: hidden;
       }
 
+      .projects-carousel-wrapper {
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+      }
+
       .projects-carousel {
         display: flex;
         gap: 2rem;
         padding: 2rem 1rem;
-        animation: slideLeft 20s linear infinite;
+        /* Durasi disesuaikan dengan jumlah kartu, 30s-40s biasanya pas */
+        animation: slideLeft 30s linear infinite;
         width: max-content;
       }
 
@@ -660,7 +667,34 @@
                     href="anime-finder/index.html"
                     target="_blank"
                   >
-                    <i class="fas fa-image me-2 text-danger"></i>Anime Finder
+                    <i class="fas fa-magnifying-glass me-2 text-danger"></i>Anime Finder
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="todolist/index.html"
+                    target="_blank"
+                  >
+                    <i class="fas fa-list-check me-2 text-primary"></i>Todolist
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="quizgame/index.html"
+                    target="_blank"
+                  >
+                    <i class="fas fa-gamepad me-2 text-warning"></i>Quiz Game
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="aniranking/detail.html"
+                    target="_blank"
+                  >
+                    <i class="fas fa-chart-line me-2 text-secondary"></i>AniManga Ranking
                   </a>
                 </li>
               </ul>
@@ -800,7 +834,7 @@
             <!-- Project 6 -->
             <div class="project-card red">
               <div class="card-icon">
-                <i class="fas fa-image"></i>
+                <i class="fas fa-magnifying-glass"></i>
               </div>
               <h3 class="card-title">Anime Finder</h3>
               <p class="card-description short">
@@ -811,16 +845,44 @@
               </a>
             </div>
 
-            <!-- Duplikat pertama untuk looping mulus (opsional tapi direkomendasikan) -->
-            <div class="project-card green">
+            <!-- Project 7 -->
+            <div class="project-card blue">
               <div class="card-icon">
-                <i class="fas fa-shield-halved"></i>
+                <i class="fas fa-list-check"></i>
               </div>
-              <h3 class="card-title">AES-256 Enkripsi</h3>
+              <h3 class="card-title">Todolist</h3>
               <p class="card-description short">
-                Enkripsi & dekripsi teks menggunakan AES-256 + Web Crypto API
+                Buat daftar tugas harianmu dengan mudah
               </p>
-              <a href="aes-enkripsi/encode-decode.html" class="card-link">
+              <a href="todolist/todolist.html" class="card-link">
+                <i class="fas fa-external-link-alt"></i> Buka
+              </a>
+            </div>
+
+            <!-- Project 8 -->
+            <div class="project-card orange">
+              <div class="card-icon">
+                <i class="fas fa-gamepad"></i>
+              </div>
+              <h3 class="card-title">Quiz Game</h3>
+              <p class="card-description short">
+                Latih pengetahuan kamu dengan berbagai soal kuis
+              </p>
+              <a href="quizgame/index.html" class="card-link">
+                <i class="fas fa-external-link-alt"></i> Buka
+              </a>
+            </div>
+
+            <!-- Project 9 -->
+            <div class="project-card purple">
+              <div class="card-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3 class="card-title">AniManga Ranking</h3>
+              <p class="card-description short">
+                Cek peringkat anime & manga terbaru dengan API MyAnimeList
+              </p>
+              <a href="animanga-ranking/index.html" class="card-link">
                 <i class="fas fa-external-link-alt"></i> Buka
               </a>
             </div>
@@ -840,6 +902,14 @@
       </div>
     </footer>
 
+    <script>
+      const carousel = document.querySelector(".projects-carousel");
+      // Ambil semua isi asli carousel
+      const carouselContent = carousel.innerHTML;
+
+      // Gandakan isinya ke dalam carousel yang sama
+      carousel.innerHTML += carouselContent;
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

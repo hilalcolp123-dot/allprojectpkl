@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anime Detail</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="detail-container">
+  <img id="poster">
+
+  <div class="detail-info">
+    <h1 id="title"></h1>
+
+     <div class="meta">
+        <span id="type"></span>
+        <span id="score"></span>
+        <span id="episodes"></span>
+        <span id="duration"></span>
+        <span id="aired"></span>
+    </div>
+
+    <div id="genres" class="genres"></div>
+
+    <p id="synopsis"></p>
+
+    <button class="back-btn" onclick="goBack()">⬅ Back</button>
+  </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+  // APPLY DARK MODE DULU
+  if (localStorage.getItem("darkMode") === "enabled") {
+    document.body.classList.add("dark");
+  }
+
+  const data = JSON.parse(localStorage.getItem("selectedAnime"));
+
+  if (!data) {
+    document.body.innerHTML = "<h2>Data tidak ditemukan.</h2>";
+    return;
+  }
+
+  document.getElementById("title").textContent = data.title;
+  document.getElementById("poster").src = data.images.jpg.image_url;
+  document.getElementById("synopsis").textContent =
+    data.synopsis || "No synopsis available.";
+  document.getElementById("score").textContent =
+    "⭐ Score: " + (data.score || "N/A");
+
+});
+document.addEventListener("DOMContentLoaded", () => {
+
+  const data = JSON.parse(localStorage.getItem("selectedAnime"));
+
+  if (!data) {
+    document.body.innerHTML = "<h2>Data tidak ditemukan.</h2>";
+    return;
+  }
+
+  document.getElementById("title").textContent = data.title;
+  document.getElementById("poster").src = data.images.jpg.image_url;
+  document.getElementById("synopsis").textContent = data.synopsis || "No synopsis available.";
+  document.getElementById("score").textContent = "⭐ Score: " + (data.score || "N/A");
+
+});
+
+function goBack() {
+  window.history.back();
+}
+</script>
+<script src="detail.js"></script>
+
+</body>
+</html>

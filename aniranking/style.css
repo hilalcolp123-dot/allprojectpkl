@@ -1,0 +1,429 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f5f7fa;
+  color: #222;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ================= TOPBAR ================= */
+
+.topbar {
+  background: white;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topbar h2 {
+  color: #2e51a2;
+  font-weight: 700;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Search */
+.search-box {
+  display: flex;
+  align-items: center;
+}
+
+.search-box input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px 0 0 8px;
+  outline: none;
+  font-size: 14px;
+}
+
+.search-box button {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-left: none;
+  background: #2e51a2;
+  color: white;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.search-box button:hover {
+  background: #1f3c88;
+}
+
+/* Select */
+select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+/* Dark toggle */
+#darkToggle {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #eee;
+  transition: 0.2s;
+}
+
+#darkToggle:hover {
+  background: #ddd;
+}
+
+/* ================= MAIN ================= */
+
+main {
+  padding: 40px;
+  max-width: 1400px;
+  margin: auto;
+}
+
+/* ================= GRID ================= */
+
+#rankingList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 25px;
+  padding: 20px;
+}
+
+/* ================= CARD ================= */
+
+.rank-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.rank-item img {
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  display: block;
+}
+
+.rank-item:hover {
+  transform: translateY(-6px);
+}
+
+/* ================= OVERLAY ================= */
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.rank-item:hover .overlay {
+  opacity: 1;
+}
+
+.overlay h4 {
+  font-size: 14px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.overlay .meta {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+
+/* ================= PAGINATION ================= */
+
+.pagination {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  margin: 0 10px;
+  border-radius: 8px;
+  border: none;
+  background: #2e51a2;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pagination button:hover {
+  background: #1f3c88;
+}
+
+#pageNumber {
+  font-weight: 600;
+}
+
+/* ================= DARK MODE ================= */
+
+body.dark {
+  background: #121212;
+  color: white;
+}
+
+body.dark .topbar {
+  background: #1e1e1e;
+}
+
+body.dark .rank-item {
+  background: #1e1e1e;
+}
+
+body.dark select,
+body.dark input {
+  background: #2a2a2a;
+  color: white;
+  border: 1px solid #444;
+}
+
+body.dark .search-box button {
+  background: #444;
+  border: 1px solid #444;
+}
+
+body.dark .pagination button {
+  background: #444;
+}
+
+body.dark .rank-item:hover {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+  .topbar {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  #rankingList {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .rank-item img {
+    height: 220px;
+  }
+}
+
+/* =========================
+   DETAIL PAGE LAYOUT
+========================= */
+
+.detail-container {
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 40px;
+  border-radius: 16px;
+  background: white;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.detail-container img {
+  width: 300px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.detail-info {
+  flex: 1;
+}
+
+.detail-info h1 {
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.detail-info p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #111;
+  color: white;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  transform: scale(1.05);
+}
+
+/* DARK MODE */
+body.dark .detail-container {
+  background: #1a1a1a;
+}
+
+body.dark .back-btn {
+  background: white;
+  color: black;
+}
+
+/* META INFO */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.meta span {
+  background: #f2f2f2;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+body.dark .meta span {
+  background: #2a2a2a;
+}
+
+/* GENRES */
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.genres span {
+  background: #111;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+body.dark .genres span {
+  background: white;
+  color: black;
+}
+
+/* Tombol */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 40px 0;
+}
+
+.page-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #111;
+  color: white;
+  font-size: 16px;
+  transition: 0.2s ease;
+}
+
+.page-btn:hover {
+  transform: scale(1.1);
+}
+
+.page-number {
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #eee;
+  transition: 0.2s ease;
+}
+
+.page-number:hover {
+  background: #ccc;
+}
+
+.page-number.active {
+  background: #111;
+  color: white;
+}
+
+body.dark .page-btn {
+  background: white;
+  color: black;
+}
+
+body.dark .page-number {
+  background: #2a2a2a;
+  color: white;
+}
+
+body.dark .page-number.active {
+  background: white;
+  color: black;
+}
+
+#pageNumbers {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Type */
+.type-badge {
+  position: absolute;
+  top: -13px;
+  left: 10px;
+  background: rgba(0,0,0,0.85);
+  color: white;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 6px;
+  z-index: 5; /* penting */
+}
+
+body.dark .type-badge {
+  background: rgba(255,255,255,0.9);
+  color: black;
+}
