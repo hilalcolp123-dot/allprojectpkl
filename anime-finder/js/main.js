@@ -2,22 +2,42 @@ const container = document.getElementById("animeContainer");
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
 const ratingSelect = document.getElementById("ratingSelect");
-let currentRating = "all";
+let currentRating = ratingSelect ? ratingSelect.value : "all";
+
+// Show loading spinner
+function showLoading(message = "Loading anime...") {
+    container.innerHTML = `
+        <div class="loading-container">
+            <div class="spinner"></div>
+            <p>${message}</p>
+        </div>
+    `;
+}
 
 // Fetch anime dari API
 async function fetchAnime(query) {
     try {
-        container.innerHTML = "<p>Loading...</p>";
+        showLoading("Searching anime...");
 
         const response = await fetch(`https://api.jikan.moe/v4/anime?q=${query}`);
+        
+        if (!response.ok) {
+            throw new Error('API request failed');
+        }
+        
         const data = await response.json();
 
-        const filtered = applyRatingFilter(data.data).slice(0, 18);
-        displayAnime(filtered); // Batasi 12 hasil
+        const filtered = applyRatingFilter(data.data).slice(0, 12);
+        displayAnime(filtered);
 
     } catch (error) {
         console.error("Error fetching data:", error);
-        container.innerHTML = "<p>Failed to load data 😢</p>";
+        container.innerHTML = `
+            <div class="error-container">
+                <p>⚠️ Failed to load data</p>
+                <button onclick="fetchTopAnime()" class="retry-btn">Try Again</button>
+            </div>
+        `;
     }
 }
 
@@ -70,10 +90,15 @@ function loadFavorites() {
 
     favoriteContainer.innerHTML = "";
 
+    if (favorites.length === 0) {
+        favoriteContainer.innerHTML = "<p class='empty-message'>No favorites yet. Start adding some anime!</p>";
+        return;
+    }
+
     favorites.forEach(anime => {
         const card = `
             <div class="anime-card" onclick="goToDetail(${anime.id})">
-                <img src="${anime.image}">
+                <img src="${anime.image}" alt="${anime.title}">
                 <h3>${anime.title}</h3>
             </div>
         `;
@@ -111,16 +136,21 @@ themeToggle.addEventListener("click", () => {
 
 async function fetchTopAnime() {
     try {
-        container.innerHTML = "<p>Loading popular anime...</p>";
+        showLoading("Loading popular anime...");
 
         const response = await fetch("https://api.jikan.moe/v4/top/anime");
         const data = await response.json();
 
-        const filtered = applyRatingFilter(data.data).slice(0, 18);
-        displayAnime(filtered); // tampilkan 12
+        const filtered = applyRatingFilter(data.data).slice(0, 12);
+        displayAnime(filtered);
 
     } catch (error) {
-        container.innerHTML = "<p>Failed to load popular anime 😢</p>";
+        container.innerHTML = `
+            <div class="error-container">
+                <p>⚠️ Failed to load popular anime</p>
+                <button onclick="fetchTopAnime()" class="retry-btn">Try Again</button>
+            </div>
+        `;
     }
 }
 
@@ -158,16 +188,21 @@ genreSelect.addEventListener("change", () => {
 
 async function fetchByGenre(id) {
     try {
-        container.innerHTML = "<p>Loading genre...</p>";
+        showLoading("Loading genre...");
 
         const response = await fetch(`https://api.jikan.moe/v4/anime?genres=${id}`);
         const data = await response.json();
 
-        const filtered = applyRatingFilter(data.data).slice(0, 18);
+        const filtered = applyRatingFilter(data.data).slice(0, 12);
         displayAnime(filtered);
 
     } catch (error) {
-        container.innerHTML = "<p>Failed to load genre 😢</p>";
+        container.innerHTML = `
+            <div class="error-container">
+                <p>⚠️ Failed to load genre</p>
+                <button onclick="fetchByGenre('${id}')" class="retry-btn">Try Again</button>
+            </div>
+        `;
     }
 }
 

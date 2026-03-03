@@ -80,3 +80,79 @@ button:hover {
     background-color: #333;
     color: white;
 }
+
+/* Loading Spinner */
+.loading-container {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #333;
+    border-top: 5px solid #ff4757;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error Container */
+.error-container {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+}
+
+.retry-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.retry-btn:hover {
+    opacity: 0.8;
+}
+
+/* Empty Message */
+.empty-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #888;
+    font-size: 16px;
+}
+
+/* Light mode improvements */
+.light-mode input {
+    background-color: #fff;
+    color: #111;
+    border: 1px solid #ccc;
+}
+
+.light-mode select {
+    background-color: #fff;
+    color: #111;
+    border: 1px solid #ccc;
+}
+
+.light-mode .loading-container p,
+.light-mode .error-container p,
+.light-mode .empty-message {
+    color: #333;
+}
+
+.light-mode .spinner {
+    border-color: #ccc;
+    border-top-color: #ff4757;
+}

@@ -24,7 +24,7 @@
           var(--green-primary),
           var(--green-dark)
         );
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 12px #00000026;
       }
 
       .navbar-brand {
@@ -50,18 +50,18 @@
     <header>
       <h1>Anime Finder</h1>
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search anime..." />
-        <button id="searchBtn">Search</button>
+<input type="text" id="searchInput" placeholder="Search anime..." aria-label="Search anime" />
+        <button id="searchBtn" aria-label="Search">Search</button>
       </div>
-      <select id="genreSelect">
-        <option value="">Filter by Genre</option>
+<select id="genreSelect" aria-label="Filter by genre">
+        <option value="">Select Genre</option>
       </select>
-      <select id="ratingSelect">
+      <select id="ratingSelect" aria-label="Filter by rating">
         <option value="all">All Ratings</option>
         <option value="safe">Safe Only</option>
         <option value="adult">17+ Allowed</option>
       </select>
-      <button id="themeToggle">🌙 Dark Mode</button>
+      <button id="themeToggle" aria-label="Toggle dark mode">🌙 Dark Mode</button>
     </header>
 
     <h2 style="padding-left: 20px">❤️ My Favorites</h2>
