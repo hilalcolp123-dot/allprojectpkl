@@ -17,6 +17,37 @@
       html {
         scroll-behavior: smooth;
       }
+      .navbar {
+        background: rgba(15, 23, 42, 0.85) !important;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .navbar-brand {
+        font-weight: 700;
+        background: linear-gradient(135deg, #10b981, #34d399);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .nav-link {
+        color: var(--text-muted) !important;
+        transition: color 0.3s;
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        color: #10b981 !important;
+      }
+      .dropdown-menu {
+        background: #1e293b;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        border-radius: 12px;
+      }
+      .dropdown-item {
+        color: var(--text-light);
+      }
+      .dropdown-item:hover {
+        background: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+      }
 
       /* Smooth Scroll Reveal Styles */
       .section-hidden {
@@ -532,19 +563,125 @@
   </head>
 
   <body>
-    <!-- Hero Section -->
-    <section class="hero-section">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <i class="fas fa-briefcase me-2"></i>PKL Portfolio
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+          aria-controls="navbarContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="#hero">Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#team">Tim</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="projectsDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Proyek
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="projectsDropdown"
+              >
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="aes-enkripsi/encode-decode.html"
+                    target="_blank"
+                  >
+                    <i class="fas fa-shield-halved me-2 text-success"></i
+                    >AES-256 Enkripsi
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="cipher-tools/cipher.html"
+                    target="_blank"
+                  >
+                    <i class="fas fa-puzzle-piece me-2 text-purple"></i>Cipher
+                    Tools
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="case-converter/caseconverter.html"
+                    target="_blank"
+                  >
+                    <i class="fas fa-font me-2 text-warning"></i>Case Converter
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="tts-stt/TTS&STT.html"
+                    target="_blank"
+                  >
+                    <i class="fas fa-microphone me-2 text-info"></i>TTS & STT
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="image-to-base64/imagetobase64.html"
+                    target="_blank"
+                  >
+                    <i class="fas fa-image me-2 text-success"></i>Image to
+                    Base64
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider bg-secondary" /></li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="anime-finder/index.html"
+                    target="_blank"
+                  >
+                    <i class="fas fa-image me-2 text-danger"></i>Anime Finder
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#footer">Kontak</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section (tambahkan padding-top agar tidak tertutup navbar) -->
+    <section class="hero-section" id="hero" style="padding-top: 100px">
       <div class="container hero-content">
         <div class="portfolio-badge">
           <i class="fas fa-briefcase me-2"></i> Portfolio Project
         </div>
-
         <h1 class="hero-title">Project PKL</h1>
-
         <p class="hero-subtitle">
           Aplikasi Kriptografi, Pengolah Teks, Text to Speech & Speech to Text.
         </p>
-
         <div class="hero-period">
           <i class="fas fa-calendar-alt"></i>
           <span>5 Januari - 17 April</span>
