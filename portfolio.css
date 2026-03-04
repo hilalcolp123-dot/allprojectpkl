@@ -1,12 +1,46 @@
 html {
   scroll-behavior: smooth;
 }
+/*Navbar Style*/
+.navbar {
+  background: rgba(15, 23, 42, 0.85) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.navbar-brand {
+  font-weight: 700;
+  background: linear-gradient(135deg, #10b981, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.nav-link {
+  color: var(--text-muted) !important;
+  transition: color 0.3s;
+}
+.nav-link:hover,
+.nav-link.active {
+  color: #10b981 !important;
+}
+.dropdown-menu {
+  background: #1e293b;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 12px;
+}
+.dropdown-item {
+  color: var(--text-light);
+}
+.dropdown-item:hover {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
 
 /* Smooth Scroll Reveal Styles */
 .section-hidden {
   opacity: 0;
   transform: translateY(50px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
 .section-visible {
@@ -26,12 +60,7 @@ html {
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(
-    135deg,
-    #0f172a 0%,
-    #1e293b 50%,
-    #0f172a 100%
-  );
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
   min-height: 100vh;
   color: var(--text-light);
 }
@@ -201,6 +230,44 @@ body {
   color: var(--text-muted);
 }
 
+/* Styling Tombol Next Project Card */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(16, 185, 129, 0.9);
+  color: white;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-btn:hover {
+  background: #059669;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prev {
+  left: -25px;
+}
+.next {
+  right: -25px;
+}
+
+@media (max-width: 768px) {
+  .nav-btn {
+    display: none;
+  }
+}
+
 /* Projects Section - Carousel */
 .projects-section {
   padding: 40px 0 80px;
@@ -208,36 +275,41 @@ body {
 }
 
 .projects-carousel-wrapper {
-  overflow: hidden;
-  margin: 0 -1rem;
-  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 10px;
+  overflow: visible;
 }
 
 .projects-carousel {
   display: flex;
-  gap: 2rem;
-  padding: 2rem 1rem;
-  animation: slideLeft 20s linear infinite;
-  width: max-content;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  gap: 20px;
+  padding: 2rem 5px;
+  width: 100%;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab; /* Mengubah kursor jadi tangan terbuka */
+  user-select: none;
 }
 
-@keyframes slideLeft {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+.projects-carousel.active {
+  cursor: grabbing; /* Mengubah kursor jadi tangan mengepal saat klik-tahan */
+  scroll-behavior: auto; /* Mematikan smooth scroll agar gerakan geser mengikuti tangan secara instan */
 }
 
-.projects-carousel:hover {
-  animation-play-state: paused;
+.projects-carousel::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .project-card {
   min-width: 320px;
   max-width: 320px;
   flex-shrink: 0;
+  scroll-snap-align: center;
 }
 
 /* 3D Card Styles */
@@ -296,6 +368,10 @@ body {
   --card-accent: #4e73df;
   --accent-rgb: 78, 115, 223;
 }
+.project-card.red {
+  --card-accent: #ef4444;
+  --accent-rgb: 239, 68, 68;
+}
 
 .project-card:nth-child(1)::before {
   background: linear-gradient(90deg, #10b981, #34d399);
@@ -339,6 +415,11 @@ body {
 .project-card.orange .card-icon {
   background: rgba(245, 158, 11, 0.2);
   color: #f59e0b;
+}
+
+.project-card.red .card-icon {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
 }
 
 .card-title {
@@ -441,6 +522,16 @@ body {
   transform: translateY(-3px);
 }
 
+.project-card.red .card-link {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+}
+
+.project-card.red .card-link:hover {
+  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+  transform: translateY(-3px);
+}
+
 /* Footer */
 .footer-custom {
   padding: 2rem 0;
@@ -475,25 +566,4 @@ body {
   .team-card {
     min-width: 100%;
   }
-}
-
-/* Floating Animation */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.project-card:nth-child(1) {
-  animation: float 4s ease-in-out infinite;
-}
-.project-card:nth-child(2) {
-  animation: float 4s ease-in-out infinite 0.5s;
-}
-.project-card:nth-child(3) {
-  animation: float 4s ease-in-out infinite 1s;
 }
