@@ -28,17 +28,17 @@ const quizQuestions = [
   {
     question: "Siapa presiden pertama Indonesia?",
     answers: [
-      { text: "Soekarno", correct: true },
       { text: "Soeharto", correct: false },
       { text: "Joko Widodo", correct: false },
+      { text: "Soekarno", correct: true },
       { text: "B.J. Habibie", correct: false },
     ],
   },
   {
     question: "Apa lambang negara Indonesia?",
     answers: [
-      { text: "Garuda Pancasila", correct: true },
       { text: "Bendera Merah Putih", correct: false },
+      { text: "Garuda Pancasila", correct: true },
       { text: "Pohon Beringin", correct: false },
       { text: "Monas", correct: false },
     ],
@@ -46,8 +46,8 @@ const quizQuestions = [
   {
     question: "Kapan Indonesia merdeka?",
     answers: [
-      { text: "17 Agustus 1945", correct: true },
       { text: "17 Agustus 1946", correct: false },
+      { text: "17 Agustus 1945", correct: true },
       { text: "17 Desember 1945", correct: false },
       { text: "17 Desember 1946", correct: false },
     ],
@@ -56,10 +56,55 @@ const quizQuestions = [
     question:
       "Siapa pahlawan nasional yang dikenal sebagai 'Bapak Pendidikan Indonesia'?",
     answers: [
-      { text: "Dr. Cipto Mangunkusumo", correct: true },
+      { text: "Dr. Cipto Mangunkusumo", correct: false },
       { text: "Soekarno", correct: false },
       { text: "Mohammad Hatta", correct: false },
-      { text: "Ki Hajar Dewantara", correct: false },
+      { text: "Ki Hajar Dewantara", correct: true },
+    ],
+  },
+  {
+    question: "Planet terbesar di tata surya adalah?",
+    answers: [
+      { text: "Mars", correct: false },
+      { text: "Bumi", correct: false },
+      { text: "Jupiter", correct: true },
+      { text: "Saturnus", correct: false },
+    ],
+  },
+  {
+    question: "Siapa penemu lampu pijar?",
+    answers: [
+      { text: "Albert Einstein", correct: false },
+      { text: "Isaac Newton", correct: false },
+      { text: "Thomas Alva Edison", correct: true },
+      { text: "Nikola Tesla", correct: false },
+    ],
+  },
+  {
+    question: "Gunung tertinggi di Indonesia adalah?",
+    answers: [
+      { text: "Gunung Semeru", correct: false },
+      { text: "Gunung Kerinci", correct: false },
+      { text: "Gunung Rinjani", correct: false },
+      { text: "Puncak Jaya (Carstensz Pyramid)", correct: true },
+    ],
+  },
+  {
+    question: "Berapakah jumlah provinsi di Indonesia saat ini?",
+    answers: [
+      { text: "34", correct: false },
+      { text: "36", correct: false },
+      { text: "38", correct: true },
+      { text: "40", correct: false },
+    ],
+  },
+  {
+    question: "Planet yang dikenal sebagai Planet Merah adalah?",
+    answers: [
+      { text: "Mars", correct: true },
+      { text: "Venus", correct: false },
+      { text: "Saturnus", correct: false },
+      { text: "Jupiter", correct: false },
     ],
   },
 ];
