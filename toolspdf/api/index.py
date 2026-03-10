@@ -14,7 +14,7 @@ app = Flask(
 # --- ROUTES HALAMAN ---
 
 
-@app.route("/")
+@app.route("/toolspdf")
 def index():
     return render_template("index.html")
 
