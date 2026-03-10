@@ -1,0 +1,125 @@
+:root {
+  --primary: #0d6efd;
+  --success: #198754;
+  --bg-body: #f4f6f9;
+}
+
+body {
+  background: var(--bg-body);
+  font-family: "Inter", sans-serif;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #0d6efd 0%, #002d72 100%);
+  color: white;
+  padding: 50px 0 90px;
+  clip-path: ellipse(150% 100% at 50% 0%);
+}
+
+.main-container {
+  margin-top: -50px;
+  margin-bottom: 50px;
+}
+
+.card {
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.drop-zone {
+  border: 2px dashed #cbd5e0;
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  background: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.drop-zone:hover,
+.drop-zone.active {
+  border-color: var(--primary);
+  background: #f0f7ff;
+}
+
+/* RAPIKAN HEADER PREVIEW */
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 0 5px;
+}
+
+.preview-header small {
+  letter-spacing: 0.5px;
+  color: #495057;
+}
+
+.scroll-area {
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 20px;
+  background: #eef1f4;
+  border-radius: 15px;
+  border: 1px inset rgba(0, 0, 0, 0.05);
+}
+
+.page-thumb {
+  position: relative;
+  background: white;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.page-thumb canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.remove-page {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  padding: 0;
+  line-height: 1;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 20;
+}
+
+#splitCanvas {
+  max-height: 400px;
+  width: auto !important;
+  max-width: 100%;
+}
+
+.mini-thumb {
+  background: white;
+  padding: 2px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  position: relative;
+}
+.mini-thumb canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.mini-thumb .page-label {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 9px;
+  padding: 0 4px;
+  border-radius: 3px 0 0 0;
+}
