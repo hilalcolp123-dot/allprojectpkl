@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="id" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enkripsi & Dekripsi - Cipher Lainnya</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/cipher.css" />
+  </head>
+
+  <body class="bg-gradient-purple">
+    <nav class="navbar navbar-dark navbar-purple p-3 mb-4">
+      <div class="container d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <a href="../index.html" class="btn btn-outline-light btn-sm me-3">
+            <i class="fas fa-arrow-left"></i> Kembali
+          </a>
+          <span class="navbar-brand mb-0 h1 fs-4">
+            <i class="fas fa-shield-halved me-2"></i> Cipher Lainnya
+          </span>
+        </div>
+        <button
+          type="button"
+          class="btn btn-outline-light btn-sm"
+          data-bs-toggle="modal"
+          data-bs-target="#panduanModal"
+        >
+          <i class="fas fa-question-circle me-1"></i> Cara Pakai
+        </button>
+      </div>
+    </nav>
+
+    <div class="container pb-5">
+      <!-- Alerts Container -->
+      <div id="alertsContainer"></div>
+
+      <form id="cryptoForm">
+        <div class="row g-4">
+          <!-- Pesan Asli -->
+          <div class="col-lg-4">
+            <div class="card h-100">
+              <div
+                class="card-header purple d-flex align-items-center justify-content-between"
+              >
+                <span><i class="fas fa-message me-2"></i> Input</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <textarea
+                  class="form-control flex-grow-1 mb-3"
+                  id="inputTextarea"
+                  rows="10"
+                  placeholder="Contoh: SELAMAT PAGI DUNIA"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pengaturan -->
+          <div class="col-lg-4">
+            <div class="card h-100">
+              <div
+                class="card-header purple d-flex justify-content-between align-items-center"
+              >
+                <span><i class="fas fa-sliders me-2"></i> Pengaturan</span>
+              </div>
+              <div class="card-body">
+                <div class="mb-4">
+                  <label class="form-label fw-semibold small"
+                    >Jenis Cipher</label
+                  >
+                  <select class="form-select" id="cipherType">
+                    <option value="caesar">Caesar Cipher</option>
+                    <option value="morse">Kode Morse</option>
+                    <option value="atbash">Atbash Cipher</option>
+                    <option value="vigenere">Vigenere Cipher</option>
+                  </select>
+                </div>
+
+                <!-- Caesar Settings -->
+                <div id="caesarSettings">
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold small"
+                      >Pergeseran (Shift)</label
+                    >
+                    <div class="input-group">
+                      <span class="input-group-text"
+                        ><i class="fas fa-arrow-rotate-right"></i
+                      ></span>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="shift"
+                        min="0"
+                        max="25"
+                        step="1"
+                        value="7"
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold small"
+                      >Format Huruf</label
+                    >
+                    <select class="form-select" id="caseMode">
+                      <option value="maintain">Pertahankan asli</option>
+                      <option value="upper">HURUF BESAR</option>
+                      <option value="lower">huruf kecil</option>
+                    </select>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold small"
+                      >Karakter Asing</label
+                    >
+                    <select class="form-select" id="foreign">
+                      <option value="include">Sertakan</option>
+                      <option value="exclude">Abaikan</option>
+                    </select>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold small"
+                      >Visual Pergeseran</label
+                    >
+                    <div class="alphabet-box" id="alphabetBox">
+                      Pilih shift untuk melihat
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Morse Settings -->
+                <div id="morseSettings" style="display: none">
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold small"
+                      >Pemisah Antar Huruf</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="morseLetterSep"
+                      value=" "
+                    />
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold small"
+                      >Pemisah Antar Kata</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="morseWordSep"
+                      value="/"
+                    />
+                  </div>
+                </div>
+
+                <!-- Atbash Settings -->
+                <div id="atbashSettings" style="display: none">
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold small"
+                      >Format Huruf</label
+                    >
+                    <select class="form-select" id="atbashCaseMode">
+                      <option value="maintain">Pertahankan asli</option>
+                      <option value="upper">HURUF BESAR</option>
+                      <option value="lower">huruf kecil</option>
+                    </select>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold small"
+                      >Karakter Asing</label
+                    >
+                    <select class="form-select" id="atbashForeign">
+                      <option value="include">Sertakan</option>
+                      <option value="exclude">Abaikan</option>
+                    </select>
+                  </div>
+                  <div class="mb-4">
+                    <div class="alphabet-box">
+                      A↔Z, B↔Y, C↔X, D↔W, E↔V<br />
+                      F↔U, G↔T, H↔S, I↔R, J↔Q<br />
+                      K↔P, L↔O, M↔N
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Vigenere Settings -->
+                <div id="vigenereSettings" style="display: none">
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold small"
+                      >Kata Kunci (Keyphrase)</label
+                    >
+                    <div class="input-group">
+                      <span class="input-group-text"
+                        ><i class="fas fa-key"></i
+                      ></span>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="vigenereKey"
+                        value="KUNCI"
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold small"
+                      >Format Huruf</label
+                    >
+                    <select class="form-select" id="vigenereCaseMode">
+                      <option value="maintain">Pertahankan asli</option>
+                      <option value="upper">HURUF BESAR</option>
+                      <option value="lower">huruf kecil</option>
+                    </select>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold small"
+                      >Karakter Asing</label
+                    >
+                    <select class="form-select" id="vigenereForeign">
+                      <option value="include">Sertakan</option>
+                      <option value="exclude">Abaikan</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="d-grid gap-3 mt-4">
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold small"
+                      >Mode Operasi</label
+                    >
+                    <div class="btn-group w-100" role="group">
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="mode"
+                        id="modeEncrypt"
+                        value="encrypt"
+                        checked
+                      />
+                      <label class="btn btn-outline-primary" for="modeEncrypt">
+                        <i class="fas fa-lock me-2"></i>Enkripsi
+                      </label>
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="mode"
+                        id="modeDecrypt"
+                        value="decrypt"
+                      />
+                      <label class="btn btn-outline-primary" for="modeDecrypt">
+                        <i class="fas fa-unlock me-2"></i>Dekripsi
+                      </label>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="clearForm()"
+                    class="btn btn-outline-danger"
+                  >
+                    <i class="fas fa-eraser me-2"></i> Bersihkan
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hasil -->
+          <div class="col-lg-4">
+            <div class="card h-100">
+              <div
+                class="card-header purple d-flex align-items-center justify-content-between"
+              >
+                <span><i class="fas fa-key me-2"></i> Output</span>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-secondary"
+                  onclick="copyToClipboard('resultTextarea')"
+                >
+                  <i class="fas fa-copy"></i> Salin
+                </button>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <textarea
+                  class="form-control h-100"
+                  id="resultTextarea"
+                  rows="10"
+                  readonly
+                  placeholder="Hasil akan muncul di sini..."
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Modal Cara Penggunaan -->
+    <div
+      class="modal fade"
+      id="panduanModal"
+      tabindex="-1"
+      aria-labelledby="panduanModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div
+          class="modal-content border-0 shadow-lg"
+          style="border-radius: 16px"
+        >
+          <div class="modal-header purple">
+            <h5 class="modal-title" id="panduanModalLabel">
+              <i class="fas fa-book-open me-2"></i> Cara Penggunaan
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body p-4">
+            <h5 class="fw-bold text-primary mb-3">
+              <i class="fas fa-book-open me-2"></i> Panduan Lengkap Penggunaan
+            </h5>
+
+            <p class="lead fw-medium">Langkah-langkah sederhana:</p>
+            <ol class="list-group list-group-numbered mb-4">
+              <li class="list-group-item">
+                Ketik atau paste pesan Anda di kolom
+                <strong>Input</strong> (contoh: SELAMAT PAGI DUNIA)
+              </li>
+              <li class="list-group-item">
+                Pilih <strong>Jenis Cipher</strong> yang ingin digunakan
+              </li>
+              <li class="list-group-item">
+                Sesuaikan pengaturan khusus cipher tersebut (jika ada)
+              </li>
+              <li class="list-group-item">
+                Pilih mode <strong>Enkripsi</strong> (sembunyikan pesan) atau
+                <strong>Dekripsi</strong> (buka pesan)
+              </li>
+              <li class="list-group-item">
+                Hasil langsung muncul di kolom <strong>Output</strong>
+              </li>
+              <li class="list-group-item">
+                Gunakan tombol <i class="fas fa-copy"></i> untuk menyalin hasil
+                dengan cepat
+              </li>
+            </ol>
+
+            <h6 class="fw-bold text-primary mt-4 mb-3">
+              Penjelasan & Contoh Tiap Cipher
+            </h6>
+
+            <div class="accordion" id="cipherPanduan">
+              <!-- Caesar -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#caesarPanduan"
+                  >
+                    Caesar Cipher
+                  </button>
+                </h2>
+                <div
+                  id="caesarPanduan"
+                  class="accordion-collapse collapse show"
+                >
+                  <div class="accordion-body">
+                    Menggeser setiap huruf dalam alfabet sebanyak nilai
+                    <strong>shift</strong>.<br />
+                    <strong>Contoh:</strong> "SELAMAT" + shift 3 → "VHO DPDW"<br />
+                    <small class="text-muted"
+                      >Tips: Shift 3 paling klasik (Julius Caesar pakai ini).
+                      Gunakan shift 1–25. Shift 0 = tidak ada perubahan.</small
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Morse -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#morsePanduan"
+                  >
+                    Kode Morse
+                  </button>
+                </h2>
+                <div id="morsePanduan" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    Mengubah huruf & angka menjadi kombinasi titik (.) dan garis
+                    (-).<br />
+                    <strong>Contoh:</strong> "SOS" → "... --- ..."<br />
+                    <strong>Contoh dengan spasi:</strong> "HI WORLD" → ".... ..
+                    / .-- --- .-. .-.. -.."<br />
+                    <small class="text-muted"
+                      >Tips: Ubah pemisah huruf/kata sesuai kebutuhan. Default "
+                      " dan "/" sudah standar internasional.</small
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Atbash -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#atbashPanduan"
+                  >
+                    Atbash Cipher
+                  </button>
+                </h2>
+                <div id="atbashPanduan" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    Membalik urutan alfabet (A ↔ Z, B ↔ Y, dst).<br />
+                    <strong>Contoh:</strong> "SELAMAT PAGI" → "HV OZ NZG
+                    KZTR"<br />
+                    <small class="text-muted"
+                      >Tips: Tidak perlu kunci/shift. Enkripsi & dekripsi pakai
+                      cara yang sama (jalankan 2x = kembali ke asal).</small
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Vigenere -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#vigenerePanduan"
+                  >
+                    Vigenere Cipher
+                  </button>
+                </h2>
+                <div id="vigenerePanduan" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    Menggeser huruf berdasarkan huruf pada
+                    <strong>kata kunci</strong> (lebih aman daripada Caesar).<br />
+                    <strong>Contoh:</strong> Pesan "SELAMAT" + kunci "KUNCI" →
+                    hasil bergantung kunci<br />
+                    <small class="text-muted"
+                      >Tips: Kunci panjang & acak lebih sulit dipecahkan. Kunci
+                      & pesan sebaiknya huruf saja (tanpa spasi/angka jika
+                      exclude foreign char).</small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-info mt-4 mb-0 small">
+              <i class="fas fa-lightbulb me-2"></i>
+              <strong>Catatan penting:</strong> Semua cipher di sini termasuk
+              kriptografi klasik yang <strong>tidak aman</strong> untuk data
+              rahasia sungguhan (mudah dipecah dengan komputer). Cocok untuk
+              belajar, permainan, atau pesan ringan saja.
+            </div>
+
+            <div class="text-center mt-4">
+              <button
+                type="button"
+                class="btn btn-primary px-5"
+                data-bs-dismiss="modal"
+              >
+                Mulai Coba Sekarang!
+              </button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Paham!
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/cipher.js"></script>
+  </body>
+</html>
