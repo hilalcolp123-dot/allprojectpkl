@@ -141,85 +141,72 @@ def process_merge():
 @app.route("/process-split", methods=["POST"])
 def process_split():
     file = request.files.get("pdf_file")
-    mode = request.form.get("mode")
-    combine = request.form.get("combine") == "true"
+    mode = request.form.get("mode")  # 'single', 'range', atau 'multiple'
 
     if not file:
         return {"error": "File tidak ditemukan"}, 400
 
     try:
-        # PENTING: Baca file ke memory agar tidak terputus di tengah jalan
         input_data = io.BytesIO(file.read())
         reader = PdfReader(input_data)
         total_pages = len(reader.pages)
-        pages_to_process = []
 
-        # --- Penentuan Halaman (Logika Anda) ---
+        # JIKA MODE SINGLE: Langsung kirim PDF (Tanpa ZIP)
         if mode == "single":
-            p = int(request.form.get("page_num", 1)) - 1
-            if 0 <= p < total_pages:
-                pages_to_process = [p]
-        elif mode == "range":
+            page_num = int(request.form.get("page_num", 1)) - 1
+            if 0 <= page_num < total_pages:
+                writer = PdfWriter()
+                writer.add_page(reader.pages[page_num])
+
+                output = io.BytesIO()
+                writer.write(output)
+                output.seek(0)
+
+                return send_file(
+                    output,
+                    as_attachment=True,
+                    download_name=f"halaman_{page_num + 1}.pdf",
+                    mimetype="application/pdf",
+                )
+            else:
+                return {"error": "Halaman di luar jangkauan"}, 400
+
+        # JIKA MODE LAIN (Range/Multiple): Tetap gunakan ZIP tapi dioptimasi
+        pages_to_process = []
+        if mode == "range":
             start = int(request.form.get("range_start", 1)) - 1
             end = int(request.form.get("range_end", total_pages))
             pages_to_process = list(range(max(0, start), min(total_pages, end)))
         elif mode == "multiple":
             raw_list = request.form.get("pages_list", "")
-            for part in raw_list.replace("-", ",").split(","):
-                if part.strip().isdigit():
-                    idx = int(part.strip()) - 1
+            for p in raw_list.replace("-", ",").split(","):
+                if p.strip().isdigit():
+                    idx = int(p.strip()) - 1
                     if 0 <= idx < total_pages:
                         pages_to_process.append(idx)
 
-        if not pages_to_process:
-            return {"error": "Halaman tidak valid"}, 400
+        # Proteksi untuk Vercel (Maksimal 20 halaman untuk ZIP)
+        if len(pages_to_process) > 20:
+            return {
+                "error": "Batas Vercel: Maksimal 20 halaman untuk ZIP. Gunakan mode 'Single Page' untuk halaman lainnya."
+            }, 400
 
-        # --- LOGIKA OUTPUT ---
-        if combine:
-            writer = PdfWriter()
+        zip_io = io.BytesIO()
+        with zipfile.ZipFile(zip_io, "w", zipfile.ZIP_STORED) as zf:
             for p_idx in pages_to_process:
-                writer.add_page(reader.pages[p_idx])
+                pw = PdfWriter()
+                pw.add_page(reader.pages[p_idx])
+                p_buffer = io.BytesIO()
+                pw.write(p_buffer)
+                zf.writestr(f"halaman_{p_idx + 1}.pdf", p_buffer.getvalue())
 
-            final_buffer = io.BytesIO()
-            writer.write(final_buffer)
-            final_buffer.seek(0)
-            return send_file(
-                final_buffer,
-                as_attachment=True,
-                download_name="split_combined.pdf",
-                mimetype="application/pdf",
-            )
-
-        else:
-            # Gunakan buffer yang didefinisikan dengan jelas
-            zip_io = io.BytesIO()
-
-            # Gunakan ZIP_STORED (tanpa kompresi) agar proses lebih cepat di Vercel
-            # Ini mengurangi beban CPU dan mencegah timeout
-            with zipfile.ZipFile(zip_io, "w", compression=zipfile.ZIP_STORED) as zf:
-                for p_idx in pages_to_process:
-                    pw = PdfWriter()
-                    pw.add_page(reader.pages[p_idx])
-
-                    page_io = io.BytesIO()
-                    pw.write(page_io)
-                    # Ambil datanya dan langsung simpan ke ZIP
-                    data = page_io.getvalue()
-                    zf.writestr(f"halaman_{p_idx + 1}.pdf", data)
-                    page_io.close()
-
-            # PENTING: Ambil hasil akhir ZIP ke variabel baru sebelum dikirim
-            zip_io.seek(0)
-            final_zip_data = zip_io.getvalue()
-            zip_io.close()
-
-            return send_file(
-                io.BytesIO(final_zip_data),
-                mimetype="application/zip",
-                as_attachment=True,
-                download_name="split_pages.zip",
-            )
+        zip_io.seek(0)
+        return send_file(
+            zip_io,
+            as_attachment=True,
+            download_name="split_pages.zip",
+            mimetype="application/zip",
+        )
 
     except Exception as e:
-        print(f"Error Split: {e}")
-        return {"error": "Gagal memproses file"}, 500
+        return {"error": str(e)}, 500
