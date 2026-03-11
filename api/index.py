@@ -191,33 +191,33 @@ def process_split():
             )
 
         else:
-            # PERBAIKAN STRUKTUR ZIP
-            zip_buffer = io.BytesIO()
+            # Gunakan buffer yang didefinisikan dengan jelas
+            zip_io = io.BytesIO()
 
-            # Gunakan context manager 'with' agar ZIP benar-benar tersimpan (finalized) sebelum dikirim
-            with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
+            # Gunakan ZIP_STORED (tanpa kompresi) agar proses lebih cepat di Vercel
+            # Ini mengurangi beban CPU dan mencegah timeout
+            with zipfile.ZipFile(zip_io, "w", compression=zipfile.ZIP_STORED) as zf:
                 for p_idx in pages_to_process:
-                    writer = PdfWriter()
-                    writer.add_page(reader.pages[p_idx])
+                    pw = PdfWriter()
+                    pw.add_page(reader.pages[p_idx])
 
-                    # Tulis tiap halaman ke buffer sementara
-                    temp_pdf_buffer = io.BytesIO()
-                    writer.write(temp_pdf_buffer)
+                    page_io = io.BytesIO()
+                    pw.write(page_io)
+                    # Ambil datanya dan langsung simpan ke ZIP
+                    data = page_io.getvalue()
+                    zf.writestr(f"halaman_{p_idx + 1}.pdf", data)
+                    page_io.close()
 
-                    # Masukkan bytes-nya ke dalam ZIP
-                    zip_file.writestr(
-                        f"halaman_{p_idx + 1}.pdf", temp_pdf_buffer.getvalue()
-                    )
-                    temp_pdf_buffer.close()
-
-            # Pindahkan pointer ke awal setelah loop ZIP selesai
-            zip_buffer.seek(0)
+            # PENTING: Ambil hasil akhir ZIP ke variabel baru sebelum dikirim
+            zip_io.seek(0)
+            final_zip_data = zip_io.getvalue()
+            zip_io.close()
 
             return send_file(
-                zip_buffer,
+                io.BytesIO(final_zip_data),
+                mimetype="application/zip",
                 as_attachment=True,
                 download_name="split_pages.zip",
-                mimetype="application/zip",
             )
 
     except Exception as e:
