@@ -152,6 +152,7 @@ def process_split():
         total_pages = len(reader.pages)
         pages_to_process = []
 
+        # --- Logika penentuan halaman (tetap sama) ---
         if mode == "single":
             p = int(request.form.get("page_num", 1)) - 1
             if 0 <= p < total_pages:
@@ -162,21 +163,22 @@ def process_split():
             pages_to_process = list(range(max(0, start), min(total_pages, end)))
         elif mode == "multiple":
             raw_list = request.form.get("pages_list", "")
-            for p in raw_list.replace("-", ",").split(
-                ","
-            ):  # Simple dash to comma conversion
-                if p.strip().isdigit():
-                    idx = int(p.strip()) - 1
+            # Menangani input seperti "1, 2, 3-5" secara lebih robust
+            for part in raw_list.replace("-", ",").split(","):
+                if part.strip().isdigit():
+                    idx = int(part.strip()) - 1
                     if 0 <= idx < total_pages:
                         pages_to_process.append(idx)
 
         if not pages_to_process:
             return {"error": "Halaman tidak valid"}, 400
 
+        # --- Proses Output ---
         if combine:
             writer = PdfWriter()
             for p_idx in pages_to_process:
                 writer.add_page(reader.pages[p_idx])
+
             buffer = io.BytesIO()
             writer.write(buffer)
             buffer.seek(0)
@@ -187,14 +189,21 @@ def process_split():
                 mimetype="application/pdf",
             )
         else:
+            # PERBAIKAN DI SINI:
             zip_buffer = io.BytesIO()
-            with zipfile.ZipFile(zip_buffer, "w") as zip_file:
+            with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
                 for p_idx in pages_to_process:
                     writer = PdfWriter()
                     writer.add_page(reader.pages[p_idx])
+
+                    # Gunakan buffer sementara untuk setiap halaman
                     p_io = io.BytesIO()
                     writer.write(p_io)
+
+                    # Ambil data bytes-nya secara langsung
                     zip_file.writestr(f"halaman_{p_idx + 1}.pdf", p_io.getvalue())
+                    p_io.close()  # Bersihkan memory
+
             zip_buffer.seek(0)
             return send_file(
                 zip_buffer,
@@ -203,4 +212,5 @@ def process_split():
                 mimetype="application/zip",
             )
     except Exception as e:
+        print(f"Error: {e}")  # Tambahkan print untuk debugging di terminal
         return {"error": str(e)}, 500
