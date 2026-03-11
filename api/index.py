@@ -148,11 +148,13 @@ def process_split():
         return {"error": "File tidak ditemukan"}, 400
 
     try:
-        reader = PdfReader(file)
+        # PENTING: Baca file ke memory agar tidak terputus di tengah jalan
+        input_data = io.BytesIO(file.read())
+        reader = PdfReader(input_data)
         total_pages = len(reader.pages)
         pages_to_process = []
 
-        # --- Logika penentuan halaman (tetap sama) ---
+        # --- Penentuan Halaman (Logika Anda) ---
         if mode == "single":
             p = int(request.form.get("page_num", 1)) - 1
             if 0 <= p < total_pages:
@@ -163,7 +165,6 @@ def process_split():
             pages_to_process = list(range(max(0, start), min(total_pages, end)))
         elif mode == "multiple":
             raw_list = request.form.get("pages_list", "")
-            # Menangani input seperti "1, 2, 3-5" secara lebih robust
             for part in raw_list.replace("-", ",").split(","):
                 if part.strip().isdigit():
                     idx = int(part.strip()) - 1
@@ -173,44 +174,52 @@ def process_split():
         if not pages_to_process:
             return {"error": "Halaman tidak valid"}, 400
 
-        # --- Proses Output ---
+        # --- LOGIKA OUTPUT ---
         if combine:
             writer = PdfWriter()
             for p_idx in pages_to_process:
                 writer.add_page(reader.pages[p_idx])
 
-            buffer = io.BytesIO()
-            writer.write(buffer)
-            buffer.seek(0)
+            final_buffer = io.BytesIO()
+            writer.write(final_buffer)
+            final_buffer.seek(0)
             return send_file(
-                buffer,
+                final_buffer,
                 as_attachment=True,
                 download_name="split_combined.pdf",
                 mimetype="application/pdf",
             )
+
         else:
-            # PERBAIKAN DI SINI:
+            # PERBAIKAN STRUKTUR ZIP
             zip_buffer = io.BytesIO()
+
+            # Gunakan context manager 'with' agar ZIP benar-benar tersimpan (finalized) sebelum dikirim
             with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
                 for p_idx in pages_to_process:
                     writer = PdfWriter()
                     writer.add_page(reader.pages[p_idx])
 
-                    # Gunakan buffer sementara untuk setiap halaman
-                    p_io = io.BytesIO()
-                    writer.write(p_io)
+                    # Tulis tiap halaman ke buffer sementara
+                    temp_pdf_buffer = io.BytesIO()
+                    writer.write(temp_pdf_buffer)
 
-                    # Ambil data bytes-nya secara langsung
-                    zip_file.writestr(f"halaman_{p_idx + 1}.pdf", p_io.getvalue())
-                    p_io.close()  # Bersihkan memory
+                    # Masukkan bytes-nya ke dalam ZIP
+                    zip_file.writestr(
+                        f"halaman_{p_idx + 1}.pdf", temp_pdf_buffer.getvalue()
+                    )
+                    temp_pdf_buffer.close()
 
+            # Pindahkan pointer ke awal setelah loop ZIP selesai
             zip_buffer.seek(0)
+
             return send_file(
                 zip_buffer,
                 as_attachment=True,
                 download_name="split_pages.zip",
                 mimetype="application/zip",
             )
+
     except Exception as e:
-        print(f"Error: {e}")  # Tambahkan print untuk debugging di terminal
-        return {"error": str(e)}, 500
+        print(f"Error Split: {e}")
+        return {"error": "Gagal memproses file"}, 500
