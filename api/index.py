@@ -39,9 +39,9 @@ def cipher():
     return render_template("cipher.html")
 
 
-@app.route("/detailanifinder/<id>")
-def detailanifinder_with_id(id):
-    return render_template("detailanifinder.html", id=id)
+@app.route("/detailanifinder")
+def detailanifinder():
+    return render_template("detailanifinder.html")
 
 
 @app.route("/detailranking")
