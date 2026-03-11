@@ -103,16 +103,19 @@ def jurnal():
 def wedding():
     return render_template("wedding.html")
 
+
 @app.route("/resep-index")
-def wedding():
+def resep_index():  
     return render_template("resep-index.html")
 
+
 @app.route("/resep-favorites")
-def wedding():
+def resep_favorites():  
     return render_template("resep-favorites.html")
 
+
 @app.route("/resep-detail")
-def wedding():
+def resep_detail():  
     return render_template("resep-detail.html")
 
 
