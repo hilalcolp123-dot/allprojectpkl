@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resep Favorit</title>
+<link rel="stylesheet" href="/static/css/resep-style.css">
+<style>
+    /* Styling card favorit */
+    #favorites-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 260px));
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        overflow: hidden;
+        padding: 10px;
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card img {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .card h3 {
+        margin: 10px 0 5px 0;
+        font-size: 18px;
+    }
+
+    .card a {
+        text-decoration: none;
+        color: #3498db;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    .card button {
+        background: #ff4d6d;
+        color: #fff;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .card button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Dark mode */
+    body.dark {
+        background: #121212;
+        color: #eee;
+    }
+
+    body.dark .card {
+        background: #1e1e1e;
+        border-color: #333;
+    }
+
+    body.dark a {
+        color: #63a4ff;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Resep Favorit ❤️</h1>
+    <a href="/resep-index">← Kembali ke Search</a>
+</header>
+
+<div id="favorites-list"></div>
+
+<script>
+window.onload = () => {
+    // Dark mode
+    if(localStorage.getItem("mode")==="dark"){
+        document.body.classList.add("dark");
+    }
+
+    const list = document.getElementById("favorites-list");
+    if(!list) return;
+
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    // Hanya tampilkan yang lengkap
+    favorites = favorites.filter(fav => fav.id && fav.name && fav.thumb);
+
+    if(favorites.length === 0){
+        list.innerHTML = "<p style='padding:20px;'>Belum ada resep favorit 😢</p>";
+        return;
+    }
+
+    favorites.forEach(fav => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.innerHTML = `
+            <img src="${fav.thumb}" alt="${fav.name}">
+            <h3>${fav.name}</h3>
+            <a href="/resep-detail?id=${fav.id}">Lihat Resep</a>
+            <button>🗑 Hapus</button>
+        `;
+        card.querySelector("button").addEventListener("click", () => {
+            removeFavorite(fav.id);
+        });
+        list.appendChild(card);
+    });
+};
+
+function removeFavorite(id){
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    favorites = favorites.filter(fav => fav.id != id);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    location.reload();
+}
+</script>
+
+</body>
+</html>
