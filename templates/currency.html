@@ -85,6 +85,8 @@
             <select name="from_curr" id="fromCurr" class="form-select form-select-lg">
               <option value="USD" {% if from_curr == 'USD' %}selected{% endif %}>🇺🇸 USD - US Dollar</option>
               <option value="IDR" {% if from_curr == 'IDR' %}selected{% endif %}>🇮🇩 IDR - Rupiah</option>
+              <option value="SGD" {% if to_curr == 'SGD' %}selected{% endif %}>🇸🇬 SGD - Singapore Dollar</option>
+              <option value="SAR" {% if to_curr == 'SAR' %}selected{% endif %}>🇸🇦 SAR - Riyal</option>
               <option value="EUR" {% if from_curr == 'EUR' %}selected{% endif %}>🇪🇺 EUR - Euro</option>
               <option value="JPY" {% if from_curr == 'JPY' %}selected{% endif %}>🇯🇵 JPY - Yen</option>
             </select>
@@ -103,6 +105,8 @@
               <option value="USD" {% if to_curr == 'USD' %}selected{% endif %}>🇺🇸 USD - US Dollar</option>
               <option value="SGD" {% if to_curr == 'SGD' %}selected{% endif %}>🇸🇬 SGD - Singapore Dollar</option>
               <option value="SAR" {% if to_curr == 'SAR' %}selected{% endif %}>🇸🇦 SAR - Riyal</option>
+              <option value="EUR" {% if from_curr == 'EUR' %}selected{% endif %}>🇪🇺 EUR - Euro</option>
+              <option value="JPY" {% if from_curr == 'JPY' %}selected{% endif %}>🇯🇵 JPY - Yen</option>
             </select>
           </div>
         </div>
