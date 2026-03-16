@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Konverter Mata Uang Modern</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root { transition: all 0.3s ease; }
+    body {
+      background: var(--bs-tertiary-bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .card-converter {
+      border: none;
+      border-radius: 1.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
+      background: var(--bs-card-bg);
+    }
+    .card-header {
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      color: white;
+      border-radius: 1.5rem 1.5rem 0 0 !important;
+      padding: 2rem;
+      border: none;
+    }
+    .swap-container {
+      height: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+    .swap-btn {
+      width: 45px;
+      height: 45px;
+      background: var(--bs-primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 4px solid var(--bs-card-bg);
+      transition: 0.3s;
+    }
+    .swap-btn:hover { transform: rotate(180deg) scale(1.1); }
+    .result-area {
+      background: var(--bs-secondary-bg);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      border: 1px solid var(--bs-border-color);
+    }
+    .theme-toggle { cursor: pointer; opacity: 0.8; }
+    .theme-toggle:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card card-converter">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h4 class="mb-0 fw-bold">💱 Konverter Kurs</h4>
+      <i class="fas fa-moon theme-toggle" id="themeToggle"></i>
+    </div>
+
+    <div class="card-body p-4">
+      <form method="POST" id="converterForm">
+        <div class="mb-4">
+          <label class="form-label fw-bold small text-uppercase">Jumlah Nominal</label>
+          <input type="number" step="any" name="amount" id="amount" 
+                 class="form-control form-control-lg" 
+                 placeholder="0.00" value="{{ amount }}" required>
+        </div>
+
+        <div class="row g-2 position-relative mb-4">
+          <div class="col-12">
+            <label class="form-label small text-uppercase fw-bold">Dari</label>
+            <select name="from_curr" id="fromCurr" class="form-select form-select-lg">
+              <option value="USD" {% if from_curr == 'USD' %}selected{% endif %}>🇺🇸 USD - US Dollar</option>
+              <option value="IDR" {% if from_curr == 'IDR' %}selected{% endif %}>🇮🇩 IDR - Rupiah</option>
+              <option value="EUR" {% if from_curr == 'EUR' %}selected{% endif %}>🇪🇺 EUR - Euro</option>
+              <option value="JPY" {% if from_curr == 'JPY' %}selected{% endif %}>🇯🇵 JPY - Yen</option>
+            </select>
+          </div>
+          
+          <div class="swap-container">
+            <div class="swap-btn" id="swapCurrencies">
+              <i class="fas fa-exchange-alt"></i>
+            </div>
+          </div>
+
+          <div class="col-12 mt-3">
+            <label class="form-label small text-uppercase fw-bold">Ke</label>
+            <select name="to_curr" id="toCurr" class="form-select form-select-lg">
+              <option value="IDR" {% if to_curr == 'IDR' %}selected{% endif %}>🇮🇩 IDR - Rupiah</option>
+              <option value="USD" {% if to_curr == 'USD' %}selected{% endif %}>🇺🇸 USD - US Dollar</option>
+              <option value="SGD" {% if to_curr == 'SGD' %}selected{% endif %}>🇸🇬 SGD - Singapore Dollar</option>
+              <option value="SAR" {% if to_curr == 'SAR' %}selected{% endif %}>🇸🇦 SAR - Riyal</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold py-3 mb-3">
+          <span id="btnText">KONVERSI SEKARANG</span>
+          <div id="loader" class="spinner-border spinner-border-sm d-none"></div>
+        </button>
+      </form>
+
+      {% if result %}
+      <div class="result-area text-center shadow-sm">
+        <p class="text-muted small mb-1">{{ amount }} {{ from_curr }} setara dengan</p>
+        <h2 class="fw-bold text-primary mb-0">{{ result }} <span class="fs-4">{{ to_curr }}</span></h2>
+      </div>
+      {% endif %}
+
+      {% if error %}
+      <div class="alert alert-danger border-0 small mt-3">{{ error }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  // Swap Logic
+  document.getElementById('swapCurrencies').addEventListener('click', () => {
+    const from = document.getElementById('fromCurr');
+    const to = document.getElementById('toCurr');
+    const temp = from.value;
+    from.value = to.value;
+    to.value = temp;
+  });
+
+  // Dark Mode Logic (Better)
+  const toggle = document.getElementById('themeToggle');
+  toggle.addEventListener('click', () => {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-bs-theme') === 'dark';
+    html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
+    toggle.className = isDark ? 'fas fa-moon theme-toggle' : 'fas fa-sun theme-toggle';
+  });
+
+  // Loading UI
+  document.getElementById('converterForm').addEventListener('submit', () => {
+    document.getElementById('btnText').classList.add('d-none');
+    document.getElementById('loader').classList.remove('d-none');
+  });
+</script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, send_file
 from pypdf import PdfReader, PdfWriter
 import zipfile
+import requests
 import io
 import os
 
@@ -11,9 +12,11 @@ app = Flask(
     static_folder=os.path.join(base_dir, "../static"),
 )
 
+# Export app untuk Vercel
+app.debug = True
+
+
 # --- ROUTES HALAMAN ---
-
-
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -105,21 +108,102 @@ def wedding():
 
 
 @app.route("/resep-index")
-def resep_index():  
+def resep_index():
     return render_template("resep-index.html")
 
 
 @app.route("/resep-favorites")
-def resep_favorites():  
+def resep_favorites():
     return render_template("resep-favorites.html")
 
 
 @app.route("/resep-detail")
-def resep_detail():  
+def resep_detail():
     return render_template("resep-detail.html")
 
 
-# --- LOGIKA PROSES ---
+# Curency Converter
+@app.route("/currencyconverter", methods=["GET", "POST"])
+def currency_converter():
+    result = None
+    amount = ""
+    from_curr = "USD"
+    to_curr = "IDR"
+    error = None
+
+    if request.method == "POST":
+        try:
+            # Ambil data dan bersihkan karakter non-angka kecuali titik desimal
+            raw_amount = (
+                request.form.get("amount", "0").replace(".", "").replace(",", ".")
+            )
+            amount = float(raw_amount)
+            from_curr = request.form.get("from_curr")
+            to_curr = request.form.get("to_curr")
+
+            url = f"https://api.exchangerate-api.com/v4/latest/{from_curr}"
+            response = requests.get(url, timeout=10)
+            data = response.json()
+
+            if response.status_code == 200:
+                rate = data["rates"][to_curr]
+                converted = amount * rate
+                # Format hasil: 1.234.567,89
+                result = (
+                    "{:,.2f}".format(converted)
+                    .replace(",", "X")
+                    .replace(".", ",")
+                    .replace("X", ".")
+                )
+            else:
+                error = "Gagal mengambil data dari server."
+        except Exception as e:
+            error = "Input tidak valid atau koneksi terputus."
+
+    return render_template(
+        "currency.html",
+        result=result,
+        amount=amount,
+        from_curr=from_curr,
+        to_curr=to_curr,
+        error=error,
+    )
+
+
+# Unit Converter
+@app.route("/unitconverter", methods=["GET", "POST"])
+def unitconverter():
+    result = None
+    val = ""
+    unit_type = ""
+
+    if request.method == "POST":
+        try:
+            val = request.form.get("value")
+            unit_type = request.form.get("unit_type")
+            num = float(val)
+
+            conversions = {
+                "c_to_f": (num * 9 / 5) + 32,
+                "f_to_c": (num - 32) * 5 / 9,
+                "km_to_mil": num * 0.621371,
+                "mil_to_km": num / 0.621371,
+                "kg_to_lb": num * 2.20462,
+                "lb_to_kg": num / 2.20462,
+            }
+
+            raw_result = conversions.get(unit_type, 0)
+            result = f"{raw_result:.2f}"
+
+        except (ValueError, TypeError):
+            result = "Error"
+
+    return render_template(
+        "unitconverter.html", result=result, val=val, unit_type=unit_type
+    )
+
+
+# --- PDF ---
 
 
 @app.route("/process-merge", methods=["POST"])
@@ -225,3 +309,8 @@ def process_split():
 
     except Exception as e:
         return {"error": str(e)}, 500
+
+
+# Untuk dijalankan lokal
+if __name__ == "__main__":
+    app.run(debug=True)
