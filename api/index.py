@@ -138,30 +138,44 @@ API_KEY = os.getenv("OWM_API_KEY")
 @app.route("/weather", methods=["GET", "POST"])
 def weather():
     city = request.form.get("city", "Jakarta")
-
-    # URL API OpenWeatherMap
     url = f"https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={API_KEY}&units=metric"
-
     response = requests.get(url).json()
 
     if str(response.get("cod")) == "200":
-        # Ambil data ramalan cuaca (forecast)
-        raw_list = response["list"][:8]  # 8 poin data (sekitar 24 jam ke depan)
+        # 1. Ambil data untuk Grafik (Forecast)
+        raw_list = response["list"][:8]
         data = {
             "Waktu": [item["dt_txt"].split(" ")[1][:5] for item in raw_list],
             "Suhu (°C)": [item["main"]["temp"] for item in raw_list],
         }
         df = pd.DataFrame(data)
-
         fig = px.line(
             df, x="Waktu", y="Suhu (°C)", title=f"Prediksi Suhu di {city}", markers=True
         )
         graph_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    else:
-        # Jika kota tidak ditemukan atau API belum aktif
-        graph_json = None
 
-    return render_template("weather.html", graph_json=graph_json, city=city)
+        # 2. TAMBAHKAN INI: Ambil data Cuaca Saat Ini (Current Weather)
+        first_item = response["list"][0]
+        # Mapping icon OpenWeather ke Emoji (opsional, agar lebih manis)
+        icon_code = first_item["weather"][0]["icon"]
+        current_weather = {
+            "temp": round(first_item["main"]["temp"]),
+            "description": first_item["weather"][0]["description"],
+            "humidity": first_item["main"]["humidity"],
+            "wind": first_item["wind"]["speed"],
+            "icon": '<i class="fa-solid fa-cloud-sun"></i>' if "01" in icon_code else '<i class="fa-solid fa-cloud"></i>' if "02" in icon_code else '<i class="fa-solid fa-cloud-showers-heavy"></i>',
+        }
+    else:
+        graph_json = None
+        current_weather = None  # Pastikan ini None jika gagal
+
+    # Kirim current_weather ke template
+    return render_template(
+        "weather.html",
+        graph_json=graph_json,
+        city=city,
+        current_weather=current_weather,
+    )
 
 
 # Curency Converter
