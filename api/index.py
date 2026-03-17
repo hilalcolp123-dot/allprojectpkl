@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, send_file
 from pypdf import PdfReader, PdfWriter
 from dotenv import load_dotenv
+from huggingface_hub import InferenceClient
+from diffusers import DiffusionPipeline
 import zipfile
+import torch
 import requests
 import pandas as pd
 import plotly.express as px
@@ -139,36 +142,63 @@ def ai_image():
 
     if request.method == "POST":
         prompt = request.form.get("prompt")
-        # TAMBAHKAN INI UNTUK DEBUG
-        token_check = os.getenv('HF_API_TOKEN')
-        print(f"DEBUG: Token status = {'Ada' if token_check else 'KOSONG'}")
-
-        # URL Model Stable Diffusion
-        API_URL = "https://api-inference.huggingface.co/models/runwayml/stable-diffusion-v1-5"
         headers = {"Authorization": f"Bearer {os.getenv('HF_API_TOKEN')}"}
 
+        # 1. Alamat API untuk Base dan Refiner
+        API_BASE = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
+        API_REFINER = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-refiner-1.0"
+
         try:
-            # Kirim permintaan ke Hugging Face
-            response = requests.post(
-                API_URL, headers=headers, json={"inputs": prompt}, timeout=25
+            # LANGKAH 1: Kirim ke Base Model
+            # Kita minta hasil dalam bentuk 'latent' tidak bisa via API biasa,
+            # jadi kita ambil gambar hasil base dulu.
+            response_base = requests.post(
+                API_BASE,
+                headers=headers,
+                # Kurangi steps sedikit agar lebih cepat (20-25 biasanya sudah cukup bagus untuk SDXL)
+                json={"inputs": prompt, "parameters": {"num_inference_steps": 25}},
+                timeout=60,
             )
 
-            if response.status_code == 200:
-                # Berhasil!
-                encoded_image = base64.b64encode(response.content).decode("utf-8")
-                generated_image = f"data:image/jpeg;base64,{encoded_image}"
-            elif response.status_code == 503:
-                # Model sedang tidur/loading
-                error = "Model AI sedang 'pemanasan'. Silakan tunggu 10 detik dan coba lagi."
-            elif response.status_code == 401:
-                # Masalah Token
-                error = "Token tidak valid. Cek kembali HF_API_TOKEN di Vercel."
+            if response_base.status_code == 200:
+                # LANGKAH 2: Kirim hasil Base ke Refiner
+                response_refiner = requests.post(
+                    API_REFINER,
+                    headers=headers,
+                    json={
+                        "inputs": prompt,
+                        "image": base64.b64encode(response_base.content).decode(
+                            "utf-8"
+                        ),
+                        "parameters": {
+                            "num_inference_steps": 15,  # Kurangi sedikit
+                            "denoising_start": 0.8,
+                        },
+                    },
+                    timeout=60,
+                )
+
+                if response_refiner.status_code == 200:
+                    encoded_image = base64.b64encode(response_refiner.content).decode(
+                        "utf-8"
+                    )
+                    generated_image = f"data:image/jpeg;base64,{encoded_image}"
+                else:
+                    # Jika refiner gagal, tampilkan hasil dari Base saja (biar tidak rugi)
+                    encoded_image = base64.b64encode(response_base.content).decode(
+                        "utf-8"
+                    )
+                    generated_image = f"data:image/jpeg;base64,{encoded_image}"
+
+            elif response_base.status_code == 503:
+                error = (
+                    "Model sedang pemanasan. Tunggu sebentar dan klik Generate lagi."
+                )
             else:
-                # Error lainnya
-                error = f"Error dari AI ({response.status_code}). Coba kata-kata lain."
+                error = f"Error ({response_base.status_code}). Coba lagi nanti."
 
         except Exception as e:
-            error = f"Timeout! Koneksi ke AI terlalu lama. Coba lagi."
+            error = f"Koneksi lambat. Silakan coba lagi."
 
     return render_template(
         "ai-image.html", generated_image=generated_image, prompt=prompt, error=error
