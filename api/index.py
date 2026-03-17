@@ -130,7 +130,7 @@ def resep_detail():
     return render_template("resep-detail.html")
 
 
-# Ai IMAGE HUNGGING FACE API  AI ENGINE 
+# Ai IMAGE HUNGGING FACE API  AI ENGINE
 @app.route("/ai-image", methods=["GET", "POST"])
 def ai_image():
     generated_image = None
@@ -151,16 +151,21 @@ def ai_image():
             )
 
             if response.status_code == 200:
-                # Convert bytes gambar ke Base64
+                # Berhasil!
                 encoded_image = base64.b64encode(response.content).decode("utf-8")
                 generated_image = f"data:image/jpeg;base64,{encoded_image}"
             elif response.status_code == 503:
-                error = "Model AI sedang 'pemanasan'. Coba lagi dalam beberapa detik."
+                # Model sedang tidur/loading
+                error = "Model AI sedang 'pemanasan'. Silakan tunggu 10 detik dan coba lagi."
+            elif response.status_code == 401:
+                # Masalah Token
+                error = "Token tidak valid. Cek kembali HF_API_TOKEN di Vercel."
             else:
-                error = "Gagal memproses gambar. Pastikan API Token benar."
+                # Error lainnya
+                error = f"Error dari AI ({response.status_code}). Coba kata-kata lain."
 
         except Exception as e:
-            error = "Koneksi terputus atau timeout. Coba prompt yang lebih pendek."
+            error = f"Timeout! Koneksi ke AI terlalu lama. Coba lagi."
 
     return render_template(
         "ai-image.html", generated_image=generated_image, prompt=prompt, error=error
@@ -170,6 +175,7 @@ def ai_image():
 # Weather Api Key Opern Weather ini
 # Ambil API Key dari Environment Variable
 API_KEY = os.getenv("OWM_API_KEY")
+
 
 # Weather Tracker
 @app.route("/weather", methods=["GET", "POST"])
