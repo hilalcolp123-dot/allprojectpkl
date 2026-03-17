@@ -195,7 +195,7 @@
             class="current-weather h-100 d-flex flex-column justify-content-center text-center"
           >
             {% if current_weather %}
-            <div class="weather-icon mb-3">{{ current_weather.icon }}</div>
+            <div class="weather-icon mb-3">{{ current_weather.icon | safe }}</div>
             <h2 class="display-4 fw-bold mb-1">{{ current_weather.temp }}°C</h2>
             <h5 class="mb-4">{{ current_weather.description|capitalize }}</h5>
 
