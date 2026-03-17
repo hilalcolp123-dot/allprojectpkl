@@ -1,10 +1,7 @@
 from flask import Flask, render_template, request, send_file
 from pypdf import PdfReader, PdfWriter
 from dotenv import load_dotenv
-from huggingface_hub import InferenceClient
-from diffusers import DiffusionPipeline
 import zipfile
-import torch
 import requests
 import pandas as pd
 import plotly.express as px
@@ -170,7 +167,8 @@ def ai_image():
         except requests.exceptions.Timeout:
             error = "Proses terlalu lama dan dipotong oleh server. Coba lagi."
         except Exception as e:
-            error = f"Terjadi kesalahan sistem: Coba kata-kata lain."
+            # Ini biar kalau error, kita tahu pasti apa pesannya
+            error = f"Terjadi kesalahan sistem: {str(e)}"
 
     return render_template(
         "ai-image.html", generated_image=generated_image, prompt=prompt, error=error
