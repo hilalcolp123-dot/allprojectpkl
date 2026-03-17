@@ -1,7 +1,8 @@
 {
   "rewrites": [{ "source": "/(.*)", "destination": "/api/index" }],
-  "routes": [{ "src": "/api/(.*)", "dest": "/api/$1" }],
   "functions": {
-    "api/index.py": { "runtime": "vercel-python@0.0.6" }
+    "api/index.py": {
+      "runtime": "python3.12"
+    }
   }
 }

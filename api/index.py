@@ -144,7 +144,7 @@ def weather():
 
     response = requests.get(url).json()
 
-    if response.get("cod") == "200":
+    if str(response.get("cod")) == "200":
         # Ambil data ramalan cuaca (forecast)
         raw_list = response["list"][:8]  # 8 poin data (sekitar 24 jam ke depan)
         data = {
