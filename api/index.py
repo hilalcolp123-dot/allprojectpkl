@@ -139,6 +139,9 @@ def ai_image():
 
     if request.method == "POST":
         prompt = request.form.get("prompt")
+        # TAMBAHKAN INI UNTUK DEBUG
+        token_check = os.getenv('HF_API_TOKEN')
+        print(f"DEBUG: Token status = {'Ada' if token_check else 'KOSONG'}")
 
         # URL Model Stable Diffusion
         API_URL = "https://api-inference.huggingface.co/models/runwayml/stable-diffusion-v1-5"
