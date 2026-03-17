@@ -134,6 +134,7 @@ def resep_detail():
 
 
 # Ai IMAGE HUNGGING FACE API  AI ENGINE
+# Ai IMAGE HUNGGING FACE API  AI ENGINE
 @app.route("/ai-image", methods=["GET", "POST"])
 def ai_image():
     generated_image = None
@@ -144,61 +145,32 @@ def ai_image():
         prompt = request.form.get("prompt")
         headers = {"Authorization": f"Bearer {os.getenv('HF_API_TOKEN')}"}
 
-        # 1. Alamat API untuk Base dan Refiner
-        API_BASE = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
-        API_REFINER = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-refiner-1.0"
+        # Ganti ke SDXL-Turbo yang jauh lebih ringan dan anti-timeout
+        API_URL = "https://api-inference.huggingface.co/models/stabilityai/sdxl-turbo"
 
         try:
-            # LANGKAH 1: Kirim ke Base Model
-            # Kita minta hasil dalam bentuk 'latent' tidak bisa via API biasa,
-            # jadi kita ambil gambar hasil base dulu.
-            response_base = requests.post(
-                API_BASE,
+            response = requests.post(
+                API_URL,
                 headers=headers,
-                # Kurangi steps sedikit agar lebih cepat (20-25 biasanya sudah cukup bagus untuk SDXL)
-                json={"inputs": prompt, "parameters": {"num_inference_steps": 25}},
-                timeout=60,
+                # SDXL-Turbo hanya butuh 2-3 steps, prosesnya kilat!
+                json={"inputs": prompt, "parameters": {"num_inference_steps": 2}},
+                timeout=9,  # Batas aman sebelum Vercel mematikan fungsi di 10s
             )
 
-            if response_base.status_code == 200:
-                # LANGKAH 2: Kirim hasil Base ke Refiner
-                response_refiner = requests.post(
-                    API_REFINER,
-                    headers=headers,
-                    json={
-                        "inputs": prompt,
-                        "image": base64.b64encode(response_base.content).decode(
-                            "utf-8"
-                        ),
-                        "parameters": {
-                            "num_inference_steps": 15,  # Kurangi sedikit
-                            "denoising_start": 0.8,
-                        },
-                    },
-                    timeout=60,
-                )
-
-                if response_refiner.status_code == 200:
-                    encoded_image = base64.b64encode(response_refiner.content).decode(
-                        "utf-8"
-                    )
-                    generated_image = f"data:image/jpeg;base64,{encoded_image}"
-                else:
-                    # Jika refiner gagal, tampilkan hasil dari Base saja (biar tidak rugi)
-                    encoded_image = base64.b64encode(response_base.content).decode(
-                        "utf-8"
-                    )
-                    generated_image = f"data:image/jpeg;base64,{encoded_image}"
-
-            elif response_base.status_code == 503:
-                error = (
-                    "Model sedang pemanasan. Tunggu sebentar dan klik Generate lagi."
-                )
+            if response.status_code == 200:
+                encoded_image = base64.b64encode(response.content).decode("utf-8")
+                generated_image = f"data:image/jpeg;base64,{encoded_image}"
+            elif response.status_code == 503:
+                error = "Model sedang pemanasan. Tunggu 5 detik dan klik Generate lagi."
+            elif response.status_code == 401:
+                error = "Token HF_API_TOKEN salah atau kurang izin 'Inference'."
             else:
-                error = f"Error ({response_base.status_code}). Coba lagi nanti."
+                error = f"Error dari AI ({response.status_code})."
 
+        except requests.exceptions.Timeout:
+            error = "Proses terlalu lama dan dipotong oleh server. Coba lagi."
         except Exception as e:
-            error = f"Koneksi lambat. Silakan coba lagi."
+            error = f"Terjadi kesalahan sistem: Coba kata-kata lain."
 
     return render_template(
         "ai-image.html", generated_image=generated_image, prompt=prompt, error=error
