@@ -155,15 +155,34 @@ def weather():
         graph_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
         # 2. TAMBAHKAN INI: Ambil data Cuaca Saat Ini (Current Weather)
+        # Ambil data pertama untuk cuaca saat ini
         first_item = response["list"][0]
-        # Mapping icon OpenWeather ke Emoji (opsional, agar lebih manis)
         icon_code = first_item["weather"][0]["icon"]
+
+        # Mapping Ikon yang lebih lengkap
+        if "01" in icon_code:  # Cerah
+            icon_html = '<i class="fa-solid fa-sun text-warning"></i>'
+        elif "02" in icon_code:  # Berawan sebagian
+            icon_html = '<i class="fa-solid fa-cloud-sun text-light"></i>'
+        elif icon_code in ["03", "04"]:  # Mendung/Berawan
+            icon_html = '<i class="fa-solid fa-cloud text-light"></i>'
+        elif icon_code in ["09", "10"]:  # Hujan
+            icon_html = '<i class="fa-solid fa-cloud-showers-heavy text-info"></i>'
+        elif "11" in icon_code:  # Petir
+            icon_html = '<i class="fa-solid fa-cloud-bolt text-warning"></i>'
+        elif "13" in icon_code:  # Salju
+            icon_html = '<i class="fa-solid fa-snowflake text-info"></i>'
+        elif "50" in icon_code:  # Kabut/Mist
+            icon_html = '<i class="fa-solid fa-smog text-light"></i>'
+        else:
+            icon_html = '<i class="fa-solid fa-cloud text-light"></i>'
+
         current_weather = {
             "temp": round(first_item["main"]["temp"]),
             "description": first_item["weather"][0]["description"],
             "humidity": first_item["main"]["humidity"],
             "wind": first_item["wind"]["speed"],
-            "icon": '<i class="fa-solid fa-cloud-sun"></i>' if "01" in icon_code else '<i class="fa-solid fa-cloud"></i>' if "02" in icon_code else '<i class="fa-solid fa-cloud-showers-heavy"></i>',
+            "icon": icon_html,  # Memasukkan variabel icon_html di sini
         }
     else:
         graph_json = None
