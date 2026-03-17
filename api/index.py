@@ -1,9 +1,16 @@
 from flask import Flask, render_template, request, send_file
 from pypdf import PdfReader, PdfWriter
+from dotenv import load_dotenv
 import zipfile
 import requests
+import pandas as pd
+import plotly.express as px
+import plotly.utils
+import json
 import io
 import os
+
+load_dotenv()
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 app = Flask(
@@ -120,6 +127,41 @@ def resep_favorites():
 @app.route("/resep-detail")
 def resep_detail():
     return render_template("resep-detail.html")
+
+
+# Weather Api Key Opern Weather ini
+# Ambil API Key dari Environment Variable
+API_KEY = os.getenv("OWM_API_KEY")
+
+
+# Weather Tracker
+@app.route("/weather", methods=["GET", "POST"])
+def weather():
+    city = request.form.get("city", "Jakarta")
+
+    # URL API OpenWeatherMap
+    url = f"https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={API_KEY}&units=metric"
+
+    response = requests.get(url).json()
+
+    if response.get("cod") == "200":
+        # Ambil data ramalan cuaca (forecast)
+        raw_list = response["list"][:8]  # 8 poin data (sekitar 24 jam ke depan)
+        data = {
+            "Waktu": [item["dt_txt"].split(" ")[1][:5] for item in raw_list],
+            "Suhu (°C)": [item["main"]["temp"] for item in raw_list],
+        }
+        df = pd.DataFrame(data)
+
+        fig = px.line(
+            df, x="Waktu", y="Suhu (°C)", title=f"Prediksi Suhu di {city}", markers=True
+        )
+        graph_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    else:
+        # Jika kota tidak ditemukan atau API belum aktif
+        graph_json = None
+
+    return render_template("weather.html", graph_json=graph_json, city=city)
 
 
 # Curency Converter
