@@ -141,7 +141,7 @@ def ai_image():
         prompt = request.form.get("prompt")
 
         # URL Model Stable Diffusion
-        API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2-1"
+        API_URL = "https://api-inference.huggingface.co/models/runwayml/stable-diffusion-v1-5"
         headers = {"Authorization": f"Bearer {os.getenv('HF_API_TOKEN')}"}
 
         try:
