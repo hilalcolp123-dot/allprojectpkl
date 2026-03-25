@@ -1,54 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <title>Anime Popularity Dashboard</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="/static/css/rangking.css">
-</head>
-<body>
+  <head>
+    <title>Anime Popularity Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/css/rangking.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <h2>AniManga Ranking</h2>
 
-  <header class="topbar">
-    <h2>AniManga Ranking</h2>
+      <div class="controls">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Cari judul..." />
+          <button id="searchBtn">🔍</button>
+        </div>
 
-<div class="controls">
+        <label style="display: flex; align-items: center; gap: 6px">
+          <label id="showHentai"></label> </label>
+        </label>
 
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Cari judul...">
-    <button id="searchBtn">🔍</button>
-  </div>
+        <select id="typeSelect">
+          <option value="anime">Anime</option>
+          <option value="manga">Manga</option>
+        </select>
 
-  <label style="display:flex; align-items:center; gap:6px;">
-    <input type="checkbox" id="showHentai">
-      NSFW (Tidak Disarankan)
-    </label>
+        <select id="sortSelect">
+          <option value="bypopularity">Most Popular</option>
+          <option value="default">Top Rated</option>
+        </select>
 
-  <select id="typeSelect">
-    <option value="anime">Anime</option>
-    <option value="manga">Manga</option>
-  </select>
+        <button id="darkToggle">🌙</button>
+      </div>
+    </header>
 
-  <select id="sortSelect">
-    <option value="bypopularity">Most Popular</option>
-    <option value="default">Top Rated</option>
-  </select>
+    <main>
+      <div id="rankingList"></div>
 
-  <button id="darkToggle">🌙</button>
+      <div class="pagination">
+        <button id="prevPage" class="page-btn">‹</button>
 
-</div>
-  </header>
+        <div id="pageNumbers"></div>
 
-  <main>
-    <div id="rankingList"></div>
+        <button id="nextPage" class="page-btn">›</button>
+      </div>
+    </main>
 
-    <div class="pagination">
-  <button id="prevPage" class="page-btn">‹</button>
+    <script src="/static/js/utamaranking.js"></script>
+  </body>
+  <script>
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "success",
+      title: "Filter diaktifkan",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    const checkbox = document.getElementById("showHentai");
 
-  <div id="pageNumbers"></div>
-
-  <button id="nextPage" class="page-btn">›</button>
-</div>
-  </main>
-
-  <script src="/static/js/utamaranking.js"></script>
-</body>
+    checkbox.addEventListener("change", function () {
+      if (this.checked) {
+        Swal.fire({
+          title: "Akses Dibatalkan",
+          text: "Anda tidak diizinkan mengaktifkan fitur ini.",
+          icon: "error",
+          showConfirmButton: false, // Menghilangkan tombol OK
+          showCancelButton: true, // Hanya memunculkan tombol Batal
+          cancelButtonText: "Tutup",
+          cancelButtonColor: "#d33",
+        }).then((result) => {
+          if (!result.isConfirmed) {
+            // Jika user klik batal, hilangkan centang kembali
+            this.checked = false;
+          }
+        });
+      }
+    });
+  </script>
 </html>
