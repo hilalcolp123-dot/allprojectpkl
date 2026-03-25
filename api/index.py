@@ -30,9 +30,9 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/anifinder")
-def anifinder():
-    return render_template("anifinder.html")
+# @app.route("/anifinder")
+# def anifinder():
+#     return render_template("anifinder.html")
 
 
 @app.route("/anischedule")
@@ -50,9 +50,9 @@ def cipher():
     return render_template("cipher.html")
 
 
-@app.route("/detailanifinder")
-def detailanifinder():
-    return render_template("detailanifinder.html")
+# @app.route("/detailanifinder")
+# def detailanifinder():
+#     return render_template("detailanifinder.html")
 
 
 @app.route("/detailranking")
