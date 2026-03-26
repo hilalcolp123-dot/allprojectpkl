@@ -300,29 +300,41 @@ def unitconverter():
 
     if request.method == "POST":
         try:
+            # Mengambil data dari form HTML
             val = request.form.get("value")
             unit_type = request.form.get("unit_type")
             num = float(val)
 
+            # Dictionary berisi tuple: (rumus perhitungan, simbol satuan hasil)
             conversions = {
-                "c_to_f": (num * 9 / 5) + 32,
-                "f_to_c": (num - 32) * 5 / 9,
-                "km_to_mil": num * 0.621371,
-                "mil_to_km": num / 0.621371,
-                "kg_to_lb": num * 2.20462,
-                "lb_to_kg": num / 2.20462,
+                "c_to_f": ((num * 9 / 5) + 32, "°F"),
+                "f_to_c": ((num - 32) * 5 / 9, "°C"),
+                "km_to_mil": (num * 0.621371, "Mil"),
+                "mil_to_km": (num / 0.621371, "KM"),
+                "kg_to_lb": (num * 2.20462, "Lbs"),
+                "lb_to_kg": (num / 2.20462, "KG"),
             }
 
-            raw_result = conversions.get(unit_type, 0)
-            result = f"{raw_result:.2f}"
+            # Mengecek apakah tipe konversi valid
+            if unit_type in conversions:
+                calculated_value, symbol = conversions[unit_type]
+                # Menggabungkan angka (dibulatkan 2 desimal) dengan simbolnya
+                result = f"{calculated_value:.2f} {symbol}"
+            else:
+                result = "Tipe konversi tidak valid"
 
         except (ValueError, TypeError):
-            result = "Error"
+            # Pesan error yang lebih user-friendly jika input bukan angka
+            result = "Input tidak valid"
 
+    # Pastikan nama file HTML sesuai dengan yang kamu gunakan (misal: unitconverter.html)
     return render_template(
         "unitconverter.html", result=result, val=val, unit_type=unit_type
     )
 
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
 # --- PDF ---
 

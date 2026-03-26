@@ -1,102 +1,149 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Unit Converter - Flask</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body class="bg-light">
-    <div class="container mt-5">
-      <div class="row justify-content-center">
-        <div class="card shadow p-4">
-          <h3 class="text-center mb-4">🔄 Smart Converter</h3>
-
-          <form method="POST">
-            <div class="mb-3">
-              <label class="form-label text-muted">Pilih Konversi</label>
-              <select name="unit_type" class="form-select border-primary">
-                <option value="c_to_f" {% if unit_type == "c_to_f" %}selected{% endif %}>
-                  Celsius ➡ Fahrenheit
-                </option>
-                <option value="f_to_c" {% if unit_type == "f_to_c" %}selected{% endif %}>
-                  Fahrenheit ➡ Celsius
-                </option>
-                <option value="km_to_mil" {% if unit_type == "km_to_mil" %}selected{% endif %}>
-                  KM ➡ Mil
-                </option>
-                <option value="mil_to_km" {% if unit_type == "mil_to_km" %}selected{% endif %}>
-                  Mil ➡ KM
-                </option>
-                <option value="kg_to_lb" {% if unit_type == "kg_to_lb" %}selected{% endif %}>
-                  KG ➡ Pon (Lbs)
-                </option>
-                <option value="lb_to_kg" {% if unit_type == "lb_to_kg" %}selected{% endif %}>
-                  Pon (Lbs) ➡ KG
-                </option>
-              </select>
-            </div>
-
-            <div class="mb-3">
-              <input
-                type="number"
-                step="any"
-                name="value"
-                class="form-control form-control-lg"
-                placeholder="Masukkan angka..."
-                value="{{ val }}"
-                required
-              />
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100 fw-bold">
-              HITUNG
-            </button>
-          </form>
-
-          {% if result %}
-          <div
-            class="mt-4 p-3 bg-light border rounded text-center position-relative"
-          >
-            <small class="text-uppercase text-muted d-block mb-1"
-              >Hasil Konversi</small
-            >
-            <h2 id="resultText" class="display-6 fw-bold text-dark">
-              {{ result }}
-            </h2>
-
-            <button
-              onclick="copyToClipboard()"
-              class="btn btn-outline-secondary btn-sm mt-2"
-            >
-              <i class="bi bi-clipboard"></i> Salin Hasil
-            </button>
-            <div
-              id="copyFeedback"
-              class="text-success small mt-1"
-              style="display: none"
-            >
-              Tersalin ke clipboard!
-            </div>
-          </div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
+<!DOCTYPE html>
+<html class="dark" lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>CONVERT | Precision Unit Lab</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0c0e11;
+            overflow-x: hidden;
+        }
+        .mesh-gradient {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(129, 236, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(166, 140, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0) 0%, #0c0e11 100%);
+        }
+        .glass-panel {
+            backdrop-filter: blur(40px) saturate(150%);
+            -webkit-backdrop-filter: blur(40px) saturate(150%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-glow {
+            box-shadow: 0 10px 30px -10px rgba(129, 236, 255, 0.4);
+        }
+    </style>
     <script>
-      function copyToClipboard() {
-        const text = document.getElementById("resultText").innerText;
-        navigator.clipboard.writeText(text).then(() => {
-          const feedback = document.getElementById("copyFeedback");
-          feedback.style.display = "block";
-          setTimeout(() => {
-            feedback.style.display = "none";
-          }, 2000);
-        });
-      }
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "surface-container-lowest": "#000000",
+                "on-surface": "#f9f9fd",
+                "surface-variant": "#23262a",
+                "primary": "#81ecff",
+                "surface-container-highest": "#23262a",
+                "outline-variant": "#46484b",
+                "surface-container": "#171a1d",
+                "tertiary": "#70aaff",
+                "on-primary": "#005762",
+              },
+            },
+          },
+        }
     </script>
-  </body>
+</head>
+<body class="text-on-surface selection:bg-primary/30">
+    <div class="mesh-gradient"></div>
+
+    <header class="w-full top-0 left-0 sticky z-50 transition-all duration-300">
+        <div class="flex justify-between items-center px-8 py-6 w-full max-w-7xl mx-auto">
+            <div class="flex items-center gap-3">
+                <span class="text-xl font-bold tracking-[0.1em] text-[#81ecff] drop-shadow-[0_0_10px_rgba(129,236,255,0.5)] font-['Plus_Jakarta_Sans']">FLASK CONVERT</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex items-center justify-center p-6 min-h-[calc(100vh-88px)]">
+        <div class="w-full max-w-2xl relative">
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#a68cff]/10 rounded-full blur-[80px]"></div>
+            <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-[80px]"></div>
+
+            <section class="glass-panel relative z-10 bg-surface-container/60 rounded-xl p-8 md:p-12 border border-outline-variant/15 active-glow">
+                <div class="mb-10 text-center md:text-left">
+                    <span class="text-primary text-[0.7rem] uppercase tracking-[0.3em] font-bold mb-2 block">Smart Engine</span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface mb-2">Unit <span class="text-primary">Converter</span></h1>
+                </div>
+
+                <form method="POST" class="space-y-10">
+                    <div class="space-y-2 group">
+                        <label class="text-[0.65rem] uppercase tracking-[0.15em] text-gray-400 group-focus-within:text-primary transition-colors">Pilih Tipe Konversi</label>
+                        <select name="unit_type" class="w-full bg-transparent border-b border-outline-variant focus:border-primary focus:ring-0 text-on-surface py-3 outline-none appearance-none cursor-pointer transition-all text-lg">
+                            <option class="bg-surface-container-highest" value="c_to_f" {% if unit_type == "c_to_f" %}selected{% endif %}>🌡️ Celsius ➡ Fahrenheit</option>
+                            <option class="bg-surface-container-highest" value="f_to_c" {% if unit_type == "f_to_c" %}selected{% endif %}>🌡️ Fahrenheit ➡ Celsius</option>
+                            <option class="bg-surface-container-highest" value="km_to_mil" {% if unit_type == "km_to_mil" %}selected{% endif %}>📏 KM ➡ Mil</option>
+                            <option class="bg-surface-container-highest" value="mil_to_km" {% if unit_type == "mil_to_km" %}selected{% endif %}>📏 Mil ➡ KM</option>
+                            <option class="bg-surface-container-highest" value="kg_to_lb" {% if unit_type == "kg_to_lb" %}selected{% endif %}>⚖️ KG ➡ Pon (Lbs)</option>
+                            <option class="bg-surface-container-highest" value="lb_to_kg" {% if unit_type == "lb_to_kg" %}selected{% endif %}>⚖️ Pon (Lbs) ➡ KG</option>
+                        </select>
+                    </div>
+
+                    <div class="relative group">
+                        <label class="absolute -top-6 left-0 text-[0.65rem] uppercase tracking-[0.15em] text-gray-400 group-focus-within:text-primary transition-colors">Masukkan Angka</label>
+                        <input class="w-full bg-transparent text-5xl md:text-7xl font-bold text-on-surface border-b border-outline-variant focus:border-primary focus:ring-0 py-4 placeholder:text-surface-container-highest outline-none transition-all duration-300" name="value" placeholder="0.00" required step="any" type="number" value="{{ val if val else '' }}"/>
+                        <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-primary group-focus-within:w-full transition-all duration-500 shadow-[0_0_15px_rgba(129,236,255,0.8)]"></div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row gap-6 items-center justify-between pt-4">
+                        <button type="submit" class="w-full md:w-auto px-10 py-4 rounded-full bg-gradient-to-r from-primary to-tertiary text-on-primary font-bold text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_10px_30px_rgba(129,236,255,0.3)] hover:shadow-[0_15px_40px_rgba(129,236,255,0.5)]">
+                            HITUNG SEKARANG
+                        </button>
+                    </div>
+                </form>
+
+                {% if result %}
+                <div class="mt-12 p-8 rounded-xl bg-surface-container-lowest/40 border border-primary/20 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative z-10 flex flex-col items-center justify-center text-center">
+                        <span class="text-primary text-[0.65rem] uppercase tracking-[0.3em] font-bold mb-4">Hasil Konversi</span>
+                        <div class="flex flex-col items-center gap-4">
+                            <span id="resultText" class="text-5xl md:text-6xl font-black text-on-surface tracking-tighter drop-shadow-[0_0_20px_rgba(129,236,255,0.4)]">
+                                {{ result }}
+                            </span>
+                            
+                            <button onclick="copyToClipboard()" type="button" class="mt-2 flex items-center gap-2 px-4 py-2 rounded-full border border-primary/50 text-primary hover:bg-primary/20 transition-all text-sm font-semibold">
+                                <span class="material-symbols-outlined text-[1.2rem]">content_copy</span> Salin Hasil
+                            </button>
+                            
+                            <div id="copyFeedback" class="text-green-400 text-xs tracking-widest uppercase font-bold mt-1" style="display: none;">
+                                ✓ Tersalin ke clipboard!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function copyToClipboard() {
+            const text = document.getElementById("resultText").innerText.trim();
+            navigator.clipboard.writeText(text).then(() => {
+                const feedback = document.getElementById("copyFeedback");
+                feedback.style.display = "block";
+                
+                // Animasi sederhana
+                feedback.style.opacity = "0";
+                setTimeout(() => feedback.style.opacity = "1", 50);
+
+                setTimeout(() => {
+                    feedback.style.opacity = "0";
+                    setTimeout(() => feedback.style.display = "none", 300);
+                }, 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin text: ', err);
+            });
+        }
+    </script>
+</body>
 </html>

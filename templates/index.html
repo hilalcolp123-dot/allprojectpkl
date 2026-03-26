@@ -1,561 +1,564 @@
 <!doctype html>
-<html lang="id" data-bs-theme="light">
+<html class="dark" lang="id">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project PKL - Portfolio</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Project PKL | Portfolio Tim</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
     <link
-      rel="shortcut icon"
-      href="{{ url_for('static', filename='icon.jpeg') }}"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
     <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="/static/css/portfolio.css" />
-    <style></style>
+
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#d7e2ff",
+              secondary: "#8dedec",
+              tertiary: "#e69dff",
+              surface: "#0c0f10",
+              "surface-container-low": "#111415",
+              "surface-container-high": "#1c2021",
+              "on-surface-variant": "#a9abac",
+              "outline-variant": "#464849",
+            },
+            fontFamily: {
+              headline: ["Poppins"],
+              body: ["Inter"],
+              label: ["Inter"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .glass-card {
+        background: rgba(34, 38, 40, 0.4);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      html {
+        scroll-behavior: smooth !important;
+        scroll-padding-top: 6rem !important; /* Jarak aman agar tidak tertutup navbar */
+      }
+      body {
+        background-color: #0c0f10;
+        color: #f5f6f7;
+      }
+    </style>
   </head>
 
-  <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <i class="fas fa-briefcase me-2"></i>PKL Portfolio
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarContent"
-          aria-controls="navbarContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+  <body class="font-body selection:bg-primary/30">
+    <nav
+      class="fixed top-0 w-full z-50 bg-slate-900/40 backdrop-blur-md border-b border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]"
+    >
+      <div
+        class="flex justify-between items-center px-8 h-20 max-w-7xl mx-auto"
+      >
+        <div
+          class="text-2xl font-bold tracking-tighter text-white bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 flex items-center gap-2"
         >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarContent">
-          <ul class="navbar-nav ms-auto align-items-center">
-            <li class="nav-item">
-              <a class="nav-link" href="#hero">Beranda</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#team">Tim</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="projectsDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Proyek
-              </a>
-              <ul
-                class="dropdown-menu dropdown-menu-end"
-                aria-labelledby="projectsDropdown"
-              >
-                <li>
-                  <a
-                    class="dropdown-item"
-                    href="/encode-decode"
-                    target="_blank"
-                  >
-                    <i class="fas fa-shield-halved me-2 text-success"></i
-                    >AES-256 Enkripsi
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/cipher" target="_blank">
-                    <i class="fas fa-puzzle-piece me-2 text-purple"></i>Cipher
-                    Tools
-                  </a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    href="/caseconverter"
-                    target="_blank"
-                  >
-                    <i class="fas fa-font me-2 text-warning"></i>Case Converter
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/tts-stt" target="_blank">
-                    <i class="fas fa-microphone me-2 text-info"></i>TTS & STT
-                  </a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    href="/imagetobase64"
-                    target="_blank"
-                  >
-                    <i class="fas fa-image me-2 text-success"></i>Image to
-                    Base64
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/utamapdf" target="_blank">
-                    <i class="fas fa-file-pdf me-2 text-primary"></i>PDF Merge &
-                    Split
-                  </a>
-                </li>
-                <li><hr class="dropdown-divider bg-secondary" /></li>
-                <!-- <li>
-                  <a class="dropdown-item" href="/anifinder" target="_blank">
-                    <i class="fas fa-magnifying-glass me-2 text-danger"></i
-                    >Anime Finder
-                  </a>
-                </li> -->
-                <li>
-                  <a class="dropdown-item" href="/todo" target="_blank">
-                    <i class="fas fa-list-check me-2 text-primary"></i>Todolist
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/quiz" target="_blank">
-                    <i class="fas fa-gamepad me-2 text-warning"></i>Quiz Game
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/utamaranking" target="_blank">
-                    <i class="fas fa-chart-line me-2 text-secondary"></i
-                    >AniManga Ranking
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/anischedule" target="_blank">
-                    <i class="fas fa-calendar me-2 text-danger"></i>Anime
-                    Schedule
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/jurnal" target="_blank">
-                    <i class="fa-solid fa-book-open me-2 text-info"></i>Jurnal
-                    PKL
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/wedding" target="_blank">
-                    <i class="fa-solid fa-children me-2 text-purple"></i>Wedding
-                    Invitation
-                  </a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    href="https://drive.google.com/uc?export=download&id=1L49eaZmkc0dXG4Q5Y3yt-62I68RYo9wO"
-                    target="_blank"
-                  >
-                    <i class="fa-solid fa-book-open me-2 text-primary"></i
-                    >JurnalPKL APK
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/resep-index" target="_blank">
-                    <i class="fa-solid fa-fire-burner me-2 text-success"></i
-                    >What Should I Cook Today?
-                  </a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    href="/unitconverter"
-                    target="_blank"
-                  >
-                    <i class="fa-solid fa-arrows-rotate me-2 text-danger"></i
-                    >Universal Converter
-                  </a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    href="/currencyconverter"
-                    target="_blank"
-                  >
-                    <i
-                      class="fa-solid fa-money-bill-transfer me-2 text-primary"
-                    ></i
-                    >Currency Converter
-                  </a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    href="/weather"
-                    target="_blank"
-                  >
-                    <i
-                      class="fa-solid fa-cloud-sun me-2 text-warning"
-                    ></i>
-                    >Cuaca hari ini
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <span class="material-symbols-outlined">work</span> PKL Showcase
         </div>
+        <div class="hidden md:flex items-center space-y-0 space-x-12">
+          <a
+            id="nav-home"
+            class="nav-link text-cyan-400 border-b-2 border-cyan-400 pb-1 tracking-wider uppercase text-xs font-semibold transition-all duration-300"
+            href="#home"
+            >Beranda</a
+          >
+          <a
+            id="nav-team"
+            class="nav-link text-slate-300 hover:text-white pb-1 tracking-wider uppercase text-xs font-semibold hover:scale-105 duration-300 transition-all"
+            href="#team"
+            >Tim</a
+          >
+          <a
+            id="nav-projects"
+            class="nav-link text-slate-300 hover:text-white pb-1 tracking-wider uppercase text-xs font-semibold hover:scale-105 duration-300 transition-all"
+            href="#projects"
+            >Proyek</a
+          >
+        </div>
+        <a
+          href="#projects"
+          class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-6 py-2.5 rounded-full font-semibold hover:scale-105 transition-all duration-300 shadow-lg shadow-cyan-500/30"
+        >
+          Lihat Proyek
+        </a>
       </div>
     </nav>
 
-    <!-- Hero Section (tambahkan padding-top agar tidak tertutup navbar) -->
-    <section class="hero-section" id="hero" style="padding-top: 100px">
-      <div class="container hero-content">
-        <div class="portfolio-badge">
-          <i class="fas fa-briefcase me-2"></i> Portfolio Project
+    <section
+      class="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden"
+      id="home"
+    >
+      <div class="absolute inset-0 z-0">
+        <div
+          class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px]"
+        ></div>
+        <div
+          class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]"
+        ></div>
+      </div>
+      <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+        <div
+          class="inline-flex items-center gap-2 px-6 py-2 mb-8 rounded-full glass-card border-cyan-500/20 text-cyan-400 text-sm font-label tracking-widest uppercase"
+        >
+          <span class="material-symbols-outlined text-sm">calendar_month</span>
+          5 Januari - 17 April
         </div>
-        <h1 class="hero-title">Project PKL</h1>
-        <p class="hero-subtitle">
-          Hasil Project Selama Praktik Kerja Lapangan (PKL)
+        <h1
+          class="font-headline text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight"
+        >
+          <span
+            class="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60"
+            >Portfolio Proyek</span
+          ><br />
+          <span
+            class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500"
+            >Praktek Kerja Lapangan</span
+          >
+        </h1>
+        <p
+          class="text-on-surface-variant text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed mb-12"
+        >
+          Dokumentasi perjalanan teknis dan kumpulan inovasi digital yang
+          dibangun selama masa PKL. Menyatukan teori dan implementasi industri.
         </p>
-        <div class="hero-period">
-          <i class="fas fa-calendar-alt"></i>
-          <span>5 Januari - 17 April</span>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            class="bg-white text-black px-10 py-4 rounded-full font-bold shadow-lg shadow-white/10 hover:scale-105 transition-all"
+            href="#projects"
+          >
+            Jelajahi Karya Kami
+          </a>
         </div>
+      </div>
+      <div
+        class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-40"
+      >
+        <span class="material-symbols-outlined text-3xl">expand_more</span>
       </div>
     </section>
 
-    <!-- Team Section -->
-    <section class="team-section" id="team">
-      <div class="container">
-        <h2 class="section-title text-center">Tim Pengembang</h2>
-
-        <div class="team-grid">
-          <div class="team-card">
-            <div class="team-avatar">M</div>
-            <div>
-              <div class="team-name">Muhammad Hilal Diyaul Haq</div>
-              <div class="team-role"></div>
-            </div>
-          </div>
-
-          <div class="team-card">
-            <div class="team-avatar">I</div>
-            <div>
-              <div class="team-name">Ihsan Faturrahman</div>
-              <div class="team-role"></div>
-            </div>
-          </div>
-
-          <div class="team-card">
-            <div class="team-avatar">R</div>
-            <div>
-              <div class="team-name">Rikaz Putra Erdiansyah</div>
-              <div class="team-role"></div>
-            </div>
-          </div>
+    <section class="py-24 bg-surface-container-low" id="team">
+      <div class="max-w-7xl mx-auto px-8">
+        <div class="mb-16 text-center md:text-left">
+          <h2 class="font-headline text-4xl font-bold mb-4">Tim Pengembang</h2>
+          <div
+            class="w-20 h-1.5 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full mx-auto md:mx-0"
+          ></div>
         </div>
-      </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="projects-section">
-      <div class="container">
-        <h2 class="section-title text-center">Daftar Project</h2>
-
-        <div class="projects-carousel-wrapper">
-          <button class="nav-btn prev" onclick="moveCarousel(-1)">
-            <i class="fas fa-chevron-left"></i>
-          </button>
-          <div class="projects-carousel">
-            <!-- Project 1 -->
-            <div class="project-card green">
-              <div class="card-icon">
-                <i class="fas fa-shield-halved"></i>
-              </div>
-              <h3 class="card-title">AES-256 Enkripsi</h3>
-              <p class="card-description short">
-                Enkripsi & dekripsi teks menggunakan AES-256 + Web Crypto API
-              </p>
-              <a href="/encode-decode" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="project-card purple">
-              <div class="card-icon">
-                <i class="fas fa-puzzle-piece"></i>
-              </div>
-              <h3 class="card-title">Cipher Tools</h3>
-              <p class="card-description short">
-                Caesar, Morse, Atbash, Vigenère — alat kripto klasik
-              </p>
-              <a href="/cipher" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="project-card orange">
-              <div class="card-icon">
-                <i class="fas fa-font"></i>
-              </div>
-              <h3 class="card-title">Case Converter</h3>
-              <p class="card-description short">
-                Ubah teks: Upper, Lower, Title, Alternating
-              </p>
-              <a href="/caseconverter" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 4 -->
-            <div class="project-card blue">
-              <div class="card-icon">
-                <i class="fas fa-microphone"></i>
-              </div>
-              <h3 class="card-title">TTS & STT</h3>
-              <p class="card-description short">
-                Text to Speech & Speech to Text — multibahasa & rekam suara
-              </p>
-              <a href="/tts-stt" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 5 -->
-            <div class="project-card green">
-              <div class="card-icon">
-                <i class="fas fa-image"></i>
-              </div>
-              <h3 class="card-title">Image to Base64</h3>
-              <p class="card-description short">
-                Konversi gambar ke Base64 — upload, preview & salin kode
-              </p>
-              <a href="/imagetobase64" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 6
-            <div class="project-card red">
-              <div class="card-icon">
-                <i class="fas fa-magnifying-glass"></i>
-              </div>
-              <h3 class="card-title">Anime Finder</h3>
-              <p class="card-description short">
-                Cari anime favoritmu dengan mudah
-              </p>
-              <a href="/anifinder" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div> -->
-
-            <!-- Project 7 -->
-            <div class="project-card blue">
-              <div class="card-icon">
-                <i class="fas fa-list-check"></i>
-              </div>
-              <h3 class="card-title">Todolist</h3>
-              <p class="card-description short">
-                Buat daftar tugas harianmu dengan mudah
-              </p>
-              <a href="/todo" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 8 -->
-            <div class="project-card orange">
-              <div class="card-icon">
-                <i class="fas fa-gamepad"></i>
-              </div>
-              <h3 class="card-title">Quiz Game</h3>
-              <p class="card-description short">
-                Latih pengetahuan kamu dengan berbagai soal kuis
-              </p>
-              <a href="/quiz" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 9 -->
-            <div class="project-card purple">
-              <div class="card-icon">
-                <i class="fas fa-chart-line"></i>
-              </div>
-              <h3 class="card-title">AniManga Ranking</h3>
-              <p class="card-description short">
-                Cek peringkat anime & manga terbaru dengan API MyAnimeList
-              </p>
-              <a href="/utamaranking" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 10 -->
-            <div class="project-card green">
-              <div class="card-icon">
-                <i class="fa-regular fa-calendar"></i>
-              </div>
-              <h3 class="card-title">Anime Schedule</h3>
-              <p class="card-description short">
-                Lihat jadwal tayang anime terbaru
-              </p>
-              <a href="/anischedule" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 11 -->
-            <div class="project-card red">
-              <div class="card-icon">
-                <i class="fa-solid fa-book-open"></i>
-              </div>
-              <h3 class="card-title">Jurnal PKL</h3>
-              <p class="card-description short">
-                Catat kegiatan harian selama praktik kerja lapangan
-              </p>
-              <a href="/jurnal" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 12 -->
-            <div class="project-card blue">
-              <div class="card-icon">
-                <i class="fa-solid fa-children"></i>
-              </div>
-              <h3 class="card-title">Wedding Invitation</h3>
-              <p class="card-description short">
-                Buat undangan pernikahan yang unik dan menarik
-              </p>
-              <a href="/wedding" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 13 -->
-            <div class="project-card orange">
-              <div class="card-icon">
-                <i class="fa-solid fa-file-pdf"></i>
-              </div>
-              <h3 class="card-title">PDF Merge & Split</h3>
-              <p class="card-description short">
-                PDF Merge & Split adalah aplikasi web untuk menggabungkan dan
-                memisahkan file PDF dengan cepat dan mudah langsung dari
-                browser.
-              </p>
-              <a href="/utamapdf" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 14 -->
-            <div class="project-card purple">
-              <div class="card-icon">
-                <i class="fa-solid fa-book-open"></i>
-              </div>
-              <h3 class="card-title">JurnalPKL APK</h3>
-              <p class="card-description short">
-                Aplikasi yang membantu pengguna mencatat kegiatan harian secara
-                digital ketika jurnal fisik tidak dibawa, sehingga aktivitas
-                tetap terdokumentasi dan dapat dipindahkan ke jurnal fisik di
-                kemudian hari.
-              </p>
-              <a
-                target="_blank"
-                href="https://drive.google.com/uc?export=download&id=1L49eaZmkc0dXG4Q5Y3yt-62I68RYo9wO"
-                class="card-link"
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div
+            class="group relative bg-surface-container-high p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/5"
+          >
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="w-24 h-24 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center text-3xl font-bold text-white mb-6 shadow-lg"
               >
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 15 -->
-            <div class="project-card green">
-              <div class="card-icon">
-                <i class="fa-solid fa-fire-burner"></i>
+                M
               </div>
-              <h3 class="card-title">What Should I Cook Today?</h3>
-              <p class="card-description short">
-                Website ini membantu pengguna menemukan ide masakan berdasarkan
-                bahan yang dimiliki dengan cepat dan mudah, namun pencarian
-                resep harus menggunakan nama bahan dalam bahasa Inggris.
+              <h3 class="text-xl font-headline font-bold mb-1">
+                Muhammad Hilal Diyaul Haq
+              </h3>
+              <p
+                class="text-cyan-400 text-xs font-label uppercase tracking-widest mb-4"
+              >
+                Developer
               </p>
-              <a href="/resep-index" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 16 -->
-            <div class="project-card red">
-              <div class="card-icon">
-                <i class="fa-solid fa-arrows-rotate"></i>
-              </div>
-              <h3 class="card-title">Universal Converter</h3>
-              <p class="card-description short">
-                Website yang menyediakan berbagai alat konversi seperti Celsius
-                ke Fahrenheit, panjang, berat, waktu, dan banyak konverter
-                lainnya yang dapat digunakan dengan cepat dan mudah dalam satu
-                tempat.
-              </p>
-              <a href="/unitconverter" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 17 -->
-            <div class="project-card blue">
-              <div class="card-icon">
-                <i class="fa-solid fa-money-bill-transfer"></i>
-              </div>
-              <h3 class="card-title">Currency Converter</h3>
-              <p class="card-description short">
-                Website yang memungkinkan pengguna mengonversi nilai mata uang
-                dari satu negara ke mata uang lainnya dengan cepat dan mudah,
-                menggunakan nilai tukar terbaru. Cocok untuk kebutuhan
-                perjalanan, bisnis, atau perbandingan harga internasional.
-              </p>
-              <a href="/currencyconverter" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
-            </div>
-
-            <!-- Project 18 -->
-            <div class="project-card orange">
-              <div class="card-icon">
-                <i class="fa-solid fa-cloud-sun"></i>
-              </div>
-              <h3 class="card-title">Cuaca Hari ini</h3>
-              <p class="card-description short">
-                Pantau prakiraan cuaca 24 jam ke depan dengan visualisasi grafik
-                suhu yang interaktif. Masukkan nama kota untuk mendapatkan data
-                real-time langsung dari OpenWeatherMap API.
-              </p>
-              <a href="/weather" class="card-link">
-                <i class="fas fa-external-link-alt"></i> Buka
-              </a>
             </div>
           </div>
-          <button class="nav-btn next" onclick="moveCarousel(1)">
-            <i class="fas fa-chevron-right"></i>
-          </button>
+
+          <div
+            class="group relative bg-surface-container-high p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/5"
+          >
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="w-24 h-24 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-3xl font-bold text-white mb-6 shadow-lg"
+              >
+                I
+              </div>
+              <h3 class="text-xl font-headline font-bold mb-1">
+                Ihsan Faturrahman
+              </h3>
+              <p
+                class="text-purple-400 text-xs font-label uppercase tracking-widest mb-4"
+              >
+                Developer
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="group relative bg-surface-container-high p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/5"
+          >
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="w-24 h-24 rounded-full bg-gradient-to-tr from-orange-400 to-red-500 flex items-center justify-center text-3xl font-bold text-white mb-6 shadow-lg"
+              >
+                R
+              </div>
+              <h3 class="text-xl font-headline font-bold mb-1">
+                Rikaz Putra Erdiansyah
+              </h3>
+              <p
+                class="text-orange-400 text-xs font-label uppercase tracking-widest mb-4"
+              >
+                Developer
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer-custom">
-      <div class="container">
-        <p class="footer-text">
-          <i class="fas fa-code"></i> Dibuat dengan
-          <i class="fas fa-heart"></i> menggunakan
-          <strong>HTML, CSS, JavaScript</strong>
-        </p>
+    <section class="py-24 bg-surface" id="projects">
+      <div class="max-w-7xl mx-auto px-8">
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
+        >
+          <div>
+            <h2 class="font-headline text-4xl font-bold mb-4">Daftar Proyek</h2>
+            <p class="text-on-surface-variant max-w-lg">
+              Koleksi 17 solusi aplikasi dan tools yang dikembangkan dengan
+              fokus pada performa dan utilitas.
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <span
+              class="px-4 py-2 rounded-lg bg-surface-container-high text-white text-xs font-bold uppercase tracking-tighter border border-white/10"
+              >17 Total Works</span
+            >
+          </div>
+        </div>
+
+        <div
+          id="project-grid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+        ></div>
+      </div>
+    </section>
+
+    <footer
+      class="bg-surface-container-low border-t border-white/5 w-full py-12"
+    >
+      <div
+        class="max-w-7xl mx-auto px-8 flex flex-col items-center justify-center text-center space-y-4"
+      >
+        <div class="flex items-center justify-center gap-2 text-slate-400 mb-2">
+          <span class="material-symbols-outlined">code</span> Dibuat dengan
+          dedikasi selama masa PKL
+        </div>
+        <div class="text-slate-500 font-body text-sm">
+          © 2026 Tim Pengembang PKL. All rights reserved.
+        </div>
       </div>
     </footer>
 
-    <script src="/static/js/portofolio.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <div
+      id="projectModal"
+      class="fixed inset-0 z-[100] hidden items-center justify-center p-4"
+    >
+      <div
+        class="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
+        onclick="closeModal()"
+      ></div>
+
+      <div
+        class="relative glass-card w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl transition-all"
+      >
+        <button
+          onclick="closeModal()"
+          class="absolute top-4 right-4 text-white/50 hover:text-white transition-colors bg-black/50 p-2 rounded-full flex items-center"
+        >
+          <span class="material-symbols-outlined">close</span>
+        </button>
+        <div class="p-8">
+          <div
+            class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-6"
+          >
+            <div
+              class="w-20 h-20 bg-cyan-500/20 rounded-2xl flex items-center justify-center shrink-0 border border-cyan-500/30"
+            >
+              <span
+                id="modalIcon"
+                class="material-symbols-outlined text-4xl text-cyan-400"
+                >code</span
+              >
+            </div>
+            <div>
+              <h2
+                id="modalTitle"
+                class="text-3xl font-headline font-bold text-white mb-2"
+              >
+                Judul Proyek
+              </h2>
+              <span
+                class="text-cyan-400 font-label text-xs uppercase tracking-widest bg-cyan-400/10 px-3 py-1 rounded-full"
+                >Web Application</span
+              >
+            </div>
+          </div>
+
+          <div
+            class="space-y-6 text-slate-300 leading-relaxed bg-black/20 p-6 rounded-xl border border-white/5"
+          >
+            <h4 class="text-white text-sm font-bold uppercase mb-2">
+              Deskripsi
+            </h4>
+            <p id="modalDesc" class="text-sm">
+              Deskripsi detail proyek akan muncul di sini.
+            </p>
+          </div>
+
+          <div class="mt-8 flex gap-4">
+            <a
+              id="modalLink"
+              href="#"
+              target="_blank"
+              class="flex-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-4 rounded-xl text-center font-bold hover:brightness-110 transition-all shadow-lg flex justify-center items-center gap-2"
+            >
+              <span class="material-symbols-outlined">open_in_new</span> Buka
+              Aplikasi / Demo
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Ambil semua elemen navigasi
+      const navLinks = document.querySelectorAll(".nav-link");
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", function () {
+          // 1. Hapus status aktif (warna cyan & garis bawah) dari semua menu
+          navLinks.forEach((item) => {
+            item.classList.remove(
+              "text-cyan-400",
+              "border-b-2",
+              "border-cyan-400",
+            );
+            item.classList.add("text-slate-300");
+          });
+
+          // 2. Tambahkan status aktif ke menu yang baru saja diklik
+          this.classList.add("text-cyan-400", "border-b-2", "border-cyan-400");
+          this.classList.remove("text-slate-300");
+        });
+      });
+
+      // 1. Data Asli Proyek (Sesuai dengan kode asli)
+      // 1. Data Asli Proyek (Sekarang dengan spesifik IMAGE)
+      const projectData = [
+        {
+          title: "AES-256 Enkripsi",
+          icon: "enhanced_encryption",
+          href: "/encode-decode",
+          desc: "Enkripsi & dekripsi teks menggunakan AES-256 + Web Crypto API",
+          image:
+            "/static/images/aes.jpg",
+        },
+        {
+          title: "Cipher Tools",
+          icon: "password",
+          href: "/cipher",
+          desc: "Caesar, Morse, Atbash, Vigenère — alat kripto klasik untuk pembelajaran keamanan data.",
+          image:
+            "/static/images/cipher.jpg",
+        },
+        {
+          title: "Case Converter",
+          icon: "text_format",
+          href: "/caseconverter",
+          desc: "Ubah format teks dengan cepat: Uppercase, Lowercase, Title Case, dan Alternating Case.",
+          image:
+            "/static/images/case.jpg",
+        },
+        {
+          title: "TTS & STT",
+          icon: "mic",
+          href: "/tts-stt",
+          desc: "Text to Speech & Speech to Text — Mendukung multibahasa & fitur rekam suara langsung dari browser.",
+          image:
+            "/static/images/tts.jpg",
+        },
+        {
+          title: "Image to Base64",
+          icon: "image",
+          href: "/imagetobase64",
+          desc: "Konversi gambar ke format Base64 — mempermudah proses upload, preview & salin kode untuk developer.",
+          image:
+            "/static/images/base.jpg",
+        },
+        {
+          title: "Todolist",
+          icon: "checklist",
+          href: "/todo",
+          desc: "Aplikasi produktivitas sederhana untuk membuat dan melacak daftar tugas harianmu dengan mudah.",
+          image:
+            "/static/images/todo.jpg",
+        },
+        {
+          title: "Quiz Game",
+          icon: "sports_esports",
+          href: "/quiz",
+          desc: "Latih pengetahuan kamu dengan berbagai soal kuis interaktif yang menantang.",
+          image:
+            "/static/images/quiz.jpg",
+        },
+        {
+          title: "AniManga Ranking",
+          icon: "leaderboard",
+          href: "/utamaranking",
+          desc: "Cek peringkat anime & manga terbaru secara real-time terintegrasi dengan API MyAnimeList.",
+          image:
+            "/static/images/ranking.jpg",
+        },
+        {
+          title: "Anime Schedule",
+          icon: "calendar_month",
+          href: "/anischedule",
+          desc: "Lihat jadwal tayang anime terbaru secara akurat agar tidak ketinggalan episode.",
+          image:
+            "/static/images/schedule.jpg",
+        },
+        {
+          title: "Jurnal PKL",
+          icon: "book",
+          href: "/jurnal",
+          desc: "Sistem informasi pencatatan kegiatan harian selama praktik kerja lapangan berbasis web.",
+          image:
+            "/static/images/icon-192.png",
+        },
+        {
+          title: "Wedding Invitation",
+          icon: "favorite",
+          href: "/wedding",
+          desc: "Template website undangan pernikahan digital yang unik, modern, dan menarik.",
+          image:
+            "/static/images/wedding.jpg",
+        },
+        {
+          title: "PDF Merge & Split",
+          icon: "picture_as_pdf",
+          href: "/utamapdf",
+          desc: "Aplikasi web ultilitas untuk menggabungkan dan memisahkan halaman file PDF dengan cepat.",
+          image:
+            "/static/images/PDF.jpg",
+        },
+        {
+          title: "JurnalPKL APK",
+          icon: "smartphone",
+          href: "https://drive.google.com/uc?export=download&id=1L49eaZmkc0dXG4Q5Y3yt-62I68RYo9wO",
+          desc: "Aplikasi Android yang membantu pengguna mencatat kegiatan harian secara digital dari smartphone.",
+          image:
+            "/static/images/jurnalapp.jpg",
+        },
+        {
+          title: "What Should I Cook?",
+          icon: "restaurant",
+          href: "/resep-index",
+          desc: "Website pencari ide masakan cerdas berdasarkan bahan-bahan yang saat ini kamu miliki di dapur.",
+          image:
+            "/static/images/recipe.jpg",
+        },
+        {
+          title: "Universal Converter",
+          icon: "sync",
+          href: "/unitconverter",
+          desc: "Berbagai alat konversi seperti panjang, berat, suhu, dan waktu dalam satu tempat praktis.",
+          image:
+            "/static/images/converter.jpg",
+        },
+        {
+          title: "Currency Converter",    
+          icon: "currency_exchange",
+          href: "/currencyconverter",
+          desc: "Konversi nilai mata uang dunia menggunakan nilai tukar terbaru yang update secara real-time.",
+          image:
+            "/static/images/money.jpg",
+        },
+        {
+          title: "Cuaca Hari Ini",
+          icon: "partly_cloudy_day",
+          href: "/weather",
+          desc: "Pantau prakiraan cuaca 24 jam ke depan dengan visualisasi grafik suhu yang interaktif via OpenWeatherMap API.",
+          image:
+            "/static/images/cuaca.jpg",
+        },
+      ];
+
+      // 2. Render Grid Proyek Otomatis
+      const gridContainer = document.getElementById("project-grid");
+
+      projectData.forEach((p, index) => {
+        const cardHTML = `
+            <div class="group bg-surface-container-low rounded-xl overflow-hidden transition-all duration-500 hover:bg-surface-container-high hover:translate-y-[-8px] border border-white/5 hover:border-cyan-500/30 flex flex-col h-full">
+                <div class="h-40 overflow-hidden relative shrink-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent z-10"></div>
+                    <img src="${p.image}" class="w-full h-full object-cover grayscale opacity-30 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700" alt="${p.title}">
+                    <div class="absolute top-4 left-4 p-3 bg-black/40 backdrop-blur-md rounded-lg z-20 border border-white/10">
+                        <span class="material-symbols-outlined text-cyan-400">${p.icon}</span>
+                    </div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-xl font-headline font-bold mb-2 text-white group-hover:text-cyan-400 transition-colors">${p.title}</h3>
+                    <p class="text-slate-400 text-sm mb-6 line-clamp-2 flex-grow">${p.desc}</p>
+                    <button onclick="openModal(${index})" class="w-full py-2.5 rounded-lg bg-white/5 border border-white/10 hover:bg-cyan-500 hover:border-cyan-500 hover:text-white transition-all font-semibold text-sm flex justify-center items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">visibility</span> Detail Proyek
+                    </button>
+                </div>
+            </div>`;
+        gridContainer.insertAdjacentHTML("beforeend", cardHTML);
+      });
+
+      // 3. Logika Buka & Tutup Modal
+      const modal = document.getElementById("projectModal");
+      const mTitle = document.getElementById("modalTitle");
+      const mDesc = document.getElementById("modalDesc");
+      const mIcon = document.getElementById("modalIcon");
+      const mLink = document.getElementById("modalLink");
+
+      function openModal(index) {
+        const data = projectData[index];
+        mTitle.innerText = data.title;
+        mDesc.innerText = data.desc;
+        mIcon.innerText = data.icon;
+
+        // Set href sesungguhnya
+        mLink.href = data.href;
+
+        // Tampilkan Modal
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        document.body.style.overflow = "hidden"; // Cegah scroll background
+      }
+
+      function closeModal() {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+        document.body.style.overflow = "auto"; // Kembalikan scroll
+      }
+    </script>
   </body>
 </html>
