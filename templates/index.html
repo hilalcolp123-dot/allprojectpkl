@@ -304,7 +304,7 @@
 
     <div
       id="projectModal"
-      class="fixed inset-0 z-[100] hidden items-center justify-center p-4"
+      class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6"
     >
       <div
         class="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
@@ -312,17 +312,18 @@
       ></div>
 
       <div
-        class="relative glass-card w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl transition-all"
+        class="relative glass-card w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl transition-all border border-white/10"
       >
         <button
           onclick="closeModal()"
-          class="absolute top-4 right-4 text-white/50 hover:text-white transition-colors bg-black/50 p-2 rounded-full flex items-center"
+          class="absolute top-4 right-4 z-10 text-white/50 hover:text-white transition-colors bg-black/50 p-2 rounded-full flex items-center"
         >
           <span class="material-symbols-outlined">close</span>
         </button>
-        <div class="p-8">
+
+        <div class="p-6 sm:p-8">
           <div
-            class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-6"
+            class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-6 mt-2 sm:mt-0"
           >
             <div
               class="w-20 h-20 bg-cyan-500/20 rounded-2xl flex items-center justify-center shrink-0 border border-cyan-500/30"
@@ -336,21 +337,24 @@
             <div>
               <h2
                 id="modalTitle"
-                class="text-3xl font-headline font-bold text-white mb-2"
+                class="text-2xl sm:text-3xl font-headline font-bold text-white mb-2"
               >
                 Judul Proyek
               </h2>
               <span
-                class="text-cyan-400 font-label text-xs uppercase tracking-widest bg-cyan-400/10 px-3 py-1 rounded-full"
-                >Web Application</span
+                class="text-cyan-400 font-label text-[10px] sm:text-xs uppercase tracking-widest bg-cyan-400/10 px-3 py-1 rounded-full"
               >
+                Web Application
+              </span>
             </div>
           </div>
 
           <div
-            class="space-y-6 text-slate-300 leading-relaxed bg-black/20 p-6 rounded-xl border border-white/5"
+            class="text-slate-300 leading-relaxed bg-black/20 p-5 sm:p-6 rounded-xl border border-white/5 mb-4"
           >
-            <h4 class="text-white text-sm font-bold uppercase mb-2">
+            <h4
+              class="text-white text-xs sm:text-sm font-bold uppercase tracking-wider mb-2"
+            >
               Deskripsi
             </h4>
             <p id="modalDesc" class="text-sm">
@@ -358,12 +362,58 @@
             </p>
           </div>
 
-          <div class="mt-8 flex gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+            <div
+              class="bg-black/20 p-5 rounded-xl border border-white/5 border-t-4 border-t-red-500/70"
+            >
+              <div class="flex items-center gap-2 mb-3">
+                <span
+                  class="material-symbols-outlined text-red-400 text-lg sm:text-xl"
+                  >warning</span
+                >
+                <h4
+                  class="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-widest"
+                >
+                  Problem Statement
+                </h4>
+              </div>
+              <p
+                id="modalProblem"
+                class="text-sm text-slate-300 leading-relaxed"
+              >
+                Masalah apa yang kalian coba pecahkan akan muncul di sini.
+              </p>
+            </div>
+
+            <div
+              class="bg-black/20 p-5 rounded-xl border border-white/5 border-t-4 border-t-cyan-500/70"
+            >
+              <div class="flex items-center gap-2 mb-3">
+                <span
+                  class="material-symbols-outlined text-cyan-400 text-lg sm:text-xl"
+                  >lightbulb</span
+                >
+                <h4
+                  class="text-[10px] sm:text-xs font-bold text-cyan-400 uppercase tracking-widest"
+                >
+                  Solution
+                </h4>
+              </div>
+              <p
+                id="modalSolution"
+                class="text-sm text-slate-300 leading-relaxed"
+              >
+                Bagaimana proyek ini membantu akan muncul di sini.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-8">
             <a
               id="modalLink"
               href="#"
               target="_blank"
-              class="flex-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-4 rounded-xl text-center font-bold hover:brightness-110 transition-all shadow-lg flex justify-center items-center gap-2"
+              class="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-6 py-4 rounded-xl text-center font-bold hover:brightness-110 transition-all shadow-lg flex justify-center items-center gap-2"
             >
               <span class="material-symbols-outlined">open_in_new</span> Buka
               Aplikasi / Demo
@@ -404,6 +454,10 @@
           href: "/encode-decode",
           desc: "Enkripsi & dekripsi teks menggunakan AES-256 + Web Crypto API",
           image: "/static/images/aes.jpg",
+          problem:
+            "Pesan teks biasa yang dikirim melalui internet sangat rentan disadap atau dibaca oleh pihak ketiga.",
+          solution:
+            "Menyediakan alat enkripsi berstandar militer (AES-256) yang beroperasi sepenuhnya di sisi klien, sehingga privasi data terjamin aman.",
         },
         {
           title: "Cipher Tools",
@@ -411,6 +465,10 @@
           href: "/cipher",
           desc: "Caesar, Morse, Atbash, Vigenère — alat kripto klasik untuk pembelajaran keamanan data.",
           image: "/static/images/cipher.jpg",
+          problem:
+            "Mempelajari dasar-dasar kriptografi klasik seringkali membingungkan jika dilakukan secara manual tanpa alat peraga interaktif.",
+          solution:
+            "Membangun platform edukasi interaktif yang memungkinkan pengguna melihat proses enkripsi sandi klasik secara langsung.",
         },
         {
           title: "Case Converter",
@@ -418,6 +476,10 @@
           href: "/caseconverter",
           desc: "Ubah format teks dengan cepat: Uppercase, Lowercase, Title Case, dan Alternating Case.",
           image: "/static/images/case.jpg",
+          problem:
+            "Seringkali kita perlu mengubah format huruf secara massal (misal kapital semua), dan mengetik ulang memakan banyak waktu.",
+          solution:
+            "Alat konversi instan 1-klik yang memformat teks secara otomatis dengan berbagai gaya penulisan.",
         },
         {
           title: "TTS & STT",
@@ -425,6 +487,10 @@
           href: "/tts-stt",
           desc: "Text to Speech & Speech to Text — Mendukung multibahasa & fitur rekam suara langsung dari browser.",
           image: "/static/images/tts.jpg",
+          problem:
+            "Mengubah teks ke suara atau sebaliknya secara manual itu ribet dan butuh aplikasi tambahan.",
+          solution:
+            "Fitur Text to Speech & Speech to Text langsung di browser tanpa install aplikasi tambahan, praktis dan cepat.",
         },
         {
           title: "Image to Base64",
@@ -432,6 +498,10 @@
           href: "/imagetobase64",
           desc: "Konversi gambar ke format Base64 — mempermudah proses upload, preview & salin kode untuk developer.",
           image: "/static/images/base.jpg",
+          problem:
+            "Developer sering butuh encode gambar ke Base64 untuk embedding, tapi proses manual cukup merepotkan.",
+          solution:
+            "Konversi otomatis gambar ke Base64 hanya dengan upload, siap copy tanpa ribet.",
         },
         {
           title: "Todolist",
@@ -439,6 +509,10 @@
           href: "/todo",
           desc: "Aplikasi produktivitas sederhana untuk membuat dan melacak daftar tugas harianmu dengan mudah.",
           image: "/static/images/todo.jpg",
+          problem:
+            "Sering lupa tugas harian karena tidak ada sistem pencatatan yang rapi.",
+          solution:
+            "Aplikasi sederhana untuk mencatat dan memantau tugas agar lebih terorganisir.",
         },
         {
           title: "Quiz Game",
@@ -446,6 +520,10 @@
           href: "/quiz",
           desc: "Latih pengetahuan kamu dengan berbagai soal kuis interaktif yang menantang.",
           image: "/static/images/quiz.jpg",
+          problem:
+            "Belajar terasa membosankan tanpa adanya interaksi atau tantangan.",
+          solution:
+            "Game kuis interaktif yang membuat proses belajar jadi lebih seru dan menantang.",
         },
         {
           title: "AniManga Ranking",
@@ -453,6 +531,10 @@
           href: "/utamaranking",
           desc: "Cek peringkat anime & manga terbaru secara real-time terintegrasi dengan API MyAnimeList.",
           image: "/static/images/ranking.jpg",
+          problem:
+            "Sulit mencari referensi anime atau manga terbaik yang sedang trending.",
+          solution:
+            "Menampilkan ranking terbaru dari API secara real-time untuk membantu memilih tontonan.",
         },
         {
           title: "Anime Schedule",
@@ -460,6 +542,10 @@
           href: "/anischedule",
           desc: "Lihat jadwal tayang anime terbaru secara akurat agar tidak ketinggalan episode.",
           image: "/static/images/schedule.jpg",
+          problem:
+            "Sering ketinggalan episode anime karena tidak tahu jadwal rilisnya.",
+          solution:
+            "Jadwal tayang anime terbaru yang update sehingga kamu tidak ketinggalan episode.",
         },
         {
           title: "Jurnal PKL",
@@ -467,6 +553,10 @@
           href: "/jurnal",
           desc: "Sistem informasi pencatatan kegiatan harian selama praktik kerja lapangan berbasis web.",
           image: "/static/images/icon-192.png",
+          problem:
+            "Pencatatan kegiatan PKL masih manual dan rawan hilang atau tidak rapi.",
+          solution:
+            "Sistem digital untuk mencatat aktivitas harian secara terstruktur dan aman.",
         },
         {
           title: "Wedding Invitation",
@@ -474,6 +564,10 @@
           href: "/wedding",
           desc: "Template website undangan pernikahan digital yang unik, modern, dan menarik.",
           image: "/static/images/wedding.jpg",
+          problem:
+            "Undangan fisik memakan biaya besar dan kurang praktis untuk dibagikan.",
+          solution:
+            "Website undangan digital yang hemat biaya, mudah dibagikan, dan terlihat modern.",
         },
         {
           title: "PDF Merge & Split",
@@ -481,6 +575,10 @@
           href: "/utamapdf",
           desc: "Aplikasi web ultilitas untuk menggabungkan dan memisahkan halaman file PDF dengan cepat.",
           image: "/static/images/PDF.jpg",
+          problem:
+            "Menggabungkan atau memisahkan file PDF biasanya butuh software khusus.",
+          solution:
+            "Tool online yang bisa merge dan split PDF langsung tanpa install aplikasi.",
         },
         {
           title: "JurnalPKL APK",
@@ -488,6 +586,10 @@
           href: "https://drive.google.com/uc?export=download&id=1L49eaZmkc0dXG4Q5Y3yt-62I68RYo9wO",
           desc: "Aplikasi Android yang membantu pengguna mencatat kegiatan harian secara digital dari smartphone.",
           image: "/static/images/jurnalapp.jpg",
+          problem:
+            "Mencatat kegiatan lewat buku atau web kurang fleksibel saat mobile.",
+          solution:
+            "Aplikasi Android untuk mencatat kegiatan kapan saja langsung dari smartphone.",
         },
         {
           title: "What Should I Cook?",
@@ -495,6 +597,9 @@
           href: "/resep-index",
           desc: "Website pencari ide masakan cerdas berdasarkan bahan-bahan yang saat ini kamu miliki di dapur.",
           image: "/static/images/recipe.jpg",
+          problem: "Sering bingung mau masak apa dengan bahan yang tersedia.",
+          solution:
+            "Rekomendasi masakan berdasarkan bahan yang dimiliki agar tidak perlu berpikir lama.",
         },
         {
           title: "Universal Converter",
@@ -502,6 +607,10 @@
           href: "/unitconverter",
           desc: "Berbagai alat konversi seperti panjang, berat, suhu, dan waktu dalam satu tempat praktis.",
           image: "/static/images/converter.jpg",
+          problem:
+            "Konversi satuan harus cari tool berbeda-beda dan tidak praktis.",
+          solution:
+            "Semua jenis konversi dalam satu tempat agar lebih cepat dan efisien.",
         },
         {
           title: "Currency Converter",
@@ -509,6 +618,10 @@
           href: "/currencyconverter",
           desc: "Konversi nilai mata uang dunia menggunakan nilai tukar terbaru yang update secara real-time.",
           image: "/static/images/money.jpg",
+          problem:
+            "Nilai tukar mata uang berubah-ubah dan sulit dihitung manual.",
+          solution:
+            "Konversi mata uang real-time dengan data terbaru secara otomatis.",
         },
         {
           title: "Cuaca Hari Ini",
@@ -516,6 +629,10 @@
           href: "/weather",
           desc: "Pantau prakiraan cuaca 24 jam ke depan dengan visualisasi grafik suhu yang interaktif via OpenWeatherMap API.",
           image: "/static/images/cuaca.jpg",
+          problem:
+            "Banyak konverter satuan bertebaran di internet, namun seringkali penuh iklan dan UI yang membingungkan.",
+          solution:
+            "Membuat konverter satu pintu dengan antarmuka Glassmorphism yang bersih, cepat, dan responsif.",
         },
       ];
 
