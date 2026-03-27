@@ -1,17 +1,101 @@
-// Ambil semua elemen navigasi
+// Pastikan HTML beres dimuat dulu TS PARTIKEL
+document.addEventListener("DOMContentLoaded", function () {
+  // Cek apakah library tsParticles sudah berhasil diload dari CDN
+  if (typeof tsParticles !== "undefined") {
+    tsParticles.load("tsparticles", {
+      fpsLimit: 60,
+      interactivity: {
+        events: {
+          onHover: {
+            enable: true,
+            mode: "grab",
+          },
+          resize: true,
+        },
+        modes: {
+          grab: {
+            distance: 150,
+            links: {
+              opacity: 0.5,
+            },
+          },
+        },
+      },
+      particles: {
+        color: {
+          value: ["#22d3ee", "#a855f7", "#ffffff"],
+        },
+        links: {
+          color: "#ffffff",
+          distance: 150,
+          enable: true,
+          opacity: 0.1,
+          width: 1,
+        },
+        move: {
+          enable: true,
+          speed: 1.5,
+          direction: "none",
+          random: false,
+          straight: false,
+          outModes: {
+            default: "bounce",
+          },
+        },
+        number: {
+          density: {
+            enable: true,
+            area: 800,
+          },
+          value: 60,
+        },
+        opacity: {
+          value: 0.5,
+        },
+        shape: {
+          type: "circle",
+        },
+        size: {
+          value: { min: 1, max: 3 },
+        },
+      },
+      detectRetina: true,
+    });
+  } else {
+    console.error("Library tsParticles gagal dimuat!");
+  }
+});
+
+// 1. Ambil semua section yang punya ID (home, team, projects) dan semua nav link
+const sections = document.querySelectorAll("section[id]");
 const navLinks = document.querySelectorAll(".nav-link");
 
-navLinks.forEach((link) => {
-  link.addEventListener("click", function () {
-    // 1. Hapus status aktif (warna cyan & garis bawah) dari semua menu
-    navLinks.forEach((item) => {
-      item.classList.remove("text-cyan-400", "border-b-2", "border-cyan-400");
-      item.classList.add("text-slate-300");
-    });
+// 2. Event listener untuk mendeteksi setiap kali layar di-scroll
+window.addEventListener("scroll", () => {
+  let currentSection = "";
 
-    // 2. Tambahkan status aktif ke menu yang baru saja diklik
-    this.classList.add("text-cyan-400", "border-b-2", "border-cyan-400");
-    this.classList.remove("text-slate-300");
+  // 3. Cek layar sekarang lagi nampilin section yang mana
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.clientHeight;
+
+    // Angka pembagi 3 ini biar menunya pindah pas section baru udah masuk sepertiga layar
+    if (window.scrollY >= sectionTop - sectionHeight / 3) {
+      currentSection = section.getAttribute("id");
+    }
+  });
+
+  // 4. Update warna menu navigasi berdasarkan section yang aktif
+  navLinks.forEach((link) => {
+    // Reset dulu semua menu jadi warna abu-abu (tidak aktif)
+    link.classList.remove("text-cyan-400", "border-b-2", "border-cyan-400");
+    link.classList.add("text-slate-300");
+
+    // Kalau href di link sama dengan ID section yang lagi dilihat layarnya, jadikan aktif
+    if (link.getAttribute("href") === `#${currentSection}`) {
+      link.classList.remove("text-slate-300");
+      link.classList.add("text-cyan-400", "border-b-2", "border-cyan-400");
+    }
   });
 });
 
@@ -397,65 +481,3 @@ function closeModal() {
   modal.classList.remove("flex");
   document.body.style.overflow = "auto"; // Kembalikan scroll
 }
-
-// TS Partikles
-// Memuat efek partikel di background Hero Section
-tsParticles.load("tsparticles", {
-  fpsLimit: 60,
-  interactivity: {
-    events: {
-      onHover: {
-        enable: true,
-        mode: "grab", // Mode "grab" bikin garis nyambung ke kursor. Bisa diganti "repel" kalau mau partikelnya kabur.
-      },
-      resize: true,
-    },
-    modes: {
-      grab: {
-        distance: 150,
-        links: {
-          opacity: 0.5,
-        },
-      },
-    },
-  },
-  particles: {
-    color: {
-      value: ["#22d3ee", "#a855f7", "#ffffff"], // Warna partikel: Cyan, Purple, White (Sesuai tema Abang)
-    },
-    links: {
-      color: "#ffffff",
-      distance: 150,
-      enable: true,
-      opacity: 0.1, // Garisnya dibuat agak transparan biar teks tetap terbaca
-      width: 1,
-    },
-    move: {
-      enable: true,
-      speed: 1.5, // Kecepatan gerak partikel
-      direction: "none",
-      random: false,
-      straight: false,
-      outModes: {
-        default: "bounce", // Mantul kalau kena ujung layar
-      },
-    },
-    number: {
-      density: {
-        enable: true,
-        area: 800,
-      },
-      value: 60, // Jumlah partikel
-    },
-    opacity: {
-      value: 0.5,
-    },
-    shape: {
-      type: "circle",
-    },
-    size: {
-      value: { min: 1, max: 3 },
-    },
-  },
-  detectRetina: true,
-});
