@@ -22,6 +22,7 @@ const projectData = [
     title: "AES-256 Enkripsi",
     icon: "enhanced_encryption",
     href: "/encode-decode",
+    category: "Web Application",
     desc: "Enkripsi & dekripsi teks menggunakan AES-256 + Web Crypto API",
     image: "/static/images/aes.jpg",
     gallery: ["/static/images/aes.jpg", "/static/images/aes-detail1.png"],
@@ -35,6 +36,7 @@ const projectData = [
     title: "Cipher Tools",
     icon: "password",
     href: "/cipher",
+    category: "Web Application",
     desc: "Caesar, Morse, Atbash, Vigenère — alat kripto klasik untuk pembelajaran keamanan data.",
     image: "/static/images/cipher.jpg",
     gallery: ["/static/images/cipher.jpg", "/static/images/cipher-detail1.png"],
@@ -48,6 +50,7 @@ const projectData = [
     title: "Case Converter",
     icon: "text_format",
     href: "/caseconverter",
+    category: "Web Application",
     desc: "Ubah format teks dengan cepat: Uppercase, Lowercase, Title Case, dan Alternating Case.",
     image: "/static/images/case.jpg",
     gallery: ["/static/images/case.jpg", "/static/images/case-detail1.png"],
@@ -61,6 +64,7 @@ const projectData = [
     title: "TTS & STT",
     icon: "mic",
     href: "/tts-stt",
+    category: "Web Application",
     desc: "Text to Speech & Speech to Text — Mendukung multibahasa & fitur rekam suara langsung dari browser.",
     image: "/static/images/tts.jpg",
     developer: "Ihsan Fathurrahman",
@@ -74,6 +78,7 @@ const projectData = [
     title: "Image to Base64",
     icon: "image",
     href: "/imagetobase64",
+    category: "Web Application",
     desc: "Konversi gambar ke format Base64 — mempermudah proses upload, preview & salin kode untuk developer.",
     image: "/static/images/base.jpg",
     gallery: ["/static/images/base.jpg", "/static/images/base-detail1.png"],
@@ -87,6 +92,7 @@ const projectData = [
     title: "Todolist",
     icon: "checklist",
     href: "/todo",
+    category: "Web Application",
     desc: "Aplikasi produktivitas sederhana untuk membuat dan melacak daftar tugas harianmu dengan mudah.",
     image: "/static/images/todo.jpg",
     gallery: ["/static/images/todo.jpg", "/static/images/todo-detail1.png"],
@@ -100,6 +106,7 @@ const projectData = [
     title: "Quiz Game",
     icon: "sports_esports",
     href: "/quiz",
+    category: "Web Application",
     desc: "Latih pengetahuan kamu dengan berbagai soal kuis interaktif yang menantang.",
     image: "/static/images/quiz.jpg",
     gallery: ["/static/images/quiz.jpg", "/static/images/quiz-detail1.png"],
@@ -113,6 +120,7 @@ const projectData = [
     title: "AniManga Ranking",
     icon: "leaderboard",
     href: "/utamaranking",
+    category: "Web Application",
     desc: "Cek peringkat anime & manga terbaru secara real-time terintegrasi dengan API MyAnimeList.",
     image: "/static/images/ranking.jpg",
     gallery: [
@@ -129,6 +137,7 @@ const projectData = [
     title: "Anime Schedule",
     icon: "calendar_month",
     href: "/anischedule",
+    category: "Web Application",
     desc: "Lihat jadwal tayang anime terbaru secara akurat agar tidak ketinggalan episode.",
     image: "/static/images/schedule.jpg",
     gallery: [
@@ -145,6 +154,7 @@ const projectData = [
     title: "Jurnal PKL",
     icon: "book",
     href: "/jurnal",
+    category: "Web Application",
     desc: "Sistem informasi pencatatan kegiatan harian selama praktik kerja lapangan berbasis web.",
     image: "/static/images/icon-192.png",
     gallery: ["/static/images/jurnalpwa.png"],
@@ -158,6 +168,7 @@ const projectData = [
     title: "Wedding Invitation",
     icon: "favorite",
     href: "/wedding",
+    category: "Web Application",
     desc: "Template website undangan pernikahan digital yang unik, modern, dan menarik.",
     image: "/static/images/wedding.jpg",
     gallery: [
@@ -174,6 +185,7 @@ const projectData = [
     title: "PDF Merge & Split",
     icon: "picture_as_pdf",
     href: "/utamapdf",
+    category: "Web Application",
     desc: "Aplikasi web ultilitas untuk menggabungkan dan memisahkan halaman file PDF dengan cepat.",
     image: "/static/images/PDF.jpg",
     gallery: ["/static/images/PDF.jpg", "/static/images/PDF-detail1.png"],
@@ -184,8 +196,9 @@ const projectData = [
       "Tool online yang bisa merge dan split PDF langsung tanpa install aplikasi.",
   },
   {
-    title: "JurnalPKL APK",
+    title: "Jurnal PKL APK",
     icon: "smartphone",
+    category: "Mobile Application",
     href: "https://drive.google.com/uc?export=download&id=1L49eaZmkc0dXG4Q5Y3yt-62I68RYo9wO",
     desc: "Aplikasi Android yang membantu pengguna mencatat kegiatan harian secara digital dari smartphone.",
     image: "/static/images/jurnalapp.jpg",
@@ -203,6 +216,7 @@ const projectData = [
     title: "What Should I Cook?",
     icon: "restaurant",
     href: "/resep-index",
+    category: "Web Application",
     desc: "Website pencari ide masakan cerdas berdasarkan bahan-bahan yang saat ini kamu miliki di dapur.",
     image: "/static/images/recipe.jpg",
     gallery: ["/static/images/recipe.jpg", "/static/images/recipe-detail1.png"],
@@ -215,6 +229,7 @@ const projectData = [
     title: "Universal Converter",
     icon: "sync",
     href: "/unitconverter",
+    category: "Web Application",
     desc: "Berbagai alat konversi seperti panjang, berat, suhu, dan waktu dalam satu tempat praktis.",
     image: "/static/images/converter.jpg",
     gallery: [
@@ -230,6 +245,7 @@ const projectData = [
     title: "Currency Converter",
     icon: "currency_exchange",
     href: "/currencyconverter",
+    category: "Web Application",
     desc: "Konversi nilai mata uang dunia menggunakan nilai tukar terbaru yang update secara real-time.",
     image: "/static/images/money.jpg",
     gallery: ["/static/images/money.jpg", "/static/images/money-detail1.png"],
@@ -242,6 +258,7 @@ const projectData = [
     title: "Cuaca Hari Ini",
     icon: "partly_cloudy_day",
     href: "/weather",
+    category: "Web Application",
     desc: "Pantau prakiraan cuaca 24 jam ke depan dengan visualisasi grafik suhu yang interaktif via OpenWeatherMap API.",
     image: "/static/images/cuaca.jpg",
     gallery: ["/static/images/cuaca.jpg", "/static/images/cuaca-detail1.png"],
@@ -286,6 +303,7 @@ const mLink = document.getElementById("modalLink");
 const mProblem = document.getElementById("modalProblem");
 const mSolution = document.getElementById("modalSolution");
 const mDeveloper = document.getElementById("modalDeveloper");
+const mCategory = document.getElementById("modalCategory");
 
 // VARIABEL BARU UNTUK SLIDER
 const mSliderImage = document.getElementById("modalSliderImage");
@@ -342,9 +360,24 @@ function openModal(index) {
   mProblem.innerText = data.problem || "Deskripsi masalah belum ditambahkan.";
   mSolution.innerText = data.solution || "Deskripsi solusi belum ditambahkan.";
   mDeveloper.innerText = data.developer || "Tim Pengembang";
+  mCategory.innerText = data.category || "Kategori Blm Di Settings";
 
   // Set href sesungguhnya
   mLink.href = data.href;
+
+  // Reset warna dulu (hapus warna sebelumnya)
+  mCategory.className =
+    "font-label text-[10px] sm:text-xs uppercase tracking-widest px-3 py-1 rounded-full";
+
+  // Kasih warna sesuai kategori
+  if (data.category === "Mobile Application") {
+    mCategory.classList.add("text-green-400", "bg-green-400/10");
+  } else if (data.category === "Web Application") {
+    mCategory.classList.add("text-cyan-400", "bg-cyan-400/10");
+  } else {
+    // Warna default kalau kategori lain
+    mCategory.classList.add("text-orange-400", "bg-orange-400/10");
+  }
 
   // LOGIKA SLIDER: Set gallery dan reset index ke 0
   // Fallback: Jika 'gallery' tidak diisi, gunakan 'image' utama saja
@@ -364,3 +397,65 @@ function closeModal() {
   modal.classList.remove("flex");
   document.body.style.overflow = "auto"; // Kembalikan scroll
 }
+
+// TS Partikles
+// Memuat efek partikel di background Hero Section
+tsParticles.load("tsparticles", {
+  fpsLimit: 60,
+  interactivity: {
+    events: {
+      onHover: {
+        enable: true,
+        mode: "grab", // Mode "grab" bikin garis nyambung ke kursor. Bisa diganti "repel" kalau mau partikelnya kabur.
+      },
+      resize: true,
+    },
+    modes: {
+      grab: {
+        distance: 150,
+        links: {
+          opacity: 0.5,
+        },
+      },
+    },
+  },
+  particles: {
+    color: {
+      value: ["#22d3ee", "#a855f7", "#ffffff"], // Warna partikel: Cyan, Purple, White (Sesuai tema Abang)
+    },
+    links: {
+      color: "#ffffff",
+      distance: 150,
+      enable: true,
+      opacity: 0.1, // Garisnya dibuat agak transparan biar teks tetap terbaca
+      width: 1,
+    },
+    move: {
+      enable: true,
+      speed: 1.5, // Kecepatan gerak partikel
+      direction: "none",
+      random: false,
+      straight: false,
+      outModes: {
+        default: "bounce", // Mantul kalau kena ujung layar
+      },
+    },
+    number: {
+      density: {
+        enable: true,
+        area: 800,
+      },
+      value: 60, // Jumlah partikel
+    },
+    opacity: {
+      value: 0.5,
+    },
+    shape: {
+      type: "circle",
+    },
+    size: {
+      value: { min: 1, max: 3 },
+    },
+  },
+  detectRetina: true,
+});
