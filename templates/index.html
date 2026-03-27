@@ -137,7 +137,7 @@
           ><br />
           <span
             class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500"
-            >Praktek Kerja Lapangan</span
+            >Praktik Kerja Lapangan</span
           >
         </h1>
         <p
@@ -666,12 +666,22 @@
       const mDesc = document.getElementById("modalDesc");
       const mIcon = document.getElementById("modalIcon");
       const mLink = document.getElementById("modalLink");
+      const mProblem = document.getElementById("mProblem");
+      const mSolution = document.getElementById("mSolution");
 
       function openModal(index) {
         const data = projectData[index];
         mTitle.innerText = data.title;
+        mProblem.innerText = data.problem;
         mDesc.innerText = data.desc;
         mIcon.innerText = data.icon;
+
+        // MASUKKAN DATA PROBLEM & SOLUTION DI SINI:
+        // Gunakan operator '||' sebagai fallback jika ada data yang belum kamu isi problem/solution-nya
+        mProblem.innerText =
+          data.problem || "Deskripsi masalah belum ditambahkan.";
+        mSolution.innerText =
+          data.solution || "Deskripsi solusi belum ditambahkan.";
 
         // Set href sesungguhnya
         mLink.href = data.href;
