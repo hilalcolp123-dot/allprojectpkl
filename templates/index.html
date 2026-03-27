@@ -666,13 +666,12 @@
       const mDesc = document.getElementById("modalDesc");
       const mIcon = document.getElementById("modalIcon");
       const mLink = document.getElementById("modalLink");
-      const mProblem = document.getElementById("mProblem");
-      const mSolution = document.getElementById("mSolution");
+      const mProblem = document.getElementById("modalProblem");
+      const mSolution = document.getElementById("modalSolution");
 
       function openModal(index) {
         const data = projectData[index];
         mTitle.innerText = data.title;
-        mProblem.innerText = data.problem;
         mDesc.innerText = data.desc;
         mIcon.innerText = data.icon;
 
