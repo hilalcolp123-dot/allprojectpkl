@@ -1,101 +1,90 @@
-// Pastikan HTML beres dimuat dulu TS PARTIKEL
-document.addEventListener("DOMContentLoaded", function () {
-  // Cek apakah library tsParticles sudah berhasil diload dari CDN
-  if (typeof tsParticles !== "undefined") {
-    tsParticles.load("tsparticles", {
-      fpsLimit: 60,
-      interactivity: {
-        events: {
-          onHover: {
-            enable: true,
-            mode: "grab",
-          },
-          resize: true,
-        },
-        modes: {
-          grab: {
-            distance: 150,
-            links: {
-              opacity: 0.5,
-            },
-          },
-        },
-      },
-      particles: {
-        color: {
-          value: ["#22d3ee", "#a855f7", "#ffffff"],
-        },
-        links: {
-          color: "#ffffff",
-          distance: 150,
-          enable: true,
-          opacity: 0.1,
-          width: 1,
-        },
-        move: {
-          enable: true,
-          speed: 1.5,
-          direction: "none",
-          random: false,
-          straight: false,
-          outModes: {
-            default: "bounce",
-          },
-        },
-        number: {
-          density: {
-            enable: true,
-            area: 800,
-          },
-          value: 60,
-        },
-        opacity: {
-          value: 0.5,
-        },
-        shape: {
-          type: "circle",
-        },
-        size: {
-          value: { min: 1, max: 3 },
-        },
-      },
-      detectRetina: true,
-    });
+// ==========================================
+// LOGIKA MOBILE MENU
+// ==========================================
+const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+const menuIcon = document.getElementById("menuIcon");
+const mobileLinks = document.querySelectorAll(".mobile-link");
+
+let isMenuOpen = false;
+
+function toggleMenu() {
+  isMenuOpen = !isMenuOpen;
+
+  if (isMenuOpen) {
+    // Buka Menu
+    mobileMenu.classList.remove("-translate-y-full", "opacity-0");
+    mobileMenu.classList.add("translate-y-0", "opacity-100");
+    menuIcon.innerText = "close"; // Ganti icon jadi X
+    document.body.style.overflow = "hidden"; // Kunci scroll
   } else {
-    console.error("Library tsParticles gagal dimuat!");
+    // Tutup Menu
+    mobileMenu.classList.add("-translate-y-full", "opacity-0");
+    mobileMenu.classList.remove("translate-y-0", "opacity-100");
+    menuIcon.innerText = "menu"; // Kembali ke icon hamburger
+    document.body.style.overflow = "auto"; // Buka scroll
   }
+}
+
+// Event listener untuk klik tombol menu
+mobileMenuBtn.addEventListener("click", toggleMenu);
+
+// Event listener untuk menutup menu otomatis saat link diklik (di HP)
+mobileLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    if (isMenuOpen) toggleMenu();
+  });
 });
 
-// 1. Ambil semua section yang punya ID (home, team, projects) dan semua nav link
-const sections = document.querySelectorAll("section[id]");
-const navLinks = document.querySelectorAll(".nav-link");
+document.addEventListener("DOMContentLoaded", function () {
+  // === SCRIPT ANIMASI GELEMBUNG AKUARIUM ===
+  const bubbleCount = 30;
+  const bubbleField = document.getElementById("bubble-field");
 
-// 2. Event listener untuk mendeteksi setiap kali layar di-scroll
-window.addEventListener("scroll", () => {
-  let currentSection = "";
+  // Pastikan elemen bubble-field ada di HTML
+  if (bubbleField) {
+    // Generate gelembung dengan durasi animasi yang diacak
+    for (let i = 0; i < bubbleCount; i++) {
+      let randNum = Math.floor(Math.random() * 20) + 1;
+      let animDur = 2 + 0.5 * randNum;
 
-  // 3. Cek layar sekarang lagi nampilin section yang mana
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.clientHeight;
+      let moveEl = document.createElement("div");
+      moveEl.setAttribute("class", "bubble-rise");
+      moveEl.style.animationDuration = animDur + "s";
+      moveEl.style.left = Math.floor(Math.random() * 100) + "vw";
+      // moveEl.style.position = "absolute"; -> Ini bisa dihapus karena sudah kita set di CSS .bubble-rise di atas!
 
-    // Angka pembagi 3 ini biar menunya pindah pas section baru udah masuk sepertiga layar
-    if (window.scrollY >= sectionTop - sectionHeight / 3) {
-      currentSection = section.getAttribute("id");
+      let bubbleEl = document.createElement("div");
+      bubbleEl.setAttribute("class", "bubble");
+
+      // Kosongkan textNode untuk gelembung murni via CSS
+      moveEl.appendChild(bubbleEl);
+      bubbleField.appendChild(moveEl);
     }
-  });
+  }
 
-  // 4. Update warna menu navigasi berdasarkan section yang aktif
-  navLinks.forEach((link) => {
-    // Reset dulu semua menu jadi warna abu-abu (tidak aktif)
-    link.classList.remove("text-cyan-400", "border-b-2", "border-cyan-400");
-    link.classList.add("text-slate-300");
+  // === SCRIPT NAVIGASI SCROLL KAMU TETAP SAMA DI BAWAH SINI ===
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-link");
 
-    // Kalau href di link sama dengan ID section yang lagi dilihat layarnya, jadikan aktif
-    if (link.getAttribute("href") === `#${currentSection}`) {
-      link.classList.remove("text-slate-300");
-      link.classList.add("text-cyan-400", "border-b-2", "border-cyan-400");
-    }
+  window.addEventListener("scroll", () => {
+    let currentSection = "";
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (window.scrollY >= sectionTop - sectionHeight / 3) {
+        currentSection = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove("text-white", "border-b-2", "border-secondary");
+      link.classList.add("text-white/60");
+      if (link.getAttribute("href") === `#${currentSection}`) {
+        link.classList.remove("text-white/60");
+        link.classList.add("text-white", "border-b-2", "border-secondary");
+      }
+    });
   });
 });
 
@@ -357,20 +346,21 @@ const projectData = [
 // 2. Render Grid Proyek Otomatis
 const gridContainer = document.getElementById("project-grid");
 
+// Render Card Project (Gaya Card diubah jadi Glassmorphism Gelap)
 projectData.forEach((p, index) => {
   const cardHTML = `
-            <div class="group bg-surface-container-low rounded-xl overflow-hidden transition-all duration-500 hover:bg-surface-container-high hover:translate-y-[-8px] border border-white/5 hover:border-cyan-500/30 flex flex-col h-full">
+            <div class="group bg-secondary/5 backdrop-blur-sm rounded-xl overflow-hidden transition-all duration-500 hover:shadow-[0_15px_40px_rgba(247,247,255,0.05)] hover:translate-y-[-8px] border border-secondary/10 hover:border-secondary/30 flex flex-col h-full">
                 <div class="h-40 overflow-hidden relative shrink-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent z-10"></div>
-                    <img src="${p.image}" class="w-full h-full object-cover grayscale opacity-30 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700" alt="${p.title}">
-                    <div class="absolute top-4 left-4 p-3 bg-black/40 backdrop-blur-md rounded-lg z-20 border border-white/10">
-                        <span class="material-symbols-outlined text-cyan-400">${p.icon}</span>
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent z-10"></div>
+                    <img src="${p.image}" class="w-full h-full object-cover opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700" alt="${p.title}">
+                    <div class="absolute top-4 left-4 p-3 bg-primary/80 backdrop-blur-md rounded-lg z-20 border border-secondary/20 shadow-sm">
+                        <span class="material-symbols-outlined text-secondary">${p.icon}</span>
                     </div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-xl font-headline font-bold mb-2 text-white group-hover:text-cyan-400 transition-colors">${p.title}</h3>
-                    <p class="text-slate-400 text-sm mb-6 line-clamp-2 flex-grow">${p.desc}</p>
-                    <button onclick="openModal(${index})" class="w-full py-2.5 rounded-lg bg-white/5 border border-white/10 hover:bg-cyan-500 hover:border-cyan-500 hover:text-white transition-all font-semibold text-sm flex justify-center items-center gap-2">
+                    <h3 class="text-xl font-headline font-bold mb-2 text-white group-hover:text-secondary transition-colors">${p.title}</h3>
+                    <p class="text-white/70 text-sm mb-6 line-clamp-2 flex-grow">${p.desc}</p>
+                    <button onclick="openModal(${index})" class="w-full py-2.5 rounded-lg bg-secondary/10 border border-secondary/20 text-white hover:bg-secondary hover:text-primary transition-all font-bold text-sm flex justify-center items-center gap-2 shadow-sm">
                         <span class="material-symbols-outlined text-sm">visibility</span> Detail Proyek
                     </button>
                 </div>
@@ -380,6 +370,8 @@ projectData.forEach((p, index) => {
 
 // 3. Logika Buka & Tutup Modal
 const modal = document.getElementById("projectModal");
+const modalBackdrop = document.getElementById("modalBackdrop");
+const modalContentBox = document.getElementById("modalContentBox");
 const mTitle = document.getElementById("modalTitle");
 const mDesc = document.getElementById("modalDesc");
 const mIcon = document.getElementById("modalIcon");
@@ -398,7 +390,7 @@ const sliderDots = document.getElementById("sliderDots");
 let currentGallery = [];
 let currentImageIndex = 0;
 
-// FUNGSI UPDATE SLIDER (BARU)
+// FUNGSI UPDATE SLIDER
 function updateSlider() {
   // Ganti gambar
   mSliderImage.src = currentGallery[currentImageIndex];
@@ -415,12 +407,12 @@ function updateSlider() {
   // Generate titik-titik indikator di bawah gambar
   sliderDots.innerHTML = currentGallery
     .map((_, index) => {
-      return `<div class="w-2 h-2 rounded-full transition-all duration-300 ${index === currentImageIndex ? "bg-cyan-400 w-4" : "bg-white/40"}"></div>`;
+      return `<div class="w-2 h-2 rounded-full transition-all duration-300 ${index === currentImageIndex ? "bg-secondary w-4" : "bg-white/30"}"></div>`;
     })
     .join("");
 }
 
-// FUNGSI TOMBOL NEXT & PREV (BARU)
+// FUNGSI TOMBOL NEXT & PREV
 function nextImage() {
   currentImageIndex =
     currentImageIndex === currentGallery.length - 1 ? 0 : currentImageIndex + 1;
@@ -433,6 +425,7 @@ function prevImage() {
   updateSlider();
 }
 
+// FUNGSI BUKA MODAL DENGAN ANIMASI
 function openModal(index) {
   const data = projectData[index];
   mTitle.innerText = data.title;
@@ -440,7 +433,6 @@ function openModal(index) {
   mIcon.innerText = data.icon;
 
   // MASUKKAN DATA PROBLEM & SOLUTION DI SINI:
-  // Gunakan operator '||' sebagai fallback jika ada data yang belum kamu isi problem/solution-nya
   mProblem.innerText = data.problem || "Deskripsi masalah belum ditambahkan.";
   mSolution.innerText = data.solution || "Deskripsi solusi belum ditambahkan.";
   mDeveloper.innerText = data.developer || "Tim Pengembang";
@@ -464,20 +456,47 @@ function openModal(index) {
   }
 
   // LOGIKA SLIDER: Set gallery dan reset index ke 0
-  // Fallback: Jika 'gallery' tidak diisi, gunakan 'image' utama saja
   currentGallery =
     data.gallery && data.gallery.length > 0 ? data.gallery : [data.image];
   currentImageIndex = 0;
-  updateSlider(); // Panggil fungsi untuk render gambar
+  updateSlider();
 
-  // Tampilkan Modal
+  // ==========================================
+  // LOGIKA ANIMASI MUNCUL (UPDATE)
+  // ==========================================
+  // 1. Tampilkan kontainer utama & cegah scroll
   modal.classList.remove("hidden");
   modal.classList.add("flex");
-  document.body.style.overflow = "hidden"; // Cegah scroll background
+  document.body.style.overflow = "hidden";
+
+  // 2. Jeda super singkat (10ms) agar efek transisi Tailwind tereksekusi
+  setTimeout(() => {
+    // Fade in backdrop
+    modalBackdrop.classList.remove("opacity-0");
+    modalBackdrop.classList.add("opacity-100");
+
+    // Pop up content box
+    modalContentBox.classList.remove("opacity-0", "scale-95", "translate-y-4");
+    modalContentBox.classList.add("opacity-100", "scale-100", "translate-y-0");
+  }, 10);
 }
 
+// FUNGSI TUTUP MODAL DENGAN ANIMASI
 function closeModal() {
-  modal.classList.add("hidden");
-  modal.classList.remove("flex");
-  document.body.style.overflow = "auto"; // Kembalikan scroll
+  // ==========================================
+  // LOGIKA ANIMASI KELUAR (UPDATE)
+  // ==========================================
+  // 1. Jalankan animasi pudar dan mengecil
+  modalBackdrop.classList.remove("opacity-100");
+  modalBackdrop.classList.add("opacity-0");
+
+  modalContentBox.classList.remove("opacity-100", "scale-100", "translate-y-0");
+  modalContentBox.classList.add("opacity-0", "scale-95", "translate-y-4");
+
+  // 2. Tunggu animasi selesai (300ms sesuai durasi Tailwind), baru sembunyikan sepenuhnya
+  setTimeout(() => {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+    document.body.style.overflow = "auto"; // Kembalikan scroll
+  }, 300);
 }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="dark" lang="id">
+<html lang="id">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -19,20 +19,21 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
     />
+
     <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
             colors: {
-              primary: "#d7e2ff",
-              secondary: "#8dedec",
-              tertiary: "#e69dff",
-              surface: "#0c0f10",
-              "surface-container-low": "#111415",
-              "surface-container-high": "#1c2021",
-              "on-surface-variant": "#a9abac",
-              "outline-variant": "#464849",
+              primary: "#27187E" /* PERSIAN INDIGO - Background Utama */,
+              secondary: "#F7F7FF" /* GHOST WHITE - Aksen & Sorotan */,
+              surface: "#27187E",
+              "surface-container-low": "#27187E",
+              "surface-container-high": "#1b105a" /* Indigo lebih gelap */,
+              "on-surface-variant": "#F7F7FF",
+              "on-surface": "#FFFFFF",
+              "outline-variant": "#F7F7FF",
             },
             fontFamily: {
               headline: ["Poppins"],
@@ -43,12 +44,13 @@
         },
       };
     </script>
-
+    <link rel="stylesheet" href="/static/css/index.css" />
     <style>
+      /* Penyesuaian Glass Card untuk Latar Persian Indigo */
       .glass-card {
-        background: rgba(34, 38, 40, 0.4);
+        background: rgba(247, 247, 255, 0.08); /* Ghost White transparan */
         backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(247, 247, 255, 0.15); /* Border Ghost White tipis */
       }
       .material-symbols-outlined {
         font-variation-settings:
@@ -59,51 +61,122 @@
       }
       html {
         scroll-behavior: smooth !important;
-        scroll-padding-top: 6rem !important; /* Jarak aman agar tidak tertutup navbar */
+        scroll-padding-top: 6rem !important;
       }
       body {
-        background-color: #0c0f10;
-        color: #f5f6f7;
+        background-color: #27187e; /* Full background Persian Indigo */
+        color: #ffffff; /* Teks murni Putih sesuai permintaan */
       }
     </style>
   </head>
 
-  <body class="font-body selection:bg-primary/30">
+  <body class="font-body selection:bg-secondary selection:text-primary">
+    <div
+      id="fish-tank"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        pointer-events: none;
+        overflow: hidden;
+      "
+    >
+      <div id="bubble-field"></div>
+
+      <div class="fish">
+        <div class="top-fin"></div>
+        <div class="fish-body"></div>
+        <div class="tail-fin"></div>
+        <div class="side-fin"></div>
+        <div class="scale scale-1"></div>
+        <div class="scale scale-2"></div>
+        <div class="scale scale-3"></div>
+      </div>
+
+      <div class="fish blue-fish">
+        <div class="top-fin"></div>
+        <div class="fish-body"></div>
+        <div class="tail-fin"></div>
+        <div class="side-fin"></div>
+        <div class="scale scale-1"></div>
+        <div class="scale scale-2"></div>
+        <div class="scale scale-3"></div>
+      </div>
+    </div>
     <nav
-      class="fixed top-0 w-full z-50 bg-slate-900/40 backdrop-blur-md border-b border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]"
+      class="fixed top-0 w-full z-50 bg-primary/80 backdrop-blur-md border-b border-secondary/10 shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
     >
       <div
-        class="flex justify-between items-center px-8 h-20 max-w-7xl mx-auto"
+        class="flex justify-between items-center px-6 md:px-8 h-20 max-w-7xl mx-auto"
       >
         <div
-          class="text-2xl font-bold tracking-tighter text-white bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 flex items-center gap-2"
+          class="text-2xl font-bold tracking-tighter text-white flex items-center gap-2 z-50"
         >
-          <span class="material-symbols-outlined">work</span> PKL Showcase
+          <span class="material-symbols-outlined text-secondary">work</span>
+          <span
+            >PKL <span class="opacity-70 text-secondary">Showcase</span></span
+          >
         </div>
+
         <div class="hidden md:flex items-center space-y-0 space-x-12">
           <a
-            id="nav-home"
-            class="nav-link text-cyan-400 border-b-2 border-cyan-400 pb-1 tracking-wider uppercase text-xs font-semibold transition-all duration-300"
+            class="nav-link text-white border-b-2 border-secondary pb-1 tracking-wider uppercase text-xs font-semibold transition-all duration-300"
             href="#home"
             >Beranda</a
           >
           <a
-            id="nav-team"
-            class="nav-link text-slate-300 hover:text-white pb-1 tracking-wider uppercase text-xs font-semibold hover:scale-105 duration-300 transition-all"
+            class="nav-link text-white/60 hover:text-white pb-1 tracking-wider uppercase text-xs font-semibold hover:scale-105 duration-300 transition-all"
             href="#team"
             >Tim</a
           >
           <a
-            id="nav-projects"
-            class="nav-link text-slate-300 hover:text-white pb-1 tracking-wider uppercase text-xs font-semibold hover:scale-105 duration-300 transition-all"
+            class="nav-link text-white/60 hover:text-white pb-1 tracking-wider uppercase text-xs font-semibold hover:scale-105 duration-300 transition-all"
             href="#projects"
             >Proyek</a
           >
+          <a
+            href="#projects"
+            class="bg-secondary text-primary px-6 py-2.5 rounded-full font-semibold hover:scale-105 hover:bg-opacity-90 transition-all duration-300 shadow-lg shadow-secondary/20"
+          >
+            Lihat Proyek
+          </a>
         </div>
+
+        <button
+          id="mobileMenuBtn"
+          class="md:hidden flex items-center justify-center p-2 text-white hover:text-secondary transition-colors z-50"
+        >
+          <span id="menuIcon" class="material-symbols-outlined text-3xl"
+            >menu</span
+          >
+        </button>
+      </div>
+
+      <div
+        id="mobileMenu"
+        class="absolute top-0 left-0 w-full bg-primary/95 backdrop-blur-xl border-b border-secondary/20 flex flex-col items-center justify-center space-y-6 pt-24 pb-8 transition-all duration-300 ease-in-out -translate-y-full opacity-0 -z-10 shadow-2xl"
+      >
         <a
-          id="nav-project1"
+          href="#home"
+          class="mobile-link text-white text-lg font-bold tracking-widest uppercase hover:text-secondary transition-colors"
+          >Beranda</a
+        >
+        <a
+          href="#team"
+          class="mobile-link text-white/80 text-lg font-bold tracking-widest uppercase hover:text-secondary transition-colors"
+          >Tim</a
+        >
+        <a
           href="#projects"
-          class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-6 py-2.5 rounded-full font-semibold hover:scale-105 transition-all duration-300 shadow-lg shadow-cyan-500/30"
+          class="mobile-link text-white/80 text-lg font-bold tracking-widest uppercase hover:text-secondary transition-colors"
+          >Proyek</a
+        >
+        <a
+          href="#projects"
+          class="mobile-link mt-4 bg-secondary text-primary px-8 py-3 rounded-full font-bold shadow-lg shadow-secondary/20"
         >
           Lihat Proyek
         </a>
@@ -115,79 +188,81 @@
       id="home"
     >
       <div class="absolute inset-0 z-0">
-        <div id="tsparticles" class="absolute inset-0 w-full h-full"></div>
         <div
-          class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px]"
+          class="absolute top-1/4 left-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-[120px]"
         ></div>
         <div
-          class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]"
+          class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-[120px]"
         ></div>
       </div>
+
       <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <div
-          class="inline-flex items-center gap-2 px-6 py-2 mb-8 rounded-full glass-card border-cyan-500/20 text-cyan-400 text-sm font-label tracking-widest uppercase"
+          class="inline-flex items-center gap-2 px-6 py-2 mb-8 rounded-full glass-card text-white text-sm font-label tracking-widest uppercase shadow-sm font-semibold"
         >
-          <span class="material-symbols-outlined text-sm">calendar_month</span>
+          <span class="material-symbols-outlined text-sm text-secondary"
+            >calendar_month</span
+          >
           5 Januari - 17 April
         </div>
+
         <h1
-          class="font-headline text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight"
+          class="font-headline text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight text-white"
         >
-          <span
-            class="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60"
-            >Portofolio Proyek</span
-          ><br />
-          <span
-            class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500"
-            >Praktik Kerja Lapangan</span
-          >
+          <span>Portofolio Proyek</span><br />
+          <span class="text-secondary opacity-90">Praktik Kerja Lapangan</span>
         </h1>
+
         <p
-          class="text-on-surface-variant text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed mb-12"
+          class="text-white/80 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed mb-12"
         >
           Dokumentasi perjalanan teknis dan kumpulan inovasi digital yang
           dibangun selama masa PKL. Menyatukan teori dan implementasi industri.
         </p>
+
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            class="bg-white text-black px-10 py-4 rounded-full font-bold shadow-lg shadow-white/10 hover:scale-105 transition-all"
+            class="bg-secondary text-primary px-10 py-4 rounded-full font-bold shadow-lg shadow-secondary/20 hover:scale-105 hover:bg-opacity-90 transition-all"
             href="#projects"
           >
             Jelajahi Karya Kami
           </a>
         </div>
       </div>
+
       <div
-        class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-40"
+        class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-60 text-secondary"
       >
         <span class="material-symbols-outlined text-3xl">expand_more</span>
       </div>
     </section>
 
-    <section class="py-24 bg-surface-container-low" id="team">
+    <section class="py-24 bg-black/10 backdrop-blur-sm" id="team">
       <div class="max-w-7xl mx-auto px-8">
         <div class="mb-16 text-center md:text-left">
-          <h2 class="font-headline text-4xl font-bold mb-4">Tim Pengembang</h2>
+          <h2 class="font-headline text-4xl font-bold mb-4 text-white">
+            Tim Pengembang
+          </h2>
           <div
-            class="w-20 h-1.5 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full mx-auto md:mx-0"
+            class="w-20 h-1.5 bg-secondary opacity-50 rounded-full mx-auto md:mx-0"
           ></div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div
-            class="group relative bg-surface-container-high p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/5"
+            class="group relative bg-secondary/5 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(247,247,255,0.05)] border border-secondary/10 shadow-sm"
           >
             <div class="flex flex-col items-center text-center">
               <div
-                class="w-24 h-24 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center text-3xl font-bold text-white mb-6 shadow-lg"
+                class="w-24 h-24 rounded-full bg-secondary flex items-center justify-center text-3xl font-bold text-primary mb-6 shadow-lg border-4 border-primary"
               >
                 M
               </div>
-              <h3 class="text-xl font-headline font-bold mb-1">
+              <h3 class="text-xl font-headline font-bold mb-1 text-white">
                 Muhamad Hilal Diyaul Haq
               </h3>
               <p
-                class="text-cyan-400 text-xs font-label uppercase tracking-widest mb-4"
+                class="text-secondary/80 text-xs font-label uppercase tracking-widest mb-4 font-semibold"
               >
                 Developer
               </p>
@@ -195,7 +270,7 @@
                 href="https://github.com/hilalcolp123-dot"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-gray-400 hover:text-cyan-400 transition-colors duration-300 transform hover:scale-110"
+                class="text-white/60 hover:text-white transition-colors duration-300 transform hover:scale-110"
               >
                 <i class="fa-brands fa-github text-2xl"></i>
               </a>
@@ -203,19 +278,19 @@
           </div>
 
           <div
-            class="group relative bg-surface-container-high p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/5"
+            class="group relative bg-secondary/5 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(247,247,255,0.05)] border border-secondary/10 shadow-sm"
           >
             <div class="flex flex-col items-center text-center">
               <div
-                class="w-24 h-24 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-3xl font-bold text-white mb-6 shadow-lg"
+                class="w-24 h-24 rounded-full bg-secondary flex items-center justify-center text-3xl font-bold text-primary mb-6 shadow-lg border-4 border-primary"
               >
                 I
               </div>
-              <h3 class="text-xl font-headline font-bold mb-1">
+              <h3 class="text-xl font-headline font-bold mb-1 text-white">
                 Ihsan Faturrahman
               </h3>
               <p
-                class="text-purple-400 text-xs font-label uppercase tracking-widest mb-4"
+                class="text-secondary/80 text-xs font-label uppercase tracking-widest mb-4 font-semibold"
               >
                 Developer
               </p>
@@ -223,7 +298,7 @@
                 href="https://github.com/IhsanFathurrahman"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-gray-400 hover:text-purple-400 transition-colors duration-300 transform hover:scale-110"
+                class="text-white/60 hover:text-white transition-colors duration-300 transform hover:scale-110"
               >
                 <i class="fa-brands fa-github text-2xl"></i>
               </a>
@@ -231,19 +306,19 @@
           </div>
 
           <div
-            class="group relative bg-surface-container-high p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/5"
+            class="group relative bg-secondary/5 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(247,247,255,0.05)] border border-secondary/10 shadow-sm"
           >
             <div class="flex flex-col items-center text-center">
               <div
-                class="w-24 h-24 rounded-full bg-gradient-to-tr from-orange-400 to-red-500 flex items-center justify-center text-3xl font-bold text-white mb-6 shadow-lg"
+                class="w-24 h-24 rounded-full bg-secondary flex items-center justify-center text-3xl font-bold text-primary mb-6 shadow-lg border-4 border-primary"
               >
                 R
               </div>
-              <h3 class="text-xl font-headline font-bold mb-1">
+              <h3 class="text-xl font-headline font-bold mb-1 text-white">
                 Rikaz Putra Erdiansyah
               </h3>
               <p
-                class="text-orange-400 text-xs font-label uppercase tracking-widest mb-4"
+                class="text-secondary/80 text-xs font-label uppercase tracking-widest mb-4 font-semibold"
               >
                 Developer
               </p>
@@ -251,7 +326,7 @@
                 href="https://github.com/rikazpe7jpp"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-gray-400 hover:text-orange-400 transition-colors duration-300 transform hover:scale-110"
+                class="text-white/60 hover:text-white transition-colors duration-300 transform hover:scale-110"
               >
                 <i class="fa-brands fa-github text-2xl"></i>
               </a>
@@ -263,23 +338,25 @@
 
     <section class="py-24 relative overflow-hidden" id="tech-stack">
       <div
-        class="absolute inset-0 z-0 flex justify-center items-center opacity-50"
+        class="absolute inset-0 z-0 flex justify-center items-center opacity-10"
       >
         <div
-          class="w-full max-w-3xl h-48 bg-cyan-500/5 blur-[100px] rounded-full"
+          class="w-full max-w-3xl h-48 bg-secondary blur-[100px] rounded-full"
         ></div>
       </div>
 
       <div class="max-w-7xl mx-auto px-8 relative z-10">
         <div class="mb-16 text-center">
-          <h2 class="font-headline text-3xl md:text-4xl font-bold mb-4">
+          <h2
+            class="font-headline text-3xl md:text-4xl font-bold mb-4 text-white"
+          >
             Teknologi & Bahasa
           </h2>
           <div
-            class="w-20 h-1.5 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto mb-6"
+            class="w-20 h-1.5 bg-secondary opacity-50 rounded-full mx-auto mb-6"
           ></div>
           <p
-            class="text-on-surface-variant max-w-2xl mx-auto text-sm md:text-base"
+            class="text-white/80 max-w-2xl mx-auto text-sm md:text-base font-medium"
           >
             Fondasi teknologi, Framework, dan bahasa pemrograman yang kami
             gunakan untuk membangun seluruh ekosistem proyek selama masa PKL.
@@ -289,209 +366,146 @@
         <div
           class="flex flex-wrap justify-center gap-4 sm:gap-6 max-w-4xl mx-auto"
         >
-          <a
-            href="https://developer.mozilla.org/en-US/docs/Web/HTML"
-            target="_blank"
-            class="block"
-          >
-            <div
-              class="group flex items-center gap-3 bg-surface-container-high px-6 py-4 rounded-xl border border-white/5 hover:-translate-y-2 hover:border-orange-500/50 hover:shadow-[0_10px_30px_rgba(249,115,22,0.2)] transition-all duration-300"
+          <a href="#" class="block"
+            ><div
+              class="group flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
             >
               <i
-                class="fa-brands fa-html5 text-orange-500 text-3xl group-hover:scale-110 transition-transform"
-              ></i>
-              <span class="font-bold text-slate-200 tracking-wide">HTML5</span>
-            </div>
-          </a>
-
-          <a
-            href="https://developer.mozilla.org/en-US/docs/Web/CSS"
-            target="_blank"
-            class="block"
+                class="fa-brands fa-html5 text-orange-400 text-3xl group-hover:scale-110 transition-transform"
+              ></i
+              ><span class="font-bold text-white tracking-wide">HTML5</span>
+            </div></a
           >
-            <div
-              class="group flex items-center gap-3 bg-surface-container-high px-6 py-4 rounded-xl border border-white/5 hover:-translate-y-2 hover:border-blue-500/50 hover:shadow-[0_10px_30px_rgba(59,130,246,0.2)] transition-all duration-300"
+          <a href="#" class="block"
+            ><div
+              class="group flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
             >
               <i
-                class="fa-brands fa-css3-alt text-blue-500 text-3xl group-hover:scale-110 transition-transform"
-              ></i>
-              <span class="font-bold text-slate-200 tracking-wide">CSS3</span>
-            </div>
-          </a>
-
-          <a
-            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-            target="_blank"
-            class="block"
+                class="fa-brands fa-css3-alt text-blue-400 text-3xl group-hover:scale-110 transition-transform"
+              ></i
+              ><span class="font-bold text-white tracking-wide">CSS3</span>
+            </div></a
           >
-            <div
-              class="group flex items-center gap-3 bg-surface-container-high px-6 py-4 rounded-xl border border-white/5 hover:-translate-y-2 hover:border-yellow-400/50 hover:shadow-[0_10px_30px_rgba(250,204,21,0.2)] transition-all duration-300"
+          <a href="#" class="block"
+            ><div
+              class="group flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
             >
               <i
-                class="fa-brands fa-js text-yellow-400 text-3xl group-hover:scale-110 transition-transform"
-              ></i>
-              <span class="font-bold text-slate-200 tracking-wide"
+                class="fa-brands fa-js text-yellow-300 text-3xl group-hover:scale-110 transition-transform"
+              ></i
+              ><span class="font-bold text-white tracking-wide"
                 >JavaScript</span
               >
-            </div>
-          </a>
-
-          <a href="https://getbootstrap.com/" target="_blank" class="block">
-            <div
-              class="group flex items-center gap-3 bg-surface-container-high px-6 py-4 rounded-xl border border-white/5 hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_10px_30px_rgba(168,85,247,0.2)] transition-all duration-300"
+            </div></a
+          >
+          <a href="#" class="block"
+            ><div
+              class="group flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
             >
               <i
-                class="fa-brands fa-bootstrap text-purple-500 text-3xl group-hover:scale-110 transition-transform"
-              ></i>
-              <span class="font-bold text-slate-200 tracking-wide"
-                >Bootstrap</span
-              >
-            </div>
-          </a>
-
-          <a href="https://tailwindcss.com/" target="_blank" class="block">
-            <div
-              class="group flex items-center gap-3 bg-surface-container-high px-6 py-4 rounded-xl border border-white/5 hover:-translate-y-2 hover:border-sky-400/50 hover:shadow-[0_10px_30px_rgba(56,189,248,0.2)] transition-all duration-300"
+                class="fa-brands fa-bootstrap text-purple-400 text-3xl group-hover:scale-110 transition-transform"
+              ></i
+              ><span class="font-bold text-white tracking-wide">Bootstrap</span>
+            </div></a
+          >
+          <a href="#" class="block"
+            ><div
+              class="group flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
             >
               <img
                 src="/static/images/tailwind-svgrepo-com.svg"
                 alt="Tailwind CSS"
-                class="w-8 h-8 object-contain group-hover:scale-110 transition-transform"
-              />
-              <span class="font-bold text-slate-200 tracking-wide"
-                >Tailwind</span
-              >
-            </div>
-          </a>
-
-          <a href="https://www.php.net/" target="_blank" class="block">
-            <div
-              class="group flex items-center gap-3 bg-surface-container-high px-6 py-4 rounded-xl border border-white/5 hover:-translate-y-2 hover:border-indigo-400/50 hover:shadow-[0_10px_30px_rgba(129,140,248,0.2)] transition-all duration-300"
+                class="w-8 h-8 object-contain group-hover:scale-110 transition-transform brightness-110"
+              /><span class="font-bold text-white tracking-wide">Tailwind</span>
+            </div></a
+          >
+          <a href="#" class="block"
+            ><div
+              class="group flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
             >
               <img
                 src="/static/images/php-fill-svgrepo-com.svg"
                 alt="PHP"
-                class="w-8 h-8 object-contain group-hover:scale-110 transition-transform"
-              />
-              <span class="font-bold text-slate-200 tracking-wide">PHP</span>
-            </div>
-          </a>
-
-          <a href="https://laravel.com/" target="_blank" class="block">
-            <div
-              class="group flex items-center gap-3 bg-surface-container-high px-6 py-4 rounded-xl border border-white/5 hover:-translate-y-2 hover:border-red-500/50 hover:shadow-[0_10px_30px_rgba(239,68,68,0.2)] transition-all duration-300"
+                class="w-8 h-8 object-contain group-hover:scale-110 transition-transform brightness-110"
+              /><span class="font-bold text-white tracking-wide">PHP</span>
+            </div></a
+          >
+          <a href="#" class="block"
+            ><div
+              class="group flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
             >
               <i
-                class="fa-brands fa-laravel text-red-500 text-3xl group-hover:scale-110 transition-transform"
-              ></i>
-              <span class="font-bold text-slate-200 tracking-wide"
-                >Laravel</span
-              >
-            </div>
-          </a>
-
-          <a href="https://www.python.org" target="_blank" class="block">
-            <div
-              class="group flex items-center gap-3 bg-surface-container-high px-6 py-4 rounded-xl border border-white/5 hover:-translate-y-2 hover:border-blue-400/50 hover:shadow-[0_10px_30px_rgba(96,165,250,0.2)] transition-all duration-300"
+                class="fa-brands fa-laravel text-red-400 text-3xl group-hover:scale-110 transition-transform"
+              ></i
+              ><span class="font-bold text-white tracking-wide">Laravel</span>
+            </div></a
+          >
+          <a href="#" class="block"
+            ><div
+              class="group flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
             >
               <img
                 src="/static/images/python-svgrepo-com.svg"
                 alt="Python"
-                class="w-8 h-8 object-contain group-hover:scale-110 transition-transform"
-              />
-              <span class="font-bold text-slate-200 tracking-wide">Python</span>
-            </div>
-          </a>
-
-          <a href="https://nodejs.org/en" target="_blank" class="block">
-            <div
-              class="group flex items-center gap-3 bg-surface-container-high px-6 py-4 rounded-xl border border-white/5 hover:-translate-y-2 hover:border-green-500/50 hover:shadow-[0_10px_30px_rgba(34,197,94,0.2)] transition-all duration-300"
-            >
-              <i
-                class="fa-brands fa-node-js text-green-500 text-3xl group-hover:scale-110 transition-transform"
-              ></i>
-              <span class="font-bold text-slate-200 tracking-wide"
-                >Node.js</span
-              >
-            </div>
-          </a>
-
-          <a href="https://capacitorjs.com/" target="_blank" class="block">
-            <div
-              class="group flex items-center gap-3 bg-surface-container-high px-6 py-4 rounded-xl border border-white/5 hover:-translate-y-2 hover:border-blue-500/50 hover:shadow-[0_10px_30px_rgba(59,130,246,0.2)] transition-all duration-300"
-            >
-              <img
-                src="/static/images/capacitorjs-icon-svgrepo-com.svg"
-                alt="Capacitor"
-                class="w-8 h-8 object-contain group-hover:scale-110 transition-transform"
-              />
-              <span class="font-bold text-slate-200 tracking-wide"
-                >Capacitor</span
-              >
-            </div>
-          </a>
-
-          <a
-            href="https://developer.android.com/"
-            target="_blank"
-            class="block"
+                class="w-8 h-8 object-contain group-hover:scale-110 transition-transform brightness-110"
+              /><span class="font-bold text-white tracking-wide">Python</span>
+            </div></a
           >
-            <div
-              class="group flex items-center gap-3 bg-surface-container-high px-6 py-4 rounded-xl border border-white/5 hover:-translate-y-2 hover:border-green-400/50 hover:shadow-[0_10px_30px_rgba(74,222,128,0.2)] transition-all duration-300"
+          <a href="#" class="block"
+            ><div
+              class="group flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
             >
               <i
-                class="fa-brands fa-android text-green-400 text-3xl group-hover:scale-110 transition-transform"
-              ></i>
-              <span class="font-bold text-slate-200 tracking-wide"
-                >Android</span
-              >
-            </div>
-          </a>
-
-          <a href="https://gradle.org/" target="_blank" class="block">
-            <div
-              class="group flex items-center gap-3 bg-surface-container-high px-6 py-4 rounded-xl border border-white/5 hover:-translate-y-2 hover:border-teal-500/50 hover:shadow-[0_10px_30px_rgba(20,184,166,0.2)] transition-all duration-300"
+                class="fa-brands fa-node-js text-green-400 text-3xl group-hover:scale-110 transition-transform"
+              ></i
+              ><span class="font-bold text-white tracking-wide">Node.js</span>
+            </div></a
+          >
+          <a href="#" class="block"
+            ><div
+              class="group flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
             >
               <img
                 src="/static/images/gradle-svgrepo-com.svg"
                 alt="Gradle"
-                class="w-8 h-8 object-contain group-hover:scale-110 transition-transform"
-              />
-              <span class="font-bold text-slate-200 tracking-wide">Gradle</span>
-            </div>
-          </a>
-
-          <a href="https://git-scm.com/" target="_blank" class="block">
-            <div
-              class="group flex items-center gap-3 bg-surface-container-high px-6 py-4 rounded-xl border border-white/5 hover:-translate-y-2 hover:border-orange-600/50 hover:shadow-[0_10px_30px_rgba(234,88,12,0.2)] transition-all duration-300"
+                class="w-8 h-8 object-contain group-hover:scale-110 transition-transform brightness-110"
+              /><span class="font-bold text-white tracking-wide">Gradle</span>
+            </div></a
+          >
+          <a href="#" class="block"
+            ><div
+              class="group flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
             >
               <i
-                class="fa-brands fa-git-alt text-orange-600 text-3xl group-hover:scale-110 transition-transform"
-              ></i>
-              <span class="font-bold text-slate-200 tracking-wide">Git</span>
-            </div>
-          </a>
+                class="fa-brands fa-git-alt text-orange-500 text-3xl group-hover:scale-110 transition-transform"
+              ></i
+              ><span class="font-bold text-white tracking-wide">Git</span>
+            </div></a
+          >
         </div>
       </div>
     </section>
 
-    <section class="py-24 bg-surface" id="projects">
+    <section class="py-24 bg-black/10 backdrop-blur-sm" id="projects">
       <div class="max-w-7xl mx-auto px-8">
         <div
           class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
         >
           <div>
-            <h2 class="font-headline text-4xl font-bold mb-4">Daftar Proyek</h2>
-            <p class="text-on-surface-variant max-w-lg">
+            <h2 class="font-headline text-4xl font-bold mb-4 text-white">
+              Daftar Proyek
+            </h2>
+            <p class="text-white/80 max-w-lg font-medium">
               Koleksi 17 solusi aplikasi dan tools yang dikembangkan dengan
               fokus pada performa dan utilitas.
             </p>
           </div>
           <div class="flex gap-2">
             <span
-              class="px-4 py-2 rounded-lg bg-surface-container-high text-white text-xs font-bold uppercase tracking-tighter border border-white/10"
-              >17 Total Works</span
+              class="px-4 py-2 rounded-lg bg-secondary text-primary text-xs font-bold uppercase tracking-tighter shadow-sm"
             >
+              17 Total Works
+            </span>
           </div>
         </div>
 
@@ -502,17 +516,17 @@
       </div>
     </section>
 
-    <footer
-      class="bg-surface-container-low border-t border-white/5 w-full py-12"
-    >
+    <footer class="bg-primary border-t border-secondary/10 w-full py-12">
       <div
         class="max-w-7xl mx-auto px-8 flex flex-col items-center justify-center text-center space-y-4"
       >
-        <div class="flex items-center justify-center gap-2 text-slate-400 mb-2">
-          <span class="material-symbols-outlined">code</span> Dibuat dengan
-          dedikasi selama masa PKL
+        <div
+          class="flex items-center justify-center gap-2 text-white/80 mb-2 font-medium"
+        >
+          <span class="material-symbols-outlined text-secondary">code</span>
+          Dibuat dengan dedikasi selama masa PKL
         </div>
-        <div class="text-slate-500 font-body text-sm">
+        <div class="text-white/50 font-body text-sm">
           © 2026 Tim Pengembang PKL. All rights reserved.
         </div>
       </div>
@@ -523,30 +537,65 @@
       class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6"
     >
       <div
-        class="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
+        id="modalBackdrop"
+        class="absolute inset-0 bg-black/60 backdrop-blur-md cursor-pointer opacity-0 transition-opacity duration-300"
         onclick="closeModal()"
       ></div>
 
       <div
-        class="relative glass-card w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl transition-all border border-white/10"
+        id="modalContentBox"
+        class="relative bg-primary w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl transition-all duration-300 ease-out opacity-0 scale-95 translate-y-4 border border-secondary/20"
       >
         <button
           onclick="closeModal()"
-          class="absolute top-4 right-4 z-10 text-white/50 hover:text-white transition-colors bg-black/50 p-2 rounded-full flex items-center"
+          class="absolute top-4 right-4 z-10 text-white/60 hover:text-white bg-secondary/10 hover:bg-secondary/20 transition-colors p-2 rounded-full flex items-center"
         >
           <span class="material-symbols-outlined">close</span>
         </button>
+
+        <div
+          id="shark-tank"
+          class="absolute inset-0 pointer-events-none z-0 opacity-30 overflow-hidden rounded-2xl"
+        >
+          <div class="shark-bubble-rise" style="left: 15%">
+            <div class="shark-bubble"></div>
+          </div>
+          <div class="shark-bubble-rise" style="left: 55%">
+            <div class="shark-bubble"></div>
+          </div>
+          <div class="shark-bubble-rise" style="left: 85%">
+            <div class="shark-bubble"></div>
+          </div>
+
+          <div class="shark-swimmer">
+            <div class="shark-canvas">
+              <div class="flipper flipper-bottom"></div>
+              <div class="shark-body">
+                <div class="eye"></div>
+                <div class="eye"></div>
+                <div class="cheek"></div>
+                <div class="cheek"></div>
+                <div class="mouth"></div>
+                <div class="fin"></div>
+                <div class="tail tail-top"></div>
+                <div class="tail tail-bottom"></div>
+                <div class="gills"></div>
+              </div>
+              <div class="flipper flipper-top"></div>
+            </div>
+          </div>
+        </div>
 
         <div class="p-6 sm:p-8">
           <div
             class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-6 mt-2 sm:mt-0"
           >
             <div
-              class="w-20 h-20 bg-cyan-500/20 rounded-2xl flex items-center justify-center shrink-0 border border-cyan-500/30"
+              class="w-20 h-20 bg-secondary/10 rounded-2xl flex items-center justify-center shrink-0 border border-secondary/20"
             >
               <span
                 id="modalIcon"
-                class="material-symbols-outlined text-4xl text-cyan-400"
+                class="material-symbols-outlined text-4xl text-secondary"
                 >code</span
               >
             </div>
@@ -557,106 +606,108 @@
               >
                 Judul Proyek
               </h2>
-              <span
-                id="modalCategory"
-                class="text-cyan-400 font-label text-[10px] sm:text-xs uppercase tracking-widest bg-cyan-400/10 px-3 py-1 rounded-full"
-              >
-                Web Application
-              </span>
-              <span
-                class="text-purple-400 font-label text-[10px] sm:text-xs uppercase tracking-widest bg-purple-400/10 px-3 py-1 rounded-full flex items-center gap-1"
-              >
-                <span class="material-symbols-outlined text-[12px] sm:text-sm"
-                  >person</span
+              <div class="flex flex-wrap gap-2">
+                <span
+                  id="modalCategory"
+                  class="text-primary font-label text-[10px] sm:text-xs uppercase tracking-widest bg-secondary border border-secondary/20 px-3 py-1 rounded-full font-bold"
                 >
-                <span id="modalDeveloper">Nama Developer</span>
-              </span>
+                  Web Application
+                </span>
+                <span
+                  class="text-secondary font-label text-[10px] sm:text-xs uppercase tracking-widest bg-secondary/10 border border-secondary/20 px-3 py-1 rounded-full flex items-center gap-1 font-bold"
+                >
+                  <span class="material-symbols-outlined text-[12px] sm:text-sm"
+                    >person</span
+                  >
+                  <span id="modalDeveloper">Nama Developer</span>
+                </span>
+              </div>
             </div>
           </div>
+
           <div
-            class="relative w-full h-48 sm:h-64 mb-6 rounded-xl overflow-hidden group bg-black/40 border border-white/5 flex items-center justify-center"
+            class="relative w-full h-48 sm:h-64 mb-6 rounded-xl overflow-hidden group bg-black/30 border border-secondary/10 flex items-center justify-center"
           >
             <img
               id="modalSliderImage"
               src=""
               alt="Project Screenshot"
-              class="w-full h-full object-cover transition-opacity duration-300"
+              class="w-full h-full object-cover transition-opacity duration-300 opacity-90 hover:opacity-100"
             />
 
             <button
               onclick="prevImage()"
               id="btnPrev"
-              class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-cyan-500 text-white p-2 rounded-full backdrop-blur-md transition-all hidden group-hover:block"
+              class="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/80 hover:bg-secondary text-white hover:text-primary p-2 rounded-full backdrop-blur-md transition-all hidden group-hover:block shadow-md border border-secondary/20"
             >
               <span class="material-symbols-outlined">chevron_left</span>
             </button>
-
             <button
               onclick="nextImage()"
               id="btnNext"
-              class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-cyan-500 text-white p-2 rounded-full backdrop-blur-md transition-all hidden group-hover:block"
+              class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/80 hover:bg-secondary text-white hover:text-primary p-2 rounded-full backdrop-blur-md transition-all hidden group-hover:block shadow-md border border-secondary/20"
             >
               <span class="material-symbols-outlined">chevron_right</span>
             </button>
-
             <div
               id="sliderDots"
               class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10"
             ></div>
           </div>
+
           <div
-            class="text-slate-300 leading-relaxed bg-black/20 p-5 sm:p-6 rounded-xl border border-white/5 mb-4"
+            class="text-white/90 leading-relaxed bg-secondary/5 p-5 sm:p-6 rounded-xl border border-secondary/10 mb-4"
           >
             <h4
-              class="text-white text-xs sm:text-sm font-bold uppercase tracking-wider mb-2"
+              class="text-secondary text-xs sm:text-sm font-bold uppercase tracking-wider mb-2"
             >
               Deskripsi
             </h4>
-            <p id="modalDesc" class="text-sm">
+            <p id="modalDesc" class="text-sm font-medium">
               Deskripsi detail proyek akan muncul di sini.
             </p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
             <div
-              class="bg-black/20 p-5 rounded-xl border border-white/5 border-t-4 border-t-red-500/70"
+              class="bg-secondary/5 p-5 rounded-xl border border-secondary/10 border-t-4 border-t-secondary"
             >
               <div class="flex items-center gap-2 mb-3">
                 <span
-                  class="material-symbols-outlined text-red-400 text-lg sm:text-xl"
+                  class="material-symbols-outlined text-secondary text-lg sm:text-xl"
                   >warning</span
                 >
                 <h4
-                  class="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-widest"
+                  class="text-[10px] sm:text-xs font-bold text-secondary uppercase tracking-widest"
                 >
                   Problem Statement
                 </h4>
               </div>
               <p
                 id="modalProblem"
-                class="text-sm text-slate-300 leading-relaxed"
+                class="text-sm text-white/80 leading-relaxed font-medium"
               >
                 Masalah apa yang kalian coba pecahkan akan muncul di sini.
               </p>
             </div>
 
             <div
-              class="bg-black/20 p-5 rounded-xl border border-white/5 border-t-4 border-t-cyan-500/70"
+              class="bg-secondary/5 p-5 rounded-xl border border-secondary/10 border-t-4 border-t-secondary opacity-90"
             >
               <div class="flex items-center gap-2 mb-3">
                 <span
-                  class="material-symbols-outlined text-cyan-400 text-lg sm:text-xl"
+                  class="material-symbols-outlined text-secondary text-lg sm:text-xl"
                   >lightbulb</span
                 >
                 <h4
-                  class="text-[10px] sm:text-xs font-bold text-cyan-400 uppercase tracking-widest"
+                  class="text-[10px] sm:text-xs font-bold text-secondary uppercase tracking-widest"
                 >
                   Solution
                 </h4>
               </div>
               <p
                 id="modalSolution"
-                class="text-sm text-slate-300 leading-relaxed"
+                class="text-sm text-white/80 leading-relaxed font-medium"
               >
                 Bagaimana proyek ini membantu akan muncul di sini.
               </p>
@@ -668,7 +719,7 @@
               id="modalLink"
               href="#"
               target="_blank"
-              class="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-6 py-4 rounded-xl text-center font-bold hover:brightness-110 transition-all shadow-lg flex justify-center items-center gap-2"
+              class="w-full sm:w-auto bg-secondary text-primary px-6 py-4 rounded-xl text-center font-bold hover:bg-opacity-90 transition-all shadow-lg shadow-secondary/20 flex justify-center items-center gap-2"
             >
               <span class="material-symbols-outlined">open_in_new</span> Buka
               Aplikasi / Demo
@@ -677,8 +728,7 @@
         </div>
       </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
     <script src="/static/js/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/3.9.1/tsparticles.bundle.min.js"></script>
   </body>
 </html>

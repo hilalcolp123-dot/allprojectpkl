@@ -1,0 +1,578 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+#fish-tank {
+  /* Hapus width, height, position fixed, dan z-index -1 yang lama */
+  background-color: transparent; /* Biar warna ungu dari body tetap kelihatan */
+  pointer-events: none; /* Biar animasi nggak ngehalangin klik tombol */
+}
+
+#bubble-field {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+@keyframes bubble {
+  0% {
+    transform: translateX(10px);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(10px);
+  }
+}
+
+.bubble {
+  box-shadow: 0px 0px 12px 5px inset rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: bubble 2s ease 0s infinite normal;
+  will-change: transform;
+}
+
+.bubble:after {
+  content: "";
+  position: absolute;
+  background-color: white;
+  width: 13px;
+  height: 8px;
+  top: 10%;
+  right: 21%;
+  border-radius: 50%;
+  transform: rotateZ(30deg) scaleY(0.7);
+  filter: blur(1px);
+}
+
+@keyframes bubble-rise {
+  0% {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
+
+/* Animasi goyang natural air */
+@keyframes wobble {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(20px);
+  }
+}
+
+/* Animasi naik ke atas */
+@keyframes riseUp {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1; /* Muncul pelan-pelan */
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh); /* Terbang melewati atas layar */
+    opacity: 0; /* Pecah/menghilang di atas */
+  }
+}
+
+.bubble-rise:nth-child(even) .bubble {
+  width: 25px;
+  height: 25px;
+}
+.bubble-rise:nth-child(3n) .bubble {
+  width: 10px;
+  height: 10px;
+}
+
+.bubble-rise {
+  position: absolute;
+  bottom: -50px; /* Mulai dari bawah layar */
+  animation: bubble-rise 2s cubic-bezier(0.3, 0, 0.7, 0.75) 0s infinite normal;
+}
+
+@keyframes fish {
+  0% {
+    transform: translate(-20vw);
+  }
+  10% {
+    transform: translate(20vw, -125px);
+  }
+  20% {
+    transform: translate(40vw, -45px) rotateZ(22deg);
+  }
+  30% {
+    transform: translate(60vw, -250px);
+  }
+  40% {
+    transform: translate(80vw, -80px) rotateZ(22deg);
+  }
+  50% {
+    transform: translate(120vw, -145px);
+  }
+  51% {
+    transform: translate(120vw, -145px) rotateY(180deg);
+  }
+  60% {
+    transform: translate(80vw, -80px) rotateY(180deg) rotateZ(22deg);
+  }
+  70% {
+    transform: translate(60vw, -250px) rotateY(180deg);
+  }
+  80% {
+    transform: translate(40vw, -45px) rotateY(180deg) rotateZ(22deg);
+  }
+  90% {
+    transform: translate(20vw, -125px) rotateY(180deg);
+  }
+  99% {
+    transform: translate(-20vw) rotateY(180deg) rotateZ(22deg);
+  }
+  100% {
+    transform: translate(-20vw);
+  }
+}
+
+.fish {
+  position: absolute;
+  left: 0px;
+  bottom: 10%;
+  animation: fish 40s cubic-bezier(0.9, 1, 0.3, 0.75) 0s infinite normal;
+  will-change: transform;
+}
+
+.blue-fish {
+  bottom: 40%;
+  animation: fish 25s cubic-bezier(0.7, 1, 0.3, 0.5) 0s infinite normal;
+  will-change: transform;
+}
+
+.fish-body {
+  position: absolute;
+  width: 115px;
+  height: 75px;
+  border-radius: 50%;
+  background-color: orange;
+  box-shadow: 0px -7px 7px inset #00000045;
+  transform: skewX(5deg) skewY(-10deg);
+}
+
+.blue-fish .fish-body {
+  background-color: #0098e0;
+}
+
+.fish-body:before {
+  /* Mata putih */
+  content: "";
+  width: 15px;
+  height: 15px;
+  background-color: #ffffff;
+  position: absolute;
+  border-radius: 50%;
+  right: 18px;
+  top: 16px;
+}
+
+.fish-body:after {
+  /* Pupil hitam */
+  content: "";
+  width: 7px;
+  height: 9px;
+  background-color: #000000;
+  position: absolute;
+  border-radius: 50%;
+  right: 20px;
+  top: 18px;
+}
+
+.top-fin {
+  position: absolute;
+  left: 35px;
+  top: -23px;
+  width: 28px;
+  height: 50px;
+  border-radius: 20% 50%;
+  background-color: orange;
+  box-shadow: 2px -11px 7px inset #00000080;
+  transform: rotate(80deg) skewX(-23deg);
+}
+
+.blue-fish .top-fin {
+  background-color: #0098e0;
+}
+
+@keyframes tail-fin {
+  0% {
+    transform: rotate(25deg) skewX(-18deg) skewY(-5deg);
+    left: -35px;
+  }
+  50% {
+    transform: rotate(25deg) skewX(-18deg) skewY(-15deg);
+    left: -33px;
+  }
+  100% {
+    transform: rotate(25deg) skewX(-18deg) skewY(-5deg);
+    left: -35px;
+  }
+}
+
+.tail-fin {
+  position: absolute;
+  left: -35px;
+  bottom: -89px;
+  width: 43px;
+  height: 50px;
+  border-radius: 40% 50%;
+  background-color: orange;
+  box-shadow: 1px -13px 7px inset #00000080;
+  animation: tail-fin 1s ease 0s infinite normal;
+}
+
+.blue-fish .tail-fin {
+  background-color: #0098e0;
+}
+
+.tail-fin:before {
+  content: "";
+  z-index: 9;
+  position: absolute;
+  left: -16px;
+  bottom: 19px;
+  width: 40px;
+  height: 48px;
+  border-radius: 40% 50%;
+  background-color: orange;
+  box-shadow: 1px -13px 7px inset #00000080;
+  transform: rotate(85deg);
+}
+
+.blue-fish .tail-fin:before {
+  background-color: #0098e0;
+}
+
+/* Sirip Samping */
+@keyframes side-fin {
+  0% {
+    transform: rotate(15deg) skewX(-18deg) skewY(-15deg);
+  }
+  50% {
+    transform: rotate(25deg) skewX(-18deg) skewY(-15deg);
+  }
+  100% {
+    transform: rotate(15deg) skewX(-18deg) skewY(-15deg);
+  }
+}
+
+.side-fin {
+  position: absolute;
+  left: 39px;
+  bottom: -77px;
+  width: 33px;
+  height: 38px;
+  border-radius: 50% 40%;
+  background-color: orange;
+  box-shadow: 1px -13px 7px inset #00000080;
+  animation: side-fin 2s ease 0s infinite normal;
+}
+
+.blue-fish .side-fin {
+  background-color: #0098e0;
+}
+
+.scale {
+  position: absolute;
+  width: 21px;
+  height: 24px;
+  border-radius: 39%;
+  background-color: orange;
+  box-shadow: 3px -3px 5px inset #00000020;
+  transform: rotate(22deg) skewX(-3deg) skewY(-10deg);
+}
+
+.blue-fish .scale {
+  background-color: #0098e0;
+}
+
+.scale-1 {
+  left: 20px;
+  bottom: -44px;
+}
+.scale-2 {
+  left: 36px;
+  bottom: -32px;
+}
+.scale-3 {
+  left: 53px;
+  bottom: -37px;
+}
+/* =========================================
+   ANIMASI AQUARIUM & HIU (MODAL)
+========================================= */
+
+/* Wadah hiu berenang */
+.shark-swimmer {
+  position: absolute;
+  top: 5%; /* Mulai agak di atas */
+  left: 50%;
+  /* Gunakan 'linear' agar kecepatan renangnya stabil dari awal sampai akhir */
+  animation: sharkSwim 30s linear infinite;
+  will-change: transform;
+}
+
+/* Rute Keliling Akuarium (Lebih Dalam & Tidak Keluar Batas) */
+@keyframes sharkSwim {
+  /* 1. START: Kiri Atas, menghadap Kanan */
+  /* Jarak kiri-kanan aku kurangi dari 400px jadi 250px agar aman di dalam modal */
+  0% {
+    transform: translate(-250px, -20px) scaleX(-1);
+  }
+
+  /* Berenang melandai ke Kanan Atas */
+  22% {
+    transform: translate(250px, 40px) scaleX(-1);
+  }
+  /* Putar badan (hadap Kiri) */
+  23% {
+    transform: translate(250px, 40px) scaleX(1);
+  }
+
+  /* 2. MENYELAM DALAM: Dari Kanan Atas ke Kiri Bawah */
+  /* Angka Y aku tambah dari 300px jadi 450px agar menyelam jauh ke dasar modal */
+  47% {
+    transform: translate(-250px, 450px) scaleX(1);
+  }
+  /* Putar badan (hadap Kanan) */
+  48% {
+    transform: translate(-250px, 450px) scaleX(-1);
+  }
+
+  /* 3. NAIK: Dari Kiri Bawah ke Kanan Tengah */
+  72% {
+    transform: translate(250px, 200px) scaleX(-1);
+  }
+  /* Putar badan (hadap Kiri) */
+  73% {
+    transform: translate(250px, 200px) scaleX(1);
+  }
+
+  /* 4. KEMBALI: Dari Kanan Tengah ke Kiri Atas (Posisi Awal) */
+  98% {
+    transform: translate(-250px, -20px) scaleX(1);
+  }
+  /* Putar badan (hadap Kanan) untuk menyambung loop */
+  99%,
+  100% {
+    transform: translate(-250px, -20px) scaleX(-1);
+  }
+}
+
+/* Gelembung Modal */
+.shark-bubble {
+  box-shadow: 0px 0px 8px 3px inset rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  animation: modalWobble 2s ease-in-out infinite alternate;
+}
+
+.shark-bubble-rise {
+  position: absolute;
+  bottom: -30px;
+}
+
+.shark-bubble-rise:nth-child(1) {
+  animation: modalRise 4s infinite linear;
+}
+.shark-bubble-rise:nth-child(2) {
+  animation: modalRise 5s infinite linear 1.5s;
+}
+.shark-bubble-rise:nth-child(3) {
+  animation: modalRise 3.5s infinite linear 0.5s;
+}
+
+@keyframes modalWobble {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(20px);
+  }
+}
+
+@keyframes modalRise {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-800px);
+    opacity: 0;
+  }
+}
+
+/* =========================================
+   STYLE HIU (DARI CODEPEN - SCOPED)
+========================================= */
+.shark-canvas {
+  --skin: #568;
+  --skin-light: #679;
+  --skin-dark: #258;
+  width: 250px; /* Disesuaikan agar pas di dalam modal */
+  aspect-ratio: 1;
+  position: relative;
+  background:
+    radial-gradient(circle at 10% 20%, #fff3 4%, #fff0 0),
+    radial-gradient(circle at 11% 7%, #fff3 3.25%, #fff0 0),
+    radial-gradient(circle at 5% 12.5%, #fff3 2%, #fff0 0);
+}
+
+.shark-canvas * {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.shark-body {
+  width: 80%;
+  height: 60%;
+  background:
+    radial-gradient(170% 70% at 30% 99%, #fff4 20%, #0000 20.1%),
+    radial-gradient(100% 100% at 60% 0, var(--skin-light) 15%, var(--skin) 50%);
+  border-radius: 50%;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  filter: drop-shadow(-1vmin 0vmin) drop-shadow(0.7vmin 0vmin)
+    drop-shadow(0 0.75vmin) drop-shadow(0 -0.5vmin);
+  box-shadow:
+    inset 0 1vmin 0 -0.25vmin #fff3,
+    inset -0.25vmin -1vmin 0 -0.25vmin #0001;
+}
+
+.shark-canvas .fin {
+  border-radius: 100% 0 0 0;
+  background: var(--skin-light);
+  width: 25%;
+  height: 35%;
+  transform: translate(-50%, -90%) skew(-10deg) rotate(4deg);
+  top: 0;
+  left: 60%;
+  box-shadow: inset 1vmin 1vmin 0 -0.5vmin #fff3;
+}
+
+.shark-canvas .tail {
+  border-radius: 100% 0 0 0;
+  background: var(--skin);
+  width: 14%;
+  height: 40%;
+  transform: translate(0, -90%) skew(-10deg) rotate(10deg);
+  top: 50%;
+  left: 99%;
+  box-shadow: inset 0.5vmin 1.25vmin 0 -0.75vmin #fff3;
+}
+
+.shark-canvas .tail-bottom {
+  width: 12%;
+  height: 30%;
+  transform: scaleY(-1) skew(-10deg) rotate(10deg);
+  box-shadow: inset 0 1vmin 0 -0.25vmin #0002;
+}
+
+.shark-canvas .flipper {
+  border-radius: 0 0 0 100%;
+  background: var(--skin);
+  width: 18%;
+  height: 22%;
+  transform: skew(10deg) rotate(-16deg);
+  top: 70%;
+  left: 50%;
+  filter: drop-shadow(-1vmin 0vmin) drop-shadow(0.7vmin 0vmin)
+    drop-shadow(0 0.75vmin);
+  box-shadow: inset 1vmin -1vmin 0 -0.5vmin #00000018;
+}
+
+.shark-canvas .flipper-bottom {
+  background: var(--skin-dark);
+  box-shadow: inset 0 0 0 10in #0003;
+  left: 15%;
+  top: 65%;
+  transform: skew(10deg) rotate(30deg);
+}
+
+.shark-canvas .eye {
+  width: 8%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  top: 45%;
+  left: 4%;
+  background: radial-gradient(circle at 32% 32%, white 14%, black 0);
+}
+
+.shark-canvas .eye + .eye {
+  left: 35%;
+}
+
+.shark-canvas .mouth {
+  border-radius: 50%;
+  border: 0.5vmin solid #0000;
+  border-bottom: 0.75vmin solid #000;
+  border-left: 0.75vmin solid #000;
+  width: 10%;
+  aspect-ratio: 1;
+  top: 50%;
+  left: 18%;
+  transform: rotate(-45deg);
+}
+
+.shark-canvas .gills {
+  width: 7%;
+  height: 14%;
+  border-radius: 50%;
+  border: 0.25vmin solid #0000;
+  border-right: 0.75vmin solid;
+  top: 45%;
+  left: 60%;
+  filter: drop-shadow(1.5vmin 0) drop-shadow(1.5vmin 0);
+}
+
+.shark-canvas .cheek {
+  width: 10%;
+  height: 7%;
+  background:
+    repeating-linear-gradient(-55deg, #0000 0 19%, #6006 0 28%), #fcc6;
+  background-clip: content-box;
+  border-radius: 50%;
+  left: 3%;
+  top: 57%;
+  border: 0.75vmin solid #fcc6;
+  border-right-width: 1vmin;
+  border-left-width: 1vmin;
+}
+
+.shark-canvas .cheek + .cheek {
+  left: 34.5%;
+}
