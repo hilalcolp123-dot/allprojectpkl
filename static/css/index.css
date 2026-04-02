@@ -28,6 +28,273 @@ body {
   pointer-events: none; /* ⚠️ PENTING: Agar tombol di bawah gelembung tetap bisa diklik */
 }
 
+/* Wadah yang melayang ke atas */
+.g-bubble-rise {
+  position: absolute;
+  bottom: -50px;
+  animation: g-bubble-rise 4s cubic-bezier(0.3, 0, 0.7, 0.75) infinite;
+}
+
+/* Bentuk gelembungnya */
+.g-bubble {
+  box-shadow: 0px 0px 12px 5px inset rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  opacity: 1; /* Memastikan tidak transparan */
+  animation: g-bubble-wobble 2s ease infinite;
+  will-change: transform;
+}
+
+/* Pantulan cahaya gelembung */
+.g-bubble:after {
+  content: "";
+  position: absolute;
+  background-color: white;
+  width: 13px;
+  height: 8px;
+  top: 10%;
+  right: 21%;
+  border-radius: 50%;
+  transform: rotateZ(30deg) scaleY(0.7);
+  filter: blur(1px);
+}
+
+/* Variasi Ukuran */
+.g-bubble-rise:nth-child(even) .g-bubble {
+  width: 25px;
+  height: 25px;
+}
+.g-bubble-rise:nth-child(3n) .g-bubble {
+  width: 15px;
+  height: 15px;
+}
+
+/* Animasi Naik */
+@keyframes g-bubble-rise {
+  0% {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
+
+/* Animasi Goyang Kanan-Kiri */
+@keyframes g-bubble-wobble {
+  0% {
+    transform: translateX(10px);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(10px);
+  }
+}
+
+/*** BUBBLES ***/
+.bubbles {
+  width: 25vmin;
+  height: 80vmin;
+  bottom: 10vmin; /* Sesuaikan posisi gelembung relatif terhadap wrapper */
+  left: 22vmin; /* Posisikan di area kepala kura-kura sebelum diputar */
+  z-index: 1;
+  opacity: 0;
+}
+
+.bubble {
+  height: 4vmin;
+  width: 4vmin;
+  top: 30vmin;
+  animation:
+    bubble-down 5s linear 1.5s infinite,
+    bubble-side 3s ease-in-out infinite alternate;
+  opacity: 1;
+}
+.bubble:before {
+  content: "";
+  border-radius: 50%;
+  box-shadow: inset 0 -0.05vmin 0.5vmin rgb(255 255 255);
+  height: 50%;
+  width: 50%;
+  top: 25%;
+  left: 25%;
+}
+
+@keyframes bubble-down {
+  0% {
+    top: 30vmin;
+  }
+  20%,
+  70% {
+    opacity: 0.5;
+  }
+  100% {
+    top: 80vmin;
+    opacity: 0;
+  }
+}
+@keyframes bubble-side {
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: 10px;
+  }
+}
+
+/* Variasi Gelembung b2 - b10 tetap sama, hanya class diubah */
+.bubble.b2 {
+  left: 8vmin;
+  animation-delay: 1.2s;
+  animation-duration: 5s, 2s;
+  width: 1.75vmin;
+  height: 1.75vmin;
+}
+.bubble.b3 {
+  left: 9vmin;
+  animation-delay: 1.5s;
+  animation-duration: 5s, 3s;
+  width: 2.5vmin;
+  height: 2.5vmin;
+}
+.bubble.b4 {
+  left: 7vmin;
+  animation-delay: 1.75s;
+  animation-duration: 5s, 1.5s;
+  width: 1.5vmin;
+  height: 1.5vmin;
+}
+.bubble.b5 {
+  left: 4vmin;
+  animation-delay: 2s;
+  animation-duration: 5s, 4s;
+  width: 3vmin;
+  height: 3vmin;
+}
+.bubble.b6 {
+  left: 9vmin;
+  animation-delay: 2.05s;
+  animation-duration: 5s, 3.5s;
+  width: 2.25vmin;
+  height: 2.25vmin;
+}
+.bubble.b7 {
+  left: 8vmin;
+  animation-delay: 2.5s;
+  animation-duration: 5s, 1s;
+  width: 1.5vmin;
+  height: 1.5vmin;
+}
+.bubble.b8 {
+  left: 6.5vmin;
+  animation-delay: 2.15s;
+  animation-duration: 5s, 2.5s;
+  width: 1.35vmin;
+  height: 1.35vmin;
+}
+.bubble.b9 {
+  left: 5.5vmin;
+  animation-delay: 2.85s;
+  animation-duration: 5s, 2.25s;
+  width: 1.25vmin;
+  height: 1.25vmin;
+}
+.bubble.b10 {
+  left: 6.5vmin;
+  animation-delay: 3s;
+  animation-duration: 5s, 1.75s;
+  width: 1vmin;
+  height: 1vmin;
+}
+
+.bubbles.mirror {
+  left: auto;
+  right: 22vmin;
+  transform: rotateY(180deg);
+}
+
+.bubble-rise:nth-child(even) .bubble {
+  width: 25px;
+  height: 25px;
+}
+.bubble-rise:nth-child(3n) .bubble {
+  width: 10px;
+  height: 10px;
+}
+
+.bubble-rise {
+  position: absolute;
+  bottom: -50px; /* Mulai dari bawah layar */
+  animation: bubble-rise 2s cubic-bezier(0.3, 0, 0.7, 0.75) 0s infinite normal;
+}
+
+#bubble-field {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+
+@keyframes bubble {
+  0% {
+    transform: translateX(10px);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(10px);
+  }
+}
+
+.bubble {
+  box-shadow: 0px 0px 12px 5px inset rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: bubble 2s ease 0s infinite normal;
+  will-change: transform;
+}
+
+.bubble:after {
+  content: "";
+  position: absolute;
+  background-color: white;
+  width: 13px;
+  height: 8px;
+  top: 10%;
+  right: 21%;
+  border-radius: 50%;
+  transform: rotateZ(30deg) scaleY(0.7);
+  filter: blur(1px);
+}
+
+@keyframes bubble-rise {
+  0% {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
+
 /* 1. Atur Section Home sebagai "Kandang" */
 #home {
   position: relative; /* Wajib, agar fish-tank absolute mengikuti kotak ini */
@@ -111,26 +378,28 @@ body {
 /* Animasi dari kanan ke kiri, balik badan, lalu dari kiri ke kanan */
 @keyframes turtlePatrol {
   0% {
-    left: 120%; /* Mulai dari luar layar sebelah kanan */
-    transform: scaleY(1); /* Menghadap kiri */
+    left: 140%; /* Mulai dari kejauhan di luar layar kanan */
+    transform: scaleX(1); /* Posisi normal, menghadap kiri */
   }
-  45% {
-    left: -20%; /* Sampai di luar layar sebelah kiri */
-    transform: scaleY(1);
+  48% {
+    left: -40%; /* Berenang sampai benar-benar keluar layar kiri */
+    transform: scaleX(1); /* Masih menghadap kiri */
   }
   50% {
-    left: -20%;
-    transform: scaleY(
+    left: -40%;
+    transform: scaleX(
       -1
-    ); /* Balik badan menghadap kanan (menggunakan scaleY karena container sudah diputar -90deg) */
+    ); /* Balik badan menghadap kanan (dilakukan saat sembunyi di luar layar) */
   }
-  95% {
-    left: 120%; /* Sampai kembali di kanan */
-    transform: scaleY(-1);
+  98% {
+    left: 140%; /* Berenang dari kiri dan sampai keluar layar kanan */
+    transform: scaleX(-1); /* Masih menghadap kanan */
   }
   100% {
-    left: 120%;
-    transform: scaleY(1); /* Balik badan menghadap kiri lagi untuk mengulang */
+    left: 140%;
+    transform: scaleX(
+      1
+    ); /* Balik badan menghadap kiri lagi bersiap mengulang animasi */
   }
 }
 
@@ -473,127 +742,6 @@ body {
   }
 }
 
-/*** BUBBLES ***/
-.bubbles {
-  width: 25vmin;
-  height: 80vmin;
-  bottom: 10vmin; /* Sesuaikan posisi gelembung relatif terhadap wrapper */
-  left: 22vmin; /* Posisikan di area kepala kura-kura sebelum diputar */
-  z-index: 1;
-}
-
-.bubble {
-  height: 4vmin;
-  width: 4vmin;
-  top: 30vmin;
-  animation:
-    bubble-down 5s linear 1.5s infinite,
-    bubble-side 3s ease-in-out infinite alternate;
-  opacity: 0;
-}
-.bubble:before {
-  content: "";
-  border-radius: 50%;
-  box-shadow: inset 0 -0.05vmin 0.5vmin rgb(255 255 255);
-  height: 50%;
-  width: 50%;
-  top: 25%;
-  left: 25%;
-}
-
-@keyframes bubble-down {
-  0% {
-    top: 30vmin;
-  }
-  20%,
-  70% {
-    opacity: 0.5;
-  }
-  100% {
-    top: 80vmin;
-    opacity: 0;
-  }
-}
-@keyframes bubble-side {
-  0% {
-    margin-left: 0px;
-  }
-  100% {
-    margin-left: 10px;
-  }
-}
-
-/* Variasi Gelembung b2 - b10 tetap sama, hanya class diubah */
-.bubble.b2 {
-  left: 8vmin;
-  animation-delay: 1.2s;
-  animation-duration: 5s, 2s;
-  width: 1.75vmin;
-  height: 1.75vmin;
-}
-.bubble.b3 {
-  left: 9vmin;
-  animation-delay: 1.5s;
-  animation-duration: 5s, 3s;
-  width: 2.5vmin;
-  height: 2.5vmin;
-}
-.bubble.b4 {
-  left: 7vmin;
-  animation-delay: 1.75s;
-  animation-duration: 5s, 1.5s;
-  width: 1.5vmin;
-  height: 1.5vmin;
-}
-.bubble.b5 {
-  left: 4vmin;
-  animation-delay: 2s;
-  animation-duration: 5s, 4s;
-  width: 3vmin;
-  height: 3vmin;
-}
-.bubble.b6 {
-  left: 9vmin;
-  animation-delay: 2.05s;
-  animation-duration: 5s, 3.5s;
-  width: 2.25vmin;
-  height: 2.25vmin;
-}
-.bubble.b7 {
-  left: 8vmin;
-  animation-delay: 2.5s;
-  animation-duration: 5s, 1s;
-  width: 1.5vmin;
-  height: 1.5vmin;
-}
-.bubble.b8 {
-  left: 6.5vmin;
-  animation-delay: 2.15s;
-  animation-duration: 5s, 2.5s;
-  width: 1.35vmin;
-  height: 1.35vmin;
-}
-.bubble.b9 {
-  left: 5.5vmin;
-  animation-delay: 2.85s;
-  animation-duration: 5s, 2.25s;
-  width: 1.25vmin;
-  height: 1.25vmin;
-}
-.bubble.b10 {
-  left: 6.5vmin;
-  animation-delay: 3s;
-  animation-duration: 5s, 1.75s;
-  width: 1vmin;
-  height: 1vmin;
-}
-
-.bubbles.mirror {
-  left: auto;
-  right: 22vmin;
-  transform: rotateY(180deg);
-}
-
 .trail {
   width: 20vmin;
   height: 30vmin;
@@ -631,6 +779,829 @@ body {
   }
 }
 
+/* ==========================================
+   Awal Dari Whale (Section Project)
+========================================== */
+
+/* 1. Wrapper Animasi Pergerakan (Mondar-mandir & Meliuk) */
+.whale-path {
+  position: absolute;
+  top: 15%;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  animation: whaleWander 15s ease-in-out infinite alternate;
+}
+
+.whale-swimmer {
+  position: absolute;
+  width: 500px;
+  height: 400px;
+  top: 50%;
+  margin-top: -200px;
+  animation: whaleSwimCross 35s linear infinite;
+}
+
+/* 2. Container Paus Utama & Variabel Warna */
+#whale-container {
+  --belly-white: hsl(46, 25%, 90%);
+  --belly-navy: hsl(202, 57%, 65%);
+  --skin-navy: hsl(202, 67%, 30%);
+  --skin-blue: hsl(203, 92%, 60%);
+  --water-color: hsl(203, 100%, 50%);
+  --belly-lines-border: 90% 0% 80% 0%;
+  --belly-border-width: 0px 6px 1px 0px;
+
+  animation-name: whale-bob;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  background-color: transparent;
+  position: absolute;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+
+  /* Atur ukuran Paus di sini. Ubah 0.6 jadi lebih besar/kecil sesuai selera */
+  transform: rotate(-2deg) scale(1.5);
+}
+
+/* 3. Potongan Tubuh Paus (Bentuk Visual) */
+.belly-white {
+  background-color: var(--belly-white);
+}
+.belly-navy {
+  background-color: var(--belly-navy);
+}
+.skin-blue {
+  background-color: var(--skin-blue);
+}
+
+.whale {
+  position: absolute;
+  margin: auto;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.whole-tail {
+  animation-name: whole-tail-flip;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  transform: rotate(0deg);
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 300px;
+}
+.tail-connector {
+  background-color: var(--skin-blue);
+  height: 70px;
+  width: 140px;
+  border-radius: 50px 0px 0px 50px;
+  transform: rotate(5deg);
+  top: 0px;
+  bottom: 26px;
+  left: 0px;
+  right: 240px;
+}
+.tail-stem {
+  background-color: var(--skin-blue);
+  height: 140px;
+  width: 140px;
+  border-radius: 50%;
+  transform: rotate(-10deg);
+  top: 38px;
+  bottom: 0px;
+  left: 0px;
+  right: 18px;
+}
+.tail-stem::before {
+  position: absolute;
+  content: "";
+  height: 140px;
+  width: 155px;
+  background-color: #231671;
+  border-radius: 50%;
+  top: 70px;
+  bottom: 0px;
+  left: -15px;
+  right: 0px;
+}
+.tail-stem::after {
+  position: absolute;
+  content: "";
+  height: 80px;
+  width: 70px;
+  background-color: #231671;
+  border-radius: 50%;
+  top: 45px;
+  bottom: 0px;
+  left: 80px;
+}
+.tail-flipper {
+  animation-name: tail-flipper-1;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  height: 30px;
+  width: 70px;
+  border-radius: 50px 0px 50px 0px;
+  transform: rotate(-28deg);
+  background-color: var(--skin-blue);
+  top: 150px;
+  bottom: 0px;
+  left: 0px;
+  right: 185px;
+}
+.tail-flipper2 {
+  animation-name: tail-flipper-2;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  height: 30px;
+  width: 70px;
+  border-radius: 0px 50px 0px 50px;
+  transform: rotate(5deg);
+  background-color: var(--skin-blue);
+  top: 130px;
+  bottom: 0px;
+  left: 0px;
+  right: 75px;
+}
+.lines-container {
+  transform: rotate(15deg);
+  top: 0px;
+  bottom: 27px;
+  left: 0px;
+  right: 61px;
+}
+.line10 {
+  border-style: solid;
+  border-radius: var(--belly-lines-border);
+  height: 80px;
+  width: 200px;
+  border-width: var(--belly-border-width);
+  border-color: var(--belly-navy);
+  background-color: var(--belly-white);
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+.line9 {
+  border-style: solid;
+  border-radius: var(--belly-lines-border);
+  height: 85px;
+  width: 215px;
+  border-width: var(--belly-border-width);
+  border-color: var(--belly-navy);
+  background-color: var(--belly-white);
+  top: 5px;
+  bottom: 0px;
+  left: 10px;
+  right: 0px;
+}
+.line8 {
+  border-style: solid;
+  border-radius: var(--belly-lines-border);
+  height: 90px;
+  width: 230px;
+  border-width: var(--belly-border-width);
+  border-color: var(--belly-navy);
+  background-color: var(--belly-white);
+  top: 10px;
+  bottom: 0px;
+  left: 20px;
+  right: 0px;
+}
+.line7 {
+  border-style: solid;
+  border-radius: var(--belly-lines-border);
+  height: 95px;
+  width: 245px;
+  border-width: var(--belly-border-width);
+  border-color: var(--belly-navy);
+  background-color: var(--belly-white);
+  top: 15px;
+  bottom: 0px;
+  left: 30px;
+  right: 0px;
+}
+.line6 {
+  border-style: solid;
+  border-radius: var(--belly-lines-border);
+  height: 100px;
+  width: 260px;
+  border-width: var(--belly-border-width);
+  border-color: var(--belly-navy);
+  background-color: var(--belly-white);
+  top: 20px;
+  bottom: 0px;
+  left: 40px;
+  right: 0px;
+}
+.line5 {
+  border-style: solid;
+  border-radius: var(--belly-lines-border);
+  height: 105px;
+  width: 275px;
+  border-width: var(--belly-border-width);
+  border-color: var(--belly-navy);
+  background-color: var(--belly-white);
+  top: 25px;
+  bottom: 0px;
+  left: 50px;
+  right: 0px;
+}
+.cover-lines {
+  width: 150px;
+  height: 40px;
+  background-color: #231671;
+  transform: rotate(-15deg);
+  top: 0px;
+  bottom: 50px;
+  left: 30px;
+  right: 0px;
+}
+.body-top {
+  transform: rotate(5deg);
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+.body-top-main {
+  height: 70px;
+  width: 224px;
+  border-radius: 100px 0px 100px 0px;
+  background-color: var(--skin-blue);
+  top: 0px;
+  bottom: 5px;
+  left: 0px;
+  right: 90px;
+}
+.body-top-point {
+  height: 35px;
+  width: 180px;
+  border-radius: 100px 0px 100px 0px;
+  background-color: var(--skin-blue);
+  top: 0px;
+  bottom: 40px;
+  left: 204px;
+  right: 100px;
+}
+.right-flipper {
+  animation-name: right-flipper-swim;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  height: 80px;
+  width: 30px;
+  border-radius: 50px;
+  background-color: var(--skin-blue);
+  transform: rotate(-10deg);
+  top: 55px;
+  bottom: 0px;
+  left: -85px;
+  right: 0px;
+}
+.right-flipper::before {
+  position: absolute;
+  content: "";
+  height: 70px;
+  width: 40px;
+  background-color: var(--skin-blue);
+  border-radius: 65px 25px 95px 5px;
+  transform: skewY(0deg) rotate(45deg);
+  top: 43px;
+  bottom: 0px;
+  left: -25px;
+  right: 0px;
+}
+.left-flipper {
+  animation-name: left-flipper-swim;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  height: 65px;
+  width: 35px;
+  background-color: var(--belly-white);
+  border-radius: 65px 25px 95px 5px;
+  border-style: solid;
+  border-width: 0px 6px 2px 0px;
+  border-color: var(--skin-blue);
+  transform: rotate(35deg);
+  top: 120px;
+  bottom: 0px;
+  left: 15px;
+  right: 5px;
+}
+.whale-eye {
+  height: 10px;
+  width: 10px;
+  background-color: var(--skin-navy);
+  border-radius: 50%;
+  top: 0px;
+  bottom: 5px;
+  left: 40px;
+  right: 0px;
+}
+.whale-eye::before {
+  position: absolute;
+  content: "";
+  height: 3px;
+  width: 3px;
+  background-color: white;
+  border-radius: 50%;
+  top: 2px;
+  bottom: 0px;
+  left: 2px;
+  right: 0px;
+}
+.whale-eye::after {
+  animation-name: whale-blink;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  background-color: var(--skin-blue);
+  border-radius: 50%;
+  border-color: transparent;
+  top: -12px;
+  bottom: 0px;
+  left: -1px;
+  right: 0px;
+}
+.spout {
+  height: 3px;
+  width: 9px;
+  border-radius: 50%;
+  background-color: var(--skin-navy);
+  top: 0px;
+  bottom: 69px;
+  left: 70px;
+  right: 0px;
+}
+
+/* 4. KEYFRAMES ANIMASI (Disatukan agar Rapi) */
+@keyframes whole-tail-flip {
+  50% {
+    transform: rotate(15deg);
+    top: 5px;
+  }
+  100% {
+    transform: rotate(0deg);
+    top: 0px;
+  }
+}
+@keyframes tail-flipper-1 {
+  50% {
+    transform: rotate(-43deg);
+    right: 175px;
+  }
+  100% {
+    transform: rotate(-28deg);
+    right: 185px;
+  }
+}
+@keyframes tail-flipper-2 {
+  50% {
+    transform: rotate(20deg);
+    right: 80px;
+  }
+  100% {
+    transform: rotate(5deg);
+    right: 75px;
+  }
+}
+@keyframes right-flipper-swim {
+  50% {
+    transform: rotate(-40deg);
+  }
+  100% {
+    transform: rotate(-10deg);
+  }
+}
+@keyframes left-flipper-swim {
+  50% {
+    transform: rotate(10deg);
+    top: 120px;
+    left: 30px;
+  }
+  100% {
+    transform: rotate(35deg);
+    top: 120px;
+    left: 15px;
+  }
+}
+@keyframes whale-bob {
+  50% {
+    top: 50px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+@keyframes whale-blink {
+  3% {
+    top: -2px;
+  }
+  6% {
+    top: -12px;
+  }
+  9% {
+    top: -2px;
+  }
+  12% {
+    top: -12px;
+  }
+}
+
+/* Keyframes Baru: Berenang Kiri-Kanan yang sudah diperbaiki arahnya */
+@keyframes whaleSwimCross {
+  0% {
+    left: -40%;
+    transform: scaleX(1);
+  }
+  48% {
+    left: 120%;
+    transform: scaleX(1);
+  }
+  50% {
+    left: 120%;
+    transform: scaleX(-1);
+  }
+  98% {
+    left: -40%;
+    transform: scaleX(-1);
+  }
+  100% {
+    left: -40%;
+    transform: scaleX(1);
+  }
+}
+
+/* Keyframes Baru: Meliuk Naik-Turun */
+@keyframes whaleWander {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(15vh) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-10vh) rotate(-5deg);
+  }
+  75% {
+    transform: translateY(25vh) rotate(8deg);
+  }
+  100% {
+    transform: translateY(5vh) rotate(-2deg);
+  }
+}
+
+/* ==========================================
+   Akhir Dari Whale (Section Project)
+========================================== */
+
+/* ==========================================
+   Awal Dari Submarine & Animasi
+========================================== */
+
+/* 1. JALUR KAPAL SELAM & PENGATURAN POSISI */
+.submarine-path {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+
+  /* Animasi meliuk naik turun (bobbing) */
+  animation: subWander 12s ease-in-out infinite alternate;
+}
+
+.submarine-swimmer {
+  position: absolute;
+  width: 200px;
+  height: 80px;
+  margin-top: -40px;
+
+  /* =======================================================
+       UBAH POSISI KAPAL SELAM DI SINI! 
+       Ubah nilai 'top' di bawah untuk mengatur letak vertikal.
+       Contoh: 20% (di atas), 50% (di tengah), 80% (di bawah).
+       ======================================================= */
+  top: 40%;
+
+  /* Animasi mondar-mandir layar */
+  animation: subSwimCross 30s linear infinite;
+}
+
+/* 2. BENTUK KAPAL SELAM */
+.submarine {
+  background-color: #dd0e49;
+  height: 80px;
+  width: 200px;
+  border-radius: 80px;
+  position: relative; /* Diubah jadi relative agar mengikuti wrapper */
+}
+
+.submarine::before {
+  content: "";
+  position: absolute;
+  height: 5px;
+  width: 80px;
+  background-color: #ee689e;
+  border-radius: 5px;
+  top: 7px;
+  left: 28px;
+}
+
+.submarine::after {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  border: 5px solid transparent;
+  border-right: 5px solid #ee689e;
+  border-radius: 50%;
+  transform: rotate(45deg);
+  bottom: 10px;
+  right: 14px;
+}
+
+/* --- Detail Tubuh --- */
+.top {
+  height: 0;
+  width: 65px;
+  border-bottom: 25px solid #dd0e49;
+  border-right: 18px solid transparent;
+  position: relative;
+  bottom: 25px;
+  left: 50px;
+}
+
+.top::before {
+  position: absolute;
+  content: "";
+  height: 0;
+  width: 81px;
+  border-bottom: 3px solid #a30036;
+  border-right: 2px solid transparent;
+  top: 22px;
+}
+
+.top::after {
+  position: absolute;
+  content: "";
+  height: 3px;
+  width: 30px;
+  background-color: #ee689e;
+  border-radius: 30px;
+  right: 5px;
+  top: 5px;
+}
+
+.pipe {
+  height: 17px;
+  width: 10px;
+  border-right: 5px solid #dd0e49;
+  border-top: 5px solid #dd0e49;
+  border-radius: 0 5px 0 0;
+  position: relative;
+  bottom: 22px;
+  left: 4px;
+}
+
+.pipe::before {
+  position: absolute;
+  content: "";
+  height: 2px;
+  width: 5px;
+  background-color: #a30036;
+  top: 15px;
+  left: 10px;
+}
+
+.pipe::after {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 4px;
+  background-color: #f8d02e;
+  bottom: 16px;
+}
+
+.light {
+  height: 5px;
+  width: 0;
+  border-left: 115px solid #fff;
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+  position: relative;
+  right: 115px;
+  bottom: 28px;
+  opacity: 0.15;
+}
+
+.window {
+  height: 20px;
+  width: 20px;
+  background-color: #2adab7;
+  border: 4px solid #a30036;
+  border-radius: 50%;
+  position: absolute;
+  overflow: hidden;
+}
+
+.window-1 {
+  left: 20px;
+}
+.window-2 {
+  left: 65px;
+}
+
+.shine {
+  height: 35px;
+  width: 4px;
+  background-color: #fff;
+  transform: rotate(135deg);
+  position: relative;
+  top: 2px;
+  right: 2px;
+  animation: shine-move 2s infinite;
+}
+
+.shadow {
+  height: 7px;
+  width: 60px;
+  background-color: #a30036;
+  border-radius: 60px;
+  position: relative;
+  top: 9px;
+  left: 100px;
+}
+
+/* --- Baling-baling & Jejak (Trails) --- */
+.propeller {
+  perspective: 1200px;
+}
+
+.back {
+  height: 20px;
+  width: 5px;
+  background-color: #a30036;
+  position: relative;
+  left: 198px;
+}
+
+.wing {
+  background-color: #f8d02e;
+  height: 30px;
+  width: 17px;
+  transform-style: preserve-3d;
+  position: relative;
+  bottom: 25px;
+  left: 202px;
+  animation: spin 0.5s infinite linear;
+}
+
+/* Efek Jejak Air (Water Trail) Baru */
+.water-trail {
+  position: absolute;
+  height: 4px;
+  width: 120px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.4) 0px,
+    rgba(255, 255, 255, 0.4) 5px,
+    transparent 5px,
+    transparent 10px
+  );
+  border-radius: 5px;
+  right: -120px;
+  top: 38px;
+  animation: trail-move 1s infinite linear;
+  opacity: 0.6;
+}
+
+.bubble {
+  background-color: #fff;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  position: absolute;
+  left: 200px;
+  bottom: 35px;
+  opacity: 0.4;
+}
+
+.bubble-1 {
+  animation: bubble-move-1 3s 2s infinite;
+}
+.bubble-2 {
+  animation: bubble-move-2 3s 0.5s infinite;
+}
+.bubble-3 {
+  animation: bubble-move-3 4s 1s infinite;
+}
+
+/* 3. KEYFRAMES ANIMASI KESELURUHAN */
+@keyframes subWander {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-3vh) rotate(-3deg);
+  }
+  66% {
+    transform: translateY(4vh) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes subSwimCross {
+  /* Kapal selam menghadap kiri secara default, 
+       jadi scaleX(-1) membuatnya hadap kanan, scaleX(1) membiarkan hadap kiri */
+
+  0% {
+    left: -40%;
+    transform: scaleX(-1);
+  }
+  48% {
+    left: 120%;
+    transform: scaleX(-1);
+  }
+  50% {
+    left: 120%;
+    transform: scaleX(1);
+  }
+  98% {
+    left: -40%;
+    transform: scaleX(1);
+  }
+  100% {
+    left: -40%;
+    transform: scaleX(-1);
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotateX(180deg);
+  }
+}
+
+@keyframes shine-move {
+  100% {
+    transform: rotate(135deg) translate(-40px);
+  }
+}
+
+@keyframes bubble-move-1 {
+  100% {
+    transform: translate(50px, -20px);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-move-2 {
+  100% {
+    transform: translate(30px, -20px);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-move-3 {
+  100% {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+}
+
+@keyframes trail-move {
+  0% {
+    transform: translateX(0);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+}
+/* ==========================================
+   Akhir Dari Submarine
+========================================== */
+
 #fish-tank {
   position: absolute; /* Ubah ke absolute (jangan fixed) */
   top: 0;
@@ -642,62 +1613,6 @@ body {
   z-index: 1; /* Di bawah konten home, tapi di atas background */
 }
 
-#bubble-field {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-}
-
-@keyframes bubble {
-  0% {
-    transform: translateX(10px);
-  }
-  50% {
-    transform: translateX(-10px);
-  }
-  100% {
-    transform: translateX(10px);
-  }
-}
-
-.bubble {
-  box-shadow: 0px 0px 12px 5px inset rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  animation: bubble 2s ease 0s infinite normal;
-}
-
-.bubble:after {
-  content: "";
-  position: absolute;
-  background-color: white;
-  width: 13px;
-  height: 8px;
-  top: 10%;
-  right: 21%;
-  border-radius: 50%;
-  transform: rotateZ(30deg) scaleY(0.7);
-  filter: blur(1px);
-}
-
-@keyframes bubble-rise {
-  0% {
-    transform: translateY(0px);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-110vh);
-    opacity: 0;
-  }
-}
-
 /* Animasi goyang natural air */
 @keyframes wobble {
   0% {
@@ -706,21 +1621,6 @@ body {
   100% {
     transform: translateX(20px);
   }
-}
-
-.bubble-rise:nth-child(even) .bubble {
-  width: 25px;
-  height: 25px;
-}
-.bubble-rise:nth-child(3n) .bubble {
-  width: 10px;
-  height: 10px;
-}
-
-.bubble-rise {
-  position: absolute;
-  bottom: -50px; /* Mulai dari bawah layar */
-  animation: bubble-rise 2s cubic-bezier(0.3, 0, 0.7, 0.75) 0s infinite normal;
 }
 
 @keyframes fish {
@@ -944,7 +1844,7 @@ body {
   position: absolute;
   top: 15%;
   /* ⚠️ PENTING: left: 0 dan width: 100% DIHAPUS agar putar balik tidak error! */
-  z-index: 9999;
+  z-index: -1;
   pointer-events: none;
   animation: sharkSwimAcross 24s linear infinite;
 }
@@ -974,7 +1874,7 @@ body {
 ========================================== */
 #sharky {
   position: absolute;
-  width: 350px; /* ⚠️ Ubah angka ini untuk membesarkan/mengecilkan hiu */
+  width: 450px; /* ⚠️ Ubah angka ini untuk membesarkan/mengecilkan hiu */
   display: flex;
 }
 
@@ -1712,247 +2612,4 @@ body::after {
   50% {
     transform: translateY(-5px);
   }
-}
-/* =========================================
-   ANIMASI AQUARIUM & HIU (MODAL)
-========================================= */
-
-/* Wadah hiu berenang */
-.shark-swimmer {
-  position: absolute;
-  top: 5%; /* Mulai agak di atas */
-  left: 50%;
-  /* Gunakan 'linear' agar kecepatan renangnya stabil dari awal sampai akhir */
-  animation: sharkSwim 30s linear infinite;
-  will-change: transform;
-}
-
-/* Rute Keliling Akuarium (Lebih Dalam & Tidak Keluar Batas) */
-@keyframes sharkSwim {
-  /* 1. START: Kiri Atas, menghadap Kanan */
-  /* Jarak kiri-kanan aku kurangi dari 400px jadi 250px agar aman di dalam modal */
-  0% {
-    transform: translate(-250px, -20px) scaleX(-1);
-  }
-
-  /* Berenang melandai ke Kanan Atas */
-  22% {
-    transform: translate(250px, 40px) scaleX(-1);
-  }
-  /* Putar badan (hadap Kiri) */
-  23% {
-    transform: translate(250px, 40px) scaleX(1);
-  }
-
-  /* 2. MENYELAM DALAM: Dari Kanan Atas ke Kiri Bawah */
-  /* Angka Y aku tambah dari 300px jadi 450px agar menyelam jauh ke dasar modal */
-  47% {
-    transform: translate(-250px, 450px) scaleX(1);
-  }
-  /* Putar badan (hadap Kanan) */
-  48% {
-    transform: translate(-250px, 450px) scaleX(-1);
-  }
-
-  /* 3. NAIK: Dari Kiri Bawah ke Kanan Tengah */
-  72% {
-    transform: translate(250px, 200px) scaleX(-1);
-  }
-  /* Putar badan (hadap Kiri) */
-  73% {
-    transform: translate(250px, 200px) scaleX(1);
-  }
-
-  /* 4. KEMBALI: Dari Kanan Tengah ke Kiri Atas (Posisi Awal) */
-  98% {
-    transform: translate(-250px, -20px) scaleX(1);
-  }
-  /* Putar badan (hadap Kanan) untuk menyambung loop */
-  99%,
-  100% {
-    transform: translate(-250px, -20px) scaleX(-1);
-  }
-}
-
-/* Gelembung Modal */
-.shark-bubble {
-  box-shadow: 0px 0px 8px 3px inset rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  width: 15px;
-  height: 15px;
-  animation: wobble 2s ease-in-out infinite alternate;
-}
-
-.shark-bubble-rise {
-  position: absolute;
-  bottom: -30px;
-}
-
-.shark-bubble-rise:nth-child(1) {
-  animation: modalRise 4s infinite linear;
-}
-.shark-bubble-rise:nth-child(2) {
-  animation: modalRise 5s infinite linear 1.5s;
-}
-.shark-bubble-rise:nth-child(3) {
-  animation: modalRise 3.5s infinite linear 0.5s;
-}
-
-@keyframes modalRise {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.6;
-  }
-  90% {
-    opacity: 0.6;
-  }
-  100% {
-    transform: translateY(-800px);
-    opacity: 0;
-  }
-}
-
-/* =========================================
-   STYLE HIU (DARI CODEPEN - SCOPED)
-========================================= */
-.shark-canvas {
-  --skin: #568;
-  --skin-light: #679;
-  --skin-dark: #258;
-  width: 250px; /* Disesuaikan agar pas di dalam modal */
-  aspect-ratio: 1;
-  position: relative;
-  background:
-    radial-gradient(circle at 10% 20%, #fff3 4%, #fff0 0),
-    radial-gradient(circle at 11% 7%, #fff3 3.25%, #fff0 0),
-    radial-gradient(circle at 5% 12.5%, #fff3 2%, #fff0 0);
-}
-
-.shark-canvas * {
-  position: absolute;
-  box-sizing: border-box;
-}
-
-.shark-body {
-  width: 80%;
-  height: 60%;
-  background:
-    radial-gradient(170% 70% at 30% 99%, #fff4 20%, #0000 20.1%),
-    radial-gradient(100% 100% at 60% 0, var(--skin-light) 15%, var(--skin) 50%);
-  border-radius: 50%;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  filter: drop-shadow(-1vmin 0vmin) drop-shadow(0.7vmin 0vmin)
-    drop-shadow(0 0.75vmin) drop-shadow(0 -0.5vmin);
-  box-shadow:
-    inset 0 1vmin 0 -0.25vmin #fff3,
-    inset -0.25vmin -1vmin 0 -0.25vmin #0001;
-}
-
-.shark-canvas .fin {
-  border-radius: 100% 0 0 0;
-  background: var(--skin-light);
-  width: 25%;
-  height: 35%;
-  transform: translate(-50%, -90%) skew(-10deg) rotate(4deg);
-  top: 0;
-  left: 60%;
-  box-shadow: inset 1vmin 1vmin 0 -0.5vmin #fff3;
-}
-
-.shark-canvas .tail {
-  border-radius: 100% 0 0 0;
-  background: var(--skin);
-  width: 14%;
-  height: 40%;
-  transform: translate(0, -90%) skew(-10deg) rotate(10deg);
-  top: 50%;
-  left: 99%;
-  box-shadow: inset 0.5vmin 1.25vmin 0 -0.75vmin #fff3;
-}
-
-.shark-canvas .tail-bottom {
-  width: 12%;
-  height: 30%;
-  transform: scaleY(-1) skew(-10deg) rotate(10deg);
-  box-shadow: inset 0 1vmin 0 -0.25vmin #0002;
-}
-
-.shark-canvas .flipper {
-  border-radius: 0 0 0 100%;
-  background: var(--skin);
-  width: 18%;
-  height: 22%;
-  transform: skew(10deg) rotate(-16deg);
-  top: 70%;
-  left: 50%;
-  filter: drop-shadow(-1vmin 0vmin) drop-shadow(0.7vmin 0vmin)
-    drop-shadow(0 0.75vmin);
-  box-shadow: inset 1vmin -1vmin 0 -0.5vmin #00000018;
-}
-
-.shark-canvas .flipper-bottom {
-  background: var(--skin-dark);
-  box-shadow: inset 0 0 0 10in #0003;
-  left: 15%;
-  top: 65%;
-  transform: skew(10deg) rotate(30deg);
-}
-
-.shark-canvas .eye {
-  width: 8%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  top: 45%;
-  left: 4%;
-  background: radial-gradient(circle at 32% 32%, white 14%, black 0);
-}
-
-.shark-canvas .eye + .eye {
-  left: 35%;
-}
-
-.shark-canvas .mouth {
-  border-radius: 50%;
-  border: 0.5vmin solid #0000;
-  border-bottom: 0.75vmin solid #000;
-  border-left: 0.75vmin solid #000;
-  width: 10%;
-  aspect-ratio: 1;
-  top: 50%;
-  left: 18%;
-  transform: rotate(-45deg);
-}
-
-.shark-canvas .gills {
-  width: 7%;
-  height: 14%;
-  border-radius: 50%;
-  border: 0.25vmin solid #0000;
-  border-right: 0.75vmin solid;
-  top: 45%;
-  left: 60%;
-  filter: drop-shadow(1.5vmin 0) drop-shadow(1.5vmin 0);
-}
-
-.shark-canvas .cheek {
-  width: 10%;
-  height: 7%;
-  background:
-    repeating-linear-gradient(-55deg, #0000 0 19%, #6006 0 28%), #fcc6;
-  background-clip: content-box;
-  border-radius: 50%;
-  left: 3%;
-  top: 57%;
-  border: 0.75vmin solid #fcc6;
-  border-right-width: 1vmin;
-  border-left-width: 1vmin;
-}
-
-.shark-canvas .cheek + .cheek {
-  left: 34.5%;
 }

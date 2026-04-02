@@ -72,6 +72,25 @@
 
   <body class="font-body selection:bg-secondary selection:text-primary">
     <div id="global-bubbles">
+      <div class="g-bubble-rise" style="left: 10%; animation-duration: 4s;">
+        <div class="g-bubble"></div>
+      </div>
+      
+      <div class="g-bubble-rise" style="left: 30%; animation-duration: 3s; animation-delay: 1s;">
+        <div class="g-bubble"></div>
+      </div>
+      
+      <div class="g-bubble-rise" style="left: 55%; animation-duration: 5s; animation-delay: 0.5s;">
+        <div class="g-bubble"></div>
+      </div>
+
+      <div class="g-bubble-rise" style="left: 80%; animation-duration: 3.5s; animation-delay: 2s;">
+        <div class="g-bubble"></div>
+      </div>
+      
+      <div class="g-bubble-rise" style="left: 90%; animation-duration: 4.5s; animation-delay: 1.5s;">
+        <div class="g-bubble"></div>
+      </div>
     </div>
     <nav
       class="fixed top-0 w-full z-50 bg-primary/80 backdrop-blur-md border-b border-secondary/10 shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
@@ -231,7 +250,7 @@
       </div>
     </section>
 
-    <section class="py-24 bg-black/10 backdrop-blur-sm" id="team">
+    <section class="py-24 overflow-hidden bg-black/10 backdrop-blur-sm" id="team">
       <div class="max-w-7xl mx-auto px-8">
         <div class="mb-16 text-center md:text-left">
           <h2 class="font-headline text-4xl font-bold mb-4 text-white">
@@ -665,7 +684,66 @@
         
         <div id="project-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
       </div>
+    <div class="submarine-path">
+        <div class="submarine-swimmer">
+            
+            <div class="submarine">
+                <div class="water-trail"></div>
+                
+                <div class="top">
+                    <div class="pipe">
+                        <div class="light"></div>
+                    </div>
+                </div>
+                <div class="window window-1">
+                    <div class="shine"></div>
+                </div>
+                <div class="window window-2">
+                    <div class="shine"></div>
+                </div>
+                <div class="shadow"></div>
+                <div class="propeller">
+                    <div class="back"></div>
+                    <div class="wing"></div>
+                    <div class="bubble bubble-1"></div>
+                    <div class="bubble bubble-2"></div>
+                    <div class="bubble bubble-3"></div>
+                </div>
+            </div>
 
+        </div>
+    </div>
+      <div class="whale-path">
+        <div class="whale-swimmer">
+          <div id='whale-container' class='whale'>
+            <div class='whale whole-tail'>
+              <div class='whale tail-stem'></div>
+              <div class='whale tail-flipper'></div>
+              <div class='whale tail-flipper2'></div>
+            </div>
+            <div class='whale tail-connector'></div>
+            <div class='whale left-flipper'></div>
+            <div class='whale body-bottom'>
+              <div class='whale lines-container'>
+                <div class='whale line5'></div> 
+                <div class='whale line6'></div>
+                <div class='whale line7'></div>
+                <div class='whale line8'></div>
+                <div class='whale line9'></div>
+                <div class='whale line10'></div>
+                <div class='whale cover-lines'></div>
+              </div>
+              <div class='whale body-top'>
+                <div class='whale body-top-main'></div>
+                <div class='whale body-top-point'></div>
+              </div>
+              <div class='whale right-flipper'></div>
+              <div class='whale whale-eye'></div>
+              <div class='whale spout'></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div id="orca-position">
           <div id="orca-direction">
               <div id="orca">
@@ -730,39 +808,6 @@
         >
           <span class="material-symbols-outlined">close</span>
         </button>
-
-        <div
-          id="shark-tank"
-          class="absolute inset-0 pointer-events-none z-0 opacity-30 overflow-hidden rounded-2xl"
-        >
-          <div class="shark-bubble-rise" style="left: 15%">
-            <div class="shark-bubble"></div>
-          </div>
-          <div class="shark-bubble-rise" style="left: 55%">
-            <div class="shark-bubble"></div>
-          </div>
-          <div class="shark-bubble-rise" style="left: 85%">
-            <div class="shark-bubble"></div>
-          </div>
-
-          <div class="shark-swimmer">
-            <div class="shark-canvas">
-              <div class="flipper flipper-bottom"></div>
-              <div class="shark-body">
-                <div class="eye"></div>
-                <div class="eye"></div>
-                <div class="cheek"></div>
-                <div class="cheek"></div>
-                <div class="mouth"></div>
-                <div class="fin"></div>
-                <div class="tail tail-top"></div>
-                <div class="tail tail-bottom"></div>
-                <div class="gills"></div>
-              </div>
-              <div class="flipper flipper-top"></div>
-            </div>
-          </div>
-        </div>
 
         <div class="p-6 sm:p-8">
           <div

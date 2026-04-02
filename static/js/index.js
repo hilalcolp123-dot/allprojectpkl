@@ -39,9 +39,9 @@ mobileLinks.forEach((link) => {
 document.addEventListener("DOMContentLoaded", function () {
   // === SCRIPT ANIMASI GELEMBUNG AKUARIUM ===
   const bubbleCount = 30;
-  const bubbleField = document.getElementById("bubble-field");
+  const bubbleField = document.getElementById("global-bubbles");
 
-  // Pastikan elemen bubble-field ada di HTML
+  // Pastikan elemen global-bubbles ada di HTML
   if (bubbleField) {
     // Generate gelembung dengan durasi animasi yang diacak
     for (let i = 0; i < bubbleCount; i++) {
@@ -111,8 +111,8 @@ const projectData = [
     href: "/cipher",
     category: "Web Application",
     desc: "Caesar, Morse, Atbash, Vigenère — alat kripto klasik untuk pembelajaran keamanan data.",
-    image: "/static/images/cipher.jpg",
-    gallery: ["/static/images/cipher.jpg", "/static/images/cipher-detail1.png"],
+    image: "/static/images/cipher.png",
+    gallery: ["/static/images/cipher.png", "/static/images/cipher-detail1.png"],
     developer: "Muhamad Hilal Diyaul Haq",
     problem:
       "Mempelajari dasar-dasar kriptografi klasik seringkali membingungkan jika dilakukan secara manual tanpa alat peraga interaktif.",
@@ -181,8 +181,8 @@ const projectData = [
     href: "/quiz",
     category: "Web Application",
     desc: "Latih pengetahuan kamu dengan berbagai soal kuis interaktif yang menantang.",
-    image: "/static/images/quiz.jpg",
-    gallery: ["/static/images/quiz.jpg", "/static/images/quiz-detail1.png"],
+    image: "/static/images/quiz.png",
+    gallery: ["/static/images/quiz.png", "/static/images/quiz-detail1.png"],
     developer: "Muhamad Hilal Diyaul Haq",
     problem:
       "Belajar terasa membosankan tanpa adanya interaksi atau tantangan.",
@@ -212,9 +212,9 @@ const projectData = [
     href: "/anischedule",
     category: "Web Application",
     desc: "Lihat jadwal tayang anime terbaru secara akurat agar tidak ketinggalan episode.",
-    image: "/static/images/schedule.jpg",
+    image: "/static/images/schedule.jpeg",
     gallery: [
-      "/static/images/schedule.jpg",
+      "/static/images/schedule.jpeg",
       "/static/images/schedule-detail1.png",
     ],
     developer: "Ihsan Fathurrahman",
@@ -243,9 +243,9 @@ const projectData = [
     href: "/wedding",
     category: "Web Application",
     desc: "Template website undangan pernikahan digital yang unik, modern, dan menarik.",
-    image: "/static/images/wedding.jpg",
+    image: "/static/images/wedding.jpeg",
     gallery: [
-      "/static/images/wedding.jpg",
+      "/static/images/wedding.jpeg",
       "/static/images/wedding-detail1.png",
     ],
     developer: "Rikaz Putra Ediansyah",
@@ -260,8 +260,8 @@ const projectData = [
     href: "/utamapdf",
     category: "Web Application",
     desc: "Aplikasi web ultilitas untuk menggabungkan dan memisahkan halaman file PDF dengan cepat.",
-    image: "/static/images/PDF.jpg",
-    gallery: ["/static/images/PDF.jpg", "/static/images/PDF-detail1.png"],
+    image: "/static/images/PDF.png",
+    gallery: ["/static/images/PDF.png", "/static/images/PDF-detail1.png"],
     developer: "Muhamad Hilal Diyaul Haq",
     problem:
       "Menggabungkan atau memisahkan file PDF biasanya butuh software khusus.",
@@ -291,8 +291,8 @@ const projectData = [
     href: "/resep-index",
     category: "Web Application",
     desc: "Website pencari ide masakan cerdas berdasarkan bahan-bahan yang saat ini kamu miliki di dapur.",
-    image: "/static/images/recipe.jpg",
-    gallery: ["/static/images/recipe.jpg", "/static/images/recipe-detail1.png"],
+    image: "/static/images/recipe.jpeg",
+    gallery: ["/static/images/recipe.jpeg", "/static/images/recipe-detail1.png"],
     developer: "Ihsan Fathurrahman",
     problem: "Sering bingung mau masak apa dengan bahan yang tersedia.",
     solution:
@@ -304,9 +304,9 @@ const projectData = [
     href: "/unitconverter",
     category: "Web Application",
     desc: "Berbagai alat konversi seperti panjang, berat, suhu, dan waktu dalam satu tempat praktis.",
-    image: "/static/images/converter.jpg",
+    image: "/static/images/converter.png",
     gallery: [
-      "/static/images/converter.jpg",
+      "/static/images/converter.png",
       "/static/images/converter-detail1.png",
     ],
     developer: "Muhamad Hilal Diyaul Haq",
