@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, send_file
 from pypdf import PdfReader, PdfWriter
 from dotenv import load_dotenv
+import google.generativeai as genai
 import zipfile
 import requests
-import pandas as pd
 import plotly.express as px
 import plotly.utils
 import base64
@@ -20,6 +20,10 @@ app = Flask(
     static_folder=os.path.join(base_dir, "../static"),
 )
 
+API_KEY = os.environ.get("GEMINI_API_KEY")
+genai.configure(api_key=API_KEY)
+model = genai.GenerativeModel("gemini-3.1-pro-preview")
+
 # Export app untuk Vercel
 app.debug = True
 
@@ -33,6 +37,27 @@ def index():
 # @app.route("/anifinder")
 # def anifinder():
 #     return render_template("anifinder.html")
+
+
+@app.route("/finance")
+def finance_page():
+    return render_template("finance.html")
+
+
+@app.route("/get_ai_advice", methods=["POST"])
+def get_ai_advice():
+    try:
+        data = request.json
+        pemasukan = data.get("pemasukan")
+        pengeluaran = data.get("pengeluaran")
+        catatan = data.get("catatan")
+
+        prompt = f"Uang masuk: {pemasukan}, keluar: {pengeluaran}. Catatan: {catatan}. Beri saran singkat finansial."
+
+        response = model.generate_content(prompt)
+        return jsonify({"advice": response.text})
+    except Exception as e:
+        return jsonify({"advice": f"Error: {str(e)}"}), 500
 
 
 @app.route("/anischedule")

@@ -1,7 +1,7 @@
 flask
 pypdf
 requests
-pandas
 plotly
 python-dotenv
 gunicorn
+google-generativeai
