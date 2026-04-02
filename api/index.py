@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, jsonify
 from pypdf import PdfReader, PdfWriter
 from dotenv import load_dotenv
+import pandas as pd
 import google.generativeai as genai
 import zipfile
 import requests
@@ -52,10 +53,11 @@ def get_ai_advice():
         pengeluaran = data.get("pengeluaran")
         catatan = data.get("catatan")
 
+        # Menggunakan model Gemini
         prompt = f"Uang masuk: {pemasukan}, keluar: {pengeluaran}. Catatan: {catatan}. Beri saran singkat finansial."
-
         response = model.generate_content(prompt)
-        return jsonify({"advice": response.text})
+
+        return jsonify({"advice": response.text})  # Sekarang jsonify sudah aman
     except Exception as e:
         return jsonify({"advice": f"Error: {str(e)}"}), 500
 

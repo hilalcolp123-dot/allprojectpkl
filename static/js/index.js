@@ -292,7 +292,10 @@ const projectData = [
     category: "Web Application",
     desc: "Website pencari ide masakan cerdas berdasarkan bahan-bahan yang saat ini kamu miliki di dapur.",
     image: "/static/images/recipe.jpeg",
-    gallery: ["/static/images/recipe.jpeg", "/static/images/recipe-detail1.png"],
+    gallery: [
+      "/static/images/recipe.jpeg",
+      "/static/images/recipe-detail1.png",
+    ],
     developer: "Ihsan Fathurrahman",
     problem: "Sering bingung mau masak apa dengan bahan yang tersedia.",
     solution:
@@ -340,6 +343,23 @@ const projectData = [
       "Banyak konverter satuan bertebaran di internet, namun seringkali penuh iklan dan UI yang membingungkan.",
     solution:
       "Membuat konverter satu pintu dengan antarmuka Glassmorphism yang bersih, cepat, dan responsif.",
+  },
+  {
+    title: "AI Financial Manager",
+    icon: "payments", 
+    href: "/finance",
+    category: "Web Application / Fintech",
+    desc: "Pantau pengeluaran dan dapatkan saran keuangan berbasis AI secara real-time.",
+    image: "/static/images/finance.jpeg",
+    gallery: [
+      "/static/images/finance.jpeg",
+      "/static/images/finance-detail1.png",
+    ],
+    developer: "Muhamad Hilal Diyaul Haq",
+    problem:
+      "Banyak orang kesulitan mengelola pengeluaran harian dan bingung bagaimana cara berhemat karena tidak ada arahan yang personal.",
+    solution:
+      "Membangun manajer keuangan pintar yang tidak hanya mencatat transaksi, tapi juga memberikan analisis instan menggunakan AI untuk membantu pengambilan keputusan finansial.",
   },
 ];
 
