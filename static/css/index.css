@@ -57,7 +57,6 @@ body {
   right: 21%;
   border-radius: 50%;
   transform: rotateZ(30deg) scaleY(0.7);
-  filter: blur(1px);
 }
 
 /* Variasi Ukuran */
@@ -114,7 +113,6 @@ body {
 .bubble {
   height: 4vmin;
   width: 4vmin;
-  top: 30vmin;
   animation:
     bubble-down 5s linear 1.5s infinite,
     bubble-side 3s ease-in-out infinite alternate;
@@ -132,23 +130,23 @@ body {
 
 @keyframes bubble-down {
   0% {
-    top: 30vmin;
+    transform: translateY(0);
   }
   20%,
   70% {
     opacity: 0.5;
   }
   100% {
-    top: 80vmin;
+    transform: translateY(50vmin);
     opacity: 0;
   }
 }
 @keyframes bubble-side {
   0% {
-    margin-left: 0px;
+    transform: translateX(0);
   }
   100% {
-    margin-left: 10px;
+    transform: translateX(10px);
   }
 }
 
@@ -275,7 +273,6 @@ body {
   right: 21%;
   border-radius: 50%;
   transform: rotateZ(30deg) scaleY(0.7);
-  filter: blur(1px);
 }
 
 @keyframes bubble-rise {
@@ -360,9 +357,10 @@ body {
 /* 1. Penggerak Horizontal */
 .turtle-mover {
   position: absolute;
-  top: 50%; /* Atur posisi tinggi kura-kura berenang di sini (50% = tengah) */
-  /* Ubah 25s untuk mempercepat/memperlambat kura-kura */
+  left: 0; /* Tambahkan ini sebagai titik awal */
+  top: 50%;
   animation: turtlePatrol 25s linear infinite;
+  will-change: transform; /* Bantuan GPU */
 }
 
 /* 2. Pemutar agar menghadap samping */
@@ -378,28 +376,19 @@ body {
 /* Animasi dari kanan ke kiri, balik badan, lalu dari kiri ke kanan */
 @keyframes turtlePatrol {
   0% {
-    left: 140%; /* Mulai dari kejauhan di luar layar kanan */
-    transform: scaleX(1); /* Posisi normal, menghadap kiri */
+    transform: translateX(140vw) scaleX(1);
   }
   48% {
-    left: -40%; /* Berenang sampai benar-benar keluar layar kiri */
-    transform: scaleX(1); /* Masih menghadap kiri */
+    transform: translateX(-40vw) scaleX(1);
   }
   50% {
-    left: -40%;
-    transform: scaleX(
-      -1
-    ); /* Balik badan menghadap kanan (dilakukan saat sembunyi di luar layar) */
+    transform: translateX(-40vw) scaleX(-1);
   }
   98% {
-    left: 140%; /* Berenang dari kiri dan sampai keluar layar kanan */
-    transform: scaleX(-1); /* Masih menghadap kanan */
+    transform: translateX(140vw) scaleX(-1);
   }
   100% {
-    left: 140%;
-    transform: scaleX(
-      1
-    ); /* Balik badan menghadap kiri lagi bersiap mengulang animasi */
+    transform: translateX(140vw) scaleX(1);
   }
 }
 
@@ -769,13 +758,11 @@ body {
 
 @keyframes trail-down {
   0% {
-    top: -15vmin;
+    transform: translateY(0) scaleX(1) rotate(0deg);
   }
   100% {
-    top: 20vmin;
-    width: 0;
+    transform: translateY(35vmin) scaleX(0) rotate(0deg);
     opacity: 0;
-    transform: rotate(0deg);
   }
 }
 
@@ -796,11 +783,13 @@ body {
 
 .whale-swimmer {
   position: absolute;
+  left: 0; /* Titik awal */
   width: 500px;
   height: 400px;
   top: 50%;
   margin-top: -200px;
   animation: whaleSwimCross 35s linear infinite;
+  will-change: transform; /* Bantuan GPU */
 }
 
 /* 2. Container Paus Utama & Variabel Warna */
@@ -1151,32 +1140,26 @@ body {
 /* 4. KEYFRAMES ANIMASI (Disatukan agar Rapi) */
 @keyframes whole-tail-flip {
   50% {
-    transform: rotate(15deg);
-    top: 5px;
-  }
+    transform: rotate(15deg) translateY(5px);
+  } /* Ganti top: 5px */
   100% {
-    transform: rotate(0deg);
-    top: 0px;
-  }
+    transform: rotate(0deg) translateY(0px);
+  } /* Ganti top: 0px */
 }
 @keyframes tail-flipper-1 {
   50% {
-    transform: rotate(-43deg);
-    right: 175px;
-  }
+    transform: rotate(-43deg) translateX(10px);
+  } /* Ganti pergerakan right */
   100% {
-    transform: rotate(-28deg);
-    right: 185px;
+    transform: rotate(-28deg) translateX(0px);
   }
 }
 @keyframes tail-flipper-2 {
   50% {
-    transform: rotate(20deg);
-    right: 80px;
-  }
+    transform: rotate(20deg) translateX(-5px);
+  } /* Ganti pergerakan right */
   100% {
-    transform: rotate(5deg);
-    right: 75px;
+    transform: rotate(5deg) translateX(0px);
   }
 }
 @keyframes right-flipper-swim {
@@ -1189,60 +1172,63 @@ body {
 }
 @keyframes left-flipper-swim {
   50% {
-    transform: rotate(10deg);
-    top: 120px;
-    left: 30px;
-  }
+    transform: rotate(10deg) translate(-15px, 0);
+  } /* Ganti left & top */
   100% {
-    transform: rotate(35deg);
-    top: 120px;
-    left: 15px;
+    transform: rotate(35deg) translate(0, 0);
   }
 }
 @keyframes whale-bob {
+  0% {
+    transform: translateY(0px);
+  }
   50% {
-    top: 50px;
+    transform: translateY(80px);
   }
   100% {
-    top: 0px;
+    transform: translateY(0px);
   }
 }
 @keyframes whale-blink {
   3% {
-    top: -2px;
-  }
+    transform: translateY(10px);
+  } /* Ganti top: -2px dll dengan translateY */
   6% {
-    top: -12px;
+    transform: translateY(0px);
   }
   9% {
-    top: -2px;
+    transform: translateY(10px);
   }
   12% {
-    top: -12px;
+    transform: translateY(0px);
   }
 }
 
 /* Keyframes Baru: Berenang Kiri-Kanan yang sudah diperbaiki arahnya */
 @keyframes whaleSwimCross {
+  /* Mulai berenang dari kiri, ukuran normal */
   0% {
-    left: -40%;
-    transform: scaleX(1);
+    transform: translateX(-40vw) scaleX(1);
   }
-  48% {
-    left: 120%;
-    transform: scaleX(1);
+
+  /* Tiba di ujung kanan, TAHAN ukuran tetap normal */
+  49.9% {
+    transform: translateX(120vw) scaleX(1);
   }
+
+  /* Putar balik INSTAN dalam sepersekian detik */
   50% {
-    left: 120%;
-    transform: scaleX(-1);
+    transform: translateX(120vw) scaleX(-1);
   }
-  98% {
-    left: -40%;
-    transform: scaleX(-1);
+
+  /* Berenang kembali ke kiri, TAHAN ukuran menghadap kanan */
+  99.9% {
+    transform: translateX(-40vw) scaleX(-1);
   }
+
+  /* Putar balik INSTAN menghadap kiri lagi untuk mengulang */
   100% {
-    left: -40%;
-    transform: scaleX(1);
+    transform: translateX(-40vw) scaleX(1);
   }
 }
 
@@ -1287,21 +1273,16 @@ body {
   animation: subWander 12s ease-in-out infinite alternate;
 }
 
+/* Container Kapal Selam */
 .submarine-swimmer {
   position: absolute;
+  left: 0; /* Titik awal */
   width: 200px;
   height: 80px;
   margin-top: -40px;
-
-  /* =======================================================
-       UBAH POSISI KAPAL SELAM DI SINI! 
-       Ubah nilai 'top' di bawah untuk mengatur letak vertikal.
-       Contoh: 20% (di atas), 50% (di tengah), 80% (di bawah).
-       ======================================================= */
   top: 40%;
-
-  /* Animasi mondar-mandir layar */
   animation: subSwimCross 30s linear infinite;
+  will-change: transform; /* Bantuan GPU */
 }
 
 /* 2. BENTUK KAPAL SELAM */
@@ -1530,28 +1511,20 @@ body {
 }
 
 @keyframes subSwimCross {
-  /* Kapal selam menghadap kiri secara default, 
-       jadi scaleX(-1) membuatnya hadap kanan, scaleX(1) membiarkan hadap kiri */
-
   0% {
-    left: -40%;
-    transform: scaleX(-1);
+    transform: translateX(-40vw) scaleX(-1);
   }
   48% {
-    left: 120%;
-    transform: scaleX(-1);
+    transform: translateX(120vw) scaleX(-1);
   }
   50% {
-    left: 120%;
-    transform: scaleX(1);
+    transform: translateX(120vw) scaleX(1);
   }
   98% {
-    left: -40%;
-    transform: scaleX(1);
+    transform: translateX(-40vw) scaleX(1);
   }
   100% {
-    left: -40%;
-    transform: scaleX(-1);
+    transform: translateX(-40vw) scaleX(-1);
   }
 }
 

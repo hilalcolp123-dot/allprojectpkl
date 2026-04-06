@@ -38,7 +38,7 @@ mobileLinks.forEach((link) => {
 
 document.addEventListener("DOMContentLoaded", function () {
   // === SCRIPT ANIMASI GELEMBUNG AKUARIUM ===
-  const bubbleCount = 30;
+  const bubbleCount = 10;
   const bubbleField = document.getElementById("global-bubbles");
 
   // Pastikan elemen global-bubbles ada di HTML
