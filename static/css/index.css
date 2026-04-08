@@ -2586,3 +2586,21 @@ body::after {
     transform: translateY(-5px);
   }
 }
+
+/* CSS KHUSUS AKTOR GSAP */
+#gsap-sub,
+#gsap-shark {
+  /* Sembunyikan mereka jauh di luar layar kiri pada awalnya */
+  transform: translateX(-150vw);
+  will-change: transform;
+}
+
+/* Matikan animasi bawaan CSS karena sekarang GSAP yang ambil alih! */
+#gsap-sub .submarine-swimmer {
+  animation: none !important;
+  transform: scaleX(-1); /* Ini yang membuat kapalnya balik kanan! */
+}
+
+#gsap-shark #shark-container {
+  animation: none !important;
+}

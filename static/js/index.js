@@ -1,4 +1,79 @@
 // ==========================================
+// GSAP STORYTELLING: KAPAL SELAM & HIU
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Daftarkan plugin ScrollTrigger
+  gsap.registerPlugin(ScrollTrigger);
+
+  // 2. Buat Timeline (urutan cerita)
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#team", // Kapan animasi dimulai? Saat section tech stack muncul
+      start: "top 40%", // Mulai saat bagian atas tech-stack menyentuh 40% dari atas layar
+      once: true, // Jalanin sekali saja supaya gak aneh kalau di-scroll naik turun
+    },
+  });
+
+  // --- MULAI BACA SKENARIO ---
+
+  // Adegan 1: Kapal selam masuk dari kiri layar ke tengah layar
+  tl.to("#gsap-sub", {
+    x: "40vw", // Bergerak ke tengah layar (40% viewport width)
+    duration: 3,
+    ease: "power2.out", // Gerakan melambat saat mau berhenti
+  })
+
+    // Adegan 2: Berhenti dan diam selama 3 detik
+    .to({}, { duration: 3 })
+
+    // Adegan 3: Menembakkan torpedo gelembung
+    .to("#torpedo-bubbles", {
+      x: "+=200", // Tembak maju 200px
+      opacity: 1,
+      duration: 0.5,
+      ease: "power1.out",
+    })
+    .to(
+      "#torpedo-bubbles",
+      {
+        opacity: 0, // Gelembung menghilang setelah menembak
+        duration: 0.2,
+      },
+      "+=0.2",
+    )
+
+    // Adegan 4: Tiba-tiba Hiu masuk dari kiri karena marah!
+    .to(
+      "#gsap-shark",
+      {
+        x: "15vw", // Hiu muncul di belakang kapal selam
+        duration: 1.5,
+        ease: "power3.inOut", // Gerakan cepat dan mengancam
+      },
+      "-=0.8",
+    ) // "-=0.5" berarti hiu muncul 0.5 detik *sebelum* gelembung hilang sempurna
+
+    // Adegan 5: Kapal selam panik dan kabur ngebut ke kanan
+    .to("#gsap-sub", {
+      x: "150vw", // Kabur keluar layar kanan
+      duration: 1.5,
+      ease: "power2.in", // Makin lama makin cepat
+    })
+
+    // Adegan 6: Hiu mengejar kapal selam
+    .to(
+      "#gsap-shark",
+      {
+        x: "150vw", // Ngejar keluar layar kanan
+        duration: 1.5,
+        ease: "power2.in",
+      },
+      "-=1.2",
+    ); // "-=1.2" berarti hiu mulai mengejar 1.2 detik sebelum kapal selam hilang
+});
+
+// ==========================================
 // LOGIKA MOBILE MENU
 // ==========================================
 const mobileMenuBtn = document.getElementById("mobileMenuBtn");
@@ -346,7 +421,7 @@ const projectData = [
   },
   {
     title: "AI Financial Manager",
-    icon: "payments", 
+    icon: "payments",
     href: "/finance",
     category: "Web Application / Fintech",
     desc: "Pantau pengeluaran dan dapatkan saran keuangan berbasis AI secara real-time.",
