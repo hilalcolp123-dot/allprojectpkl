@@ -1,4 +1,39 @@
 // ==========================================
+// EFEK MOUSE TRAIL (GELEMBUNG MENGIKUTI KURSOR)
+// ==========================================
+let lastBubbleTime = 0;
+
+document.addEventListener("mousemove", (e) => {
+  const now = Date.now();
+  // Batasi hanya membuat 1 gelembung setiap 50ms agar performa web tetap ringan (tidak lag)
+  if (now - lastBubbleTime < 50) return;
+  lastBubbleTime = now;
+
+  // 1. Buat elemen div untuk gelembung
+  const bubble = document.createElement("div");
+  bubble.className = "mouse-bubble";
+
+  // 2. Acak ukuran gelembung antara 5px sampai 15px
+  const size = Math.random() * 10 + 5;
+  bubble.style.width = `${size}px`;
+  bubble.style.height = `${size}px`;
+
+  // 3. Posisikan tepat di kursor dengan sedikit acakan (offset) agar terlihat menyebar
+  const offsetX = (Math.random() - 0.5) * 20;
+  bubble.style.left = `${e.pageX + offsetX}px`;
+  bubble.style.top = `${e.pageY}px`;
+
+  // 4. Masukkan ke dalam DOM
+  document.body.appendChild(bubble);
+
+  // 5. Bersihkan/Hapus gelembung dari DOM setelah animasi CSS selesai (1000ms = 1 detik)
+  // Ini penting agar elemen HTML tidak menumpuk dan bikin memori penuh
+  setTimeout(() => {
+    bubble.remove();
+  }, 1000);
+});
+
+// ==========================================
 // PRELOADER LOGIC: Hilangkan saat halaman selesai loading
 // ==========================================
 window.addEventListener("load", () => {

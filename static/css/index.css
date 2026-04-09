@@ -3071,3 +3071,70 @@ body::after {
     transform: rotate(145deg);
   }
 }
+
+/* ==========================================
+   1. EFEK MOUSE TRAIL BUBBLE (GELEMBUNG KURSOR)
+   ========================================== */
+.mouse-bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.8);
+  pointer-events: none; /* SANGAT PENTING: Agar tidak mengganggu saat klik/hover */
+  z-index: 9998; /* Di bawah navbar tapi di atas laut */
+  animation: mouseBubbleRise 1s ease-out forwards;
+}
+
+@keyframes mouseBubbleRise {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(1.5);
+  }
+}
+
+/* ==========================================
+   2. EFEK FLOATING CARD (KARTU MENGAMBANG)
+   ========================================== */
+@keyframes float-breathing {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  } /* Naik 10px ke atas */
+}
+
+.floating-card {
+  animation: float-breathing 4s ease-in-out infinite;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  will-change: transform; /* Bantuan performa GPU */
+}
+
+/* Membuat pergerakan tidak serentak (terlihat lebih natural) */
+.floating-card:nth-child(1) {
+  animation-delay: 0s;
+}
+.floating-card:nth-child(2) {
+  animation-delay: 1s;
+}
+.floating-card:nth-child(3) {
+  animation-delay: 2s;
+}
+.floating-card:nth-child(4) {
+  animation-delay: 0.5s;
+}
+
+/* Saat kartu di-hover, hentikan animasi mengambang dan perbesar (scale) */
+.floating-card:hover {
+  animation-play-state: paused;
+  transform: translateY(-10px) scale(1.03) !important;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  z-index: 20;
+}
