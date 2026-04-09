@@ -3138,3 +3138,63 @@ body::after {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
   z-index: 20;
 }
+
+/* ==========================================
+   EFEK CAHAYA SOROT BAWAH LAUT (LIGHT RAYS)
+   ========================================== */
+.light-rays-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Agar tidak menghalangi tombol saat diklik */
+  z-index: 1; /* Taruh di bawah teks dan gambar */
+  overflow: hidden;
+}
+
+.light-rays {
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 140%; /* Sengaja dibuat lebih lebar dari layar untuk animasi */
+  height: 140%;
+  /* Membuat garis-garis cahaya miring */
+  background: repeating-linear-gradient(
+    -35deg,
+    transparent 0%,
+    transparent 10%,
+    rgba(255, 255, 255, 0.08) 15%,
+    rgba(255, 255, 255, 0.25) 20%,
+    /* Inti cahaya terang */ transparent 25%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.12) 45%,
+    /* Cahaya sekunder agak redup */ transparent 50%
+  );
+  mix-blend-mode: color-dodge; /* Membuat cahayanya menyala di air gelap */
+
+  /* Efek Gradasi: Cahaya terang di atas, perlahan memudar dan hilang di bawah */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0) 80%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0) 80%
+  );
+
+  /* Animasi sinar bergerak perlahan */
+  animation: raysPassing 15s ease-in-out infinite alternate;
+}
+
+/* Animasi cahaya mengayun/bergerak ke kiri dan kanan perlahan */
+@keyframes raysPassing {
+  0% {
+    transform: translateX(-5%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(5%) rotate(2deg);
+  }
+}
