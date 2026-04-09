@@ -1,78 +1,161 @@
 // ==========================================
-// GSAP STORYTELLING: KAPAL SELAM & HIU
+// PRELOADER LOGIC: Hilangkan saat halaman selesai loading
+// ==========================================
+window.addEventListener("load", () => {
+  const preloader = document.getElementById("preloader");
+
+  if (preloader) {
+    // 1. Tambahkan sedikit jeda agar animasi loading sempat terlihat (opsional)
+    setTimeout(() => {
+      // 2. Transisi mulus memudarkan preloader
+      preloader.style.opacity = "0";
+      preloader.style.visibility = "hidden";
+
+      // 3. Hapus preloader dari DOM sepenuhnya agar tidak mengganggu performa dan klik
+      setTimeout(() => {
+        preloader.style.display = "none";
+      }, 800); // 800ms sama dengan durasi transition opacity di CSS
+    }, 500); // Jeda 0.5 detik
+  }
+});
+
+// ==========================================
+// GSAP STORYTELLING: KAPAL SELAM & HIU (UPDATE LOOP & PERFORMA)
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Daftarkan plugin ScrollTrigger
   gsap.registerPlugin(ScrollTrigger);
 
-  // 2. Buat Timeline (urutan cerita)
+  // 1. Buat Timeline dengan Infinite Loop (repeat: -1)
   const tl = gsap.timeline({
+    repeat: -1, // -1 artinya loop terus-menerus tanpa henti
+    repeatDelay: 2, // Beri jeda 2 detik sebelum cerita ngulang lagi dari awal
     scrollTrigger: {
-      trigger: "#team", // Kapan animasi dimulai? Saat section tech stack muncul
-      start: "top 40%", // Mulai saat bagian atas tech-stack menyentuh 40% dari atas layar
-      once: true, // Jalanin sekali saja supaya gak aneh kalau di-scroll naik turun
+      trigger: "#team",
+      start: "top 60%", // Animasi mulai saat bagian atas section #team masuk 60% layar
+      end: "bottom 10%", // Batas akhir section, animasi dijeda kalau melewati ini
+
+      // PENTING UNTUK PERFORMA: play, pause, resume, pause
+      // - Saat masuk dari atas: PLAY
+      // - Saat scroll kelewatan ke bawah: PAUSE (Biar gak berat)
+      // - Saat scroll naik lagi ke section ini: RESUME
+      // - Saat scroll lewat ke atas: PAUSE
+      toggleActions: "play pause resume pause",
     },
   });
 
   // --- MULAI BACA SKENARIO ---
 
-  // Adegan 1: Kapal selam masuk dari kiri layar ke tengah layar
-  tl.to("#gsap-sub", {
-    x: "40vw", // Bergerak ke tengah layar (40% viewport width)
-    duration: 3,
-    ease: "power2.out", // Gerakan melambat saat mau berhenti
-  })
+  // PERSIAPAN LOOP: Kembalikan posisi awal mereka di luar layar kiri agar loopnya mulus
+  tl.set("#gsap-sub", { x: "-50vw", scaleX: 1 })
+    .set("#gsap-shark", { x: "-50vw", scaleX: 1 })
 
-    // Adegan 2: Berhenti dan diam selama 3 detik
-    .to({}, { duration: 3 })
-
-    // Adegan 3: Menembakkan torpedo gelembung
-    .to("#torpedo-bubbles", {
-      x: "+=200", // Tembak maju 200px
-      opacity: 1,
-      duration: 0.5,
-      ease: "power1.out",
-    })
-    .to(
-      "#torpedo-bubbles",
-      {
-        opacity: 0, // Gelembung menghilang setelah menembak
-        duration: 0.2,
-      },
-      "+=0.2",
-    )
-
-    // Adegan 4: Tiba-tiba Hiu masuk dari kiri karena marah!
-    .to(
-      "#gsap-shark",
-      {
-        x: "15vw", // Hiu muncul di belakang kapal selam
-        duration: 1.5,
-        ease: "power3.inOut", // Gerakan cepat dan mengancam
-      },
-      "-=0.8",
-    ) // "-=0.5" berarti hiu muncul 0.5 detik *sebelum* gelembung hilang sempurna
-
-    // Adegan 5: Kapal selam panik dan kabur ngebut ke kanan
+    // Adegan 1: Kapal selam masuk dari kiri ke tengah
     .to("#gsap-sub", {
-      x: "150vw", // Kabur keluar layar kanan
-      duration: 1.5,
-      ease: "power2.in", // Makin lama makin cepat
+      x: "40vw",
+      duration: 3,
+      ease: "power2.out",
     })
 
-    // Adegan 6: Hiu mengejar kapal selam
+    // Adegan 2: Kapal selam diam, nengok kiri
+    .to("#gsap-sub", { scaleX: -1, duration: 0.3 }, "+=0.5")
+
+    // Adegan 3: Kapal selam nengok kanan
+    .to("#gsap-sub", { scaleX: 1, duration: 0.3 }, "+=0.8")
+
+    // Adegan 4: Kapal selam kabur ke kanan layar SEBELUM hiu datang
     .to(
-      "#gsap-shark",
+      "#gsap-sub",
       {
-        x: "150vw", // Ngejar keluar layar kanan
+        x: "150vw",
         duration: 1.5,
         ease: "power2.in",
       },
-      "-=1.2",
-    ); // "-=1.2" berarti hiu mulai mengejar 1.2 detik sebelum kapal selam hilang
-});
+      "+=0.5",
+    )
 
+    // Adegan 5: Hiu masuk dari kiri ke tengah layar mencari kapal selam
+    .to(
+      "#gsap-shark",
+      {
+        x: "40vw",
+        duration: 2.5,
+        ease: "power2.out",
+      },
+      "-=0.5",
+    )
+
+    // Adegan 6: Hiu nengok kiri
+    .to("#gsap-shark", { scaleX: -1, duration: 0.3 }, "+=0.5")
+
+    // Adegan 7: Hiu nengok kanan
+    .to("#gsap-shark", { scaleX: 1, duration: 0.3 }, "+=0.8")
+
+    // Adegan 8: Hiu mengejar kapal selam ke luar layar kanan
+    .to(
+      "#gsap-shark",
+      {
+        x: "150vw",
+        duration: 1.5,
+        ease: "power2.in",
+      },
+      "+=0.5",
+    )
+
+    // ==========================================
+    // --- SKENARIO BALIK ARAH KE KIRI ---
+    // ==========================================
+
+    // Adegan 9: Kapal selam putar balik (hadap kiri) dan lari kembali ke tengah layar
+    .to("#gsap-sub", { scaleX: -1, duration: 0 }, "+=1")
+    .to("#gsap-sub", {
+      x: "40vw",
+      duration: 2,
+      ease: "power2.out",
+    })
+
+    // Adegan 10: Kapal selam di tengah, nengok kanan (ngecek hiu), lalu nengok kiri lagi
+    .to("#gsap-sub", { scaleX: 1, duration: 0.3 }, "+=0.3")
+    .to("#gsap-sub", { scaleX: -1, duration: 0.3 }, "+=0.8")
+
+    // Adegan 11: Kapal selam lanjut lari ke luar layar kiri
+    .to(
+      "#gsap-sub",
+      {
+        x: "-50vw",
+        duration: 1.5,
+        ease: "power2.in",
+      },
+      "+=0.3",
+    )
+
+    // Adegan 12: Hiu putar balik (hadap kiri) dan nyusul ke tengah layar
+    .to("#gsap-shark", { scaleX: -1, duration: 0 }, "-=0.5")
+    .to(
+      "#gsap-shark",
+      {
+        x: "40vw",
+        duration: 2,
+        ease: "power2.out",
+      },
+      "-=0.5",
+    )
+
+    // Adegan 13: Hiu tiba di tengah kebingungan, nengok kanan, lalu nengok kiri
+    .to("#gsap-shark", { scaleX: 1, duration: 0.3 }, "+=0.5")
+    .to("#gsap-shark", { scaleX: -1, duration: 0.3 }, "+=0.8")
+
+    // Adegan 14: Hiu sadar kapal selam ke kiri, langsung ngejar ke luar layar kiri!
+    .to(
+      "#gsap-shark",
+      {
+        x: "-50vw",
+        duration: 1.5,
+        ease: "power2.in",
+      },
+      "+=0.3",
+    );
+});
 // ==========================================
 // LOGIKA MOBILE MENU
 // ==========================================

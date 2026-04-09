@@ -2604,3 +2604,470 @@ body::after {
 #gsap-shark #shark-container {
   animation: none !important;
 }
+
+/* ================= PRELOADER CSS (FIX LURUS) ================= */
+:root {
+  --bg: #1b1e23;
+  --blue: #0a6ee8;
+  --orange: #f97316;
+  --green: #09879d;
+  --yellow: #eab308;
+  --red: #ff0000;
+  --pink: #e367d5;
+  --purple: #6600cc;
+  --white: #fff;
+  --black: #060707;
+
+  --anim-duration: 20s;
+  --anim-iteration: infinite;
+}
+
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+  transition:
+    opacity 0.8s ease-out,
+    visibility 0.8s ease-out;
+  font-family: sans-serif;
+}
+
+/* Memastikan wadah lurus di tengah layar */
+.loading-Container {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.9); /* Disesuaikan agar proporsional */
+}
+
+/* Memaksa area animasi puzzle fix di 240px agar 4 item sejajar lurus */
+.puzzle {
+  width: 240px;
+  height: 380px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Memaksa bayangan jatuh sejajar di bawah */
+}
+
+.item {
+  width: 60px;
+  height: 100%;
+  position: relative;
+}
+
+/* PERBAIKAN BAYANGAN HITAM DI BAWAH (SHADOW) */
+.item:before {
+  content: "";
+  bottom: 0;
+  left: 50%;
+  margin-left: -18px; /* Tepat di tengah item */
+  width: 36px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4); /* Dibuat sedikit transparan agar natural */
+  position: absolute;
+  transform: rotateX(60deg);
+}
+
+/* PERBAIKAN SVG AGAR TIDAK DIRUSAK TAILWIND */
+.item svg {
+  display: block;
+  position: absolute;
+  left: 50%;
+  margin-left: -20px; /* Di-center-kan berdasarkan lebarnya (40px) */
+  bottom: 0;
+}
+
+#pz1 {
+  z-index: 5;
+  animation: pz1Anim var(--anim-duration) var(--anim-iteration);
+}
+#pz1 svg {
+  animation: pz1SVGAnim var(--anim-duration) var(--anim-iteration);
+}
+
+#pz2 {
+  z-index: 1;
+  animation: pz2Anim var(--anim-duration) var(--anim-iteration);
+}
+#pz2 svg {
+  animation: pz2SVGAnim var(--anim-duration) var(--anim-iteration);
+}
+
+#pz3 {
+  z-index: 2;
+  animation: pz3Anim var(--anim-duration) var(--anim-iteration);
+}
+#pz3 svg {
+  animation: pz3SVGAnim var(--anim-duration) var(--anim-iteration);
+}
+
+#pz4 {
+  z-index: 1;
+  animation: pz4Anim var(--anim-duration) var(--anim-iteration);
+}
+#pz4 svg {
+  animation: pz4SVGAnim var(--anim-duration) var(--anim-iteration);
+}
+
+/* PERBAIKAN LOADING BAR (LURUS DAN TEXT CENTER) */
+.progress-line {
+  width: 300px; /* Disamakan presisi dengan lebar kotak puzzle */
+  height: 28px;
+  padding: 3px;
+  background: var(--white);
+  position: relative;
+  border-radius: 16px;
+  border: 2px solid var(--white);
+  margin-top: 25px;
+  box-sizing: border-box;
+}
+
+.progress-line:before {
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  position: absolute;
+  border-radius: 12px;
+  background: linear-gradient(to right, #336699, #6699ff);
+  animation: progressAnim 4s var(--anim-iteration);
+}
+
+.progress-line:after {
+  content: "Loading...";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--white);
+  position: absolute;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Memaksa teks ada di tengah-tengah pil */
+  animation: progressTextAnim 4s var(--anim-iteration);
+}
+
+/* ================= KEYFRAMES ANIMASI ================= */
+@keyframes progressAnim {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes progressTextAnim {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pz1Anim {
+  0% {
+    left: 40%;
+  }
+  20% {
+    left: 2%;
+  }
+  40% {
+    left: 75%;
+  }
+  70% {
+    left: 45%;
+  }
+  100% {
+    left: -50%;
+  }
+}
+@keyframes pz1SVGAnim {
+  0% {
+    top: 100%;
+    fill: var(--blue);
+    transform: rotate(0deg);
+  }
+  10% {
+    top: 50%;
+    transform: rotate(245deg);
+  }
+  19% {
+    fill: var(--blue);
+  }
+  20% {
+    top: 90%;
+    fill: var(--orange);
+    transform: rotate(-245deg);
+  }
+  30% {
+    top: 45%;
+    transform: rotate(360deg);
+  }
+  39% {
+    fill: var(--orange);
+  }
+  40% {
+    top: 90%;
+    fill: var(--pink);
+    transform: rotate(60deg);
+  }
+  50% {
+    top: 35%;
+    fill: var(--pink);
+    transform: rotate(245deg);
+  }
+  69% {
+    fill: var(--pink);
+  }
+  70% {
+    top: 90%;
+    fill: var(--yellow);
+    transform: rotate(-145deg);
+  }
+  80% {
+    top: 65%;
+    fill: var(--yellow);
+    transform: rotate(245deg);
+  }
+  100% {
+    top: 80%;
+    fill: var(--yellow);
+    transform: rotate(145deg);
+  }
+}
+
+@keyframes pz2Anim {
+  0% {
+    left: 15%;
+  }
+  20% {
+    left: 5%;
+  }
+  40% {
+    left: 35%;
+  }
+  70% {
+    left: -5%;
+  }
+  100% {
+    left: 105%;
+  }
+}
+@keyframes pz2SVGAnim {
+  0% {
+    top: 100%;
+    fill: var(--yellow);
+    transform: rotate(0deg);
+  }
+  10% {
+    top: 60%;
+    transform: rotate(345deg);
+  }
+  19% {
+    fill: var(--yellow);
+  }
+  20% {
+    top: 90%;
+    fill: var(--blue);
+    transform: rotate(-245deg);
+  }
+  30% {
+    top: 45%;
+    transform: rotate(360deg);
+  }
+  39% {
+    fill: var(--blue);
+  }
+  40% {
+    top: 90%;
+    fill: var(--green);
+    transform: rotate(60deg);
+  }
+  50% {
+    top: 35%;
+    fill: var(--green);
+    transform: rotate(245deg);
+  }
+  69% {
+    fill: var(--green);
+  }
+  70% {
+    top: 90%;
+    fill: var(--pink);
+    transform: rotate(-145deg);
+  }
+  80% {
+    top: 40%;
+    fill: var(--pink);
+    transform: rotate(245deg);
+  }
+  100% {
+    top: 80%;
+    fill: var(--pink);
+    transform: rotate(145deg);
+  }
+}
+
+@keyframes pz3Anim {
+  0% {
+    left: 15%;
+  }
+  20% {
+    left: 15%;
+  }
+  40% {
+    left: -23%;
+  }
+  70% {
+    left: 55%;
+  }
+  100% {
+    left: 120%;
+  }
+}
+@keyframes pz3SVGAnim {
+  0% {
+    top: 100%;
+    fill: var(--green);
+    transform: rotate(0deg);
+  }
+  10% {
+    top: 30%;
+    transform: rotate(95deg);
+  }
+  19% {
+    fill: var(--green);
+  }
+  20% {
+    top: 90%;
+    fill: var(--yellow);
+    transform: rotate(-245deg);
+  }
+  30% {
+    top: 45%;
+    transform: rotate(360deg);
+  }
+  39% {
+    fill: var(--yellow);
+  }
+  40% {
+    top: 90%;
+    fill: var(--blue);
+    transform: rotate(60deg);
+  }
+  50% {
+    top: 35%;
+    fill: var(--blue);
+    transform: rotate(245deg);
+  }
+  69% {
+    fill: var(--blue);
+  }
+  70% {
+    top: 90%;
+    fill: var(--orange);
+    transform: rotate(-145deg);
+  }
+  80% {
+    top: 40%;
+    fill: var(--orange);
+    transform: rotate(245deg);
+  }
+  100% {
+    top: 80%;
+    fill: var(--orange);
+    transform: rotate(145deg);
+  }
+}
+
+@keyframes pz4Anim {
+  0% {
+    left: -25%;
+  }
+  20% {
+    left: 35%;
+  }
+  40% {
+    left: -15%;
+  }
+  70% {
+    left: 15%;
+  }
+  100% {
+    left: -110%;
+  }
+}
+@keyframes pz4SVGAnim {
+  0% {
+    top: 100%;
+    fill: var(--orange);
+    transform: rotate(0deg);
+  }
+  10% {
+    top: 60%;
+    transform: rotate(345deg);
+  }
+  19% {
+    fill: var(--orange);
+  }
+  20% {
+    top: 90%;
+    fill: var(--pink);
+    transform: rotate(-245deg);
+  }
+  30% {
+    top: 45%;
+    fill: var(--pink);
+    transform: rotate(360deg);
+  }
+  39% {
+    fill: var(--pink);
+  }
+  40% {
+    top: 90%;
+    fill: var(--yellow);
+    transform: rotate(60deg);
+  }
+  50% {
+    top: 35%;
+    fill: var(--yellow);
+    transform: rotate(245deg);
+  }
+  69% {
+    fill: var(--yellow);
+  }
+  70% {
+    top: 90%;
+    fill: var(--blue);
+    transform: rotate(-145deg);
+  }
+  80% {
+    top: 20%;
+    fill: var(--blue);
+    transform: rotate(245deg);
+  }
+  100% {
+    top: 80%;
+    fill: var(--blue);
+    transform: rotate(145deg);
+  }
+}
