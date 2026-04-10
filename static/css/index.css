@@ -1968,7 +1968,7 @@ body {
 /* 1. WRAPPER POSISI ORCA (Sudah diperbaiki agar melayang) */
 #orca-position {
   position: absolute; /* ⚠️ Ubah jadi fixed agar melayang walau di-scroll */
-  top: 80%; /* Berenang di bagian bawah layar */
+  top: 50%; /* Berenang di bagian bawah layar */
   z-index: 1; /* Di bawah hiu (9999) agar tidak tabrakan lapisannya */
   pointer-events: none; /* ⚠️ Agar tembus klik */
   animation: patrolX 26s linear infinite;
@@ -3203,5 +3203,114 @@ body::after {
   }
   100% {
     -webkit-filter: hue-rotate(0deg) brightness(1);
+  }
+}
+
+/* ==========================================
+   EFEK UBUR-UBUR BERCAHAYA (RINGAN/PERFORMA TINGGI)
+   ========================================== */
+
+.jellyfish-container {
+  position: fixed;
+  width: 120px;
+  height: 180px;
+  z-index: 0; /* Taruh di bawah konten, mirip seperti bubbles */
+  pointer-events: none; /* SANGAT PENTING: Mencegah lag & bentrok saat klik */
+  will-change: transform; /* Memberi tahu browser untuk merender ini di GPU */
+}
+
+/* Pengaturan Posisi */
+.jelly-1 {
+  top: 20%;
+  right: 5%;
+  animation: floatJelly 18s ease-in-out infinite alternate;
+}
+
+.jelly-2 {
+  top: 60%;
+  left: 8%;
+  transform: scale(0.6); /* Buat ubur-ubur ke-2 lebih kecil */
+  animation: floatJelly 22s ease-in-out infinite alternate-reverse; /* Gerakan kebalikan */
+  opacity: 0.7; /* Sedikit lebih redup */
+}
+
+/* --- Pengaturan Warna & Neon Glow pada SVG --- */
+.jellyfish {
+  width: 100%;
+  height: 100%;
+  /* Filter drop-shadow SVG ini lebih hemat performa dibanding box-shadow */
+  filter: drop-shadow(0px 0px 10px rgba(0, 255, 255, 0.6));
+}
+
+.jelly-head {
+  fill: rgba(0, 255, 255, 0.3); /* Biru cyan transparan */
+  animation: pulseGlow 4s ease-in-out infinite alternate;
+}
+
+.tentacle {
+  stroke: rgba(0, 255, 255, 0.5);
+  animation: wiggleTentacle 3s ease-in-out infinite alternate;
+  transform-origin: top center;
+}
+
+/* --- Variasi Gerakan Tentakel --- */
+.t1 {
+  animation-delay: 0s;
+}
+.t2 {
+  animation-delay: 0.5s;
+  animation-duration: 3.5s;
+}
+.t3 {
+  animation-delay: 1s;
+  animation-duration: 4s;
+}
+.t4 {
+  animation-delay: 1.5s;
+}
+.t-inner1,
+.t-inner2 {
+  stroke: rgba(255, 255, 255, 0.7); /* Tentakel dalam warna putih bercahaya */
+  animation-duration: 2s;
+}
+
+/* ==========================================
+   KEYFRAMES (ANIMASI)
+   ========================================== */
+
+/* 1. Ubur-ubur berenang naik turun & memutar halus */
+@keyframes floatJelly {
+  0% {
+    transform: translateY(0px) translateX(0px) rotate(-5deg)
+      scale(var(--jelly-scale, 1));
+  }
+  50% {
+    transform: translateY(-40px) translateX(-20px) rotate(5deg)
+      scale(var(--jelly-scale, 1));
+  }
+  100% {
+    transform: translateY(20px) translateX(30px) rotate(-2deg)
+      scale(var(--jelly-scale, 1));
+  }
+}
+
+/* 2. Berkedip perlahan layaknya neon (bernafas) */
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    fill: rgba(0, 255, 255, 0.5);
+  }
+}
+
+/* 3. Goyangan tentakel mengalun di air */
+@keyframes wiggleTentacle {
+  0% {
+    transform: skewX(-8deg);
+  }
+  100% {
+    transform: skewX(8deg);
   }
 }
