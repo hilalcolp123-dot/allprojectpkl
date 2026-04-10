@@ -1,8 +1,22 @@
+/* === 1. BASE & UTILITIES === */
 html,
 body {
   height: 100%;
   margin: 0;
 }
+
+body {
+  background-color: #27187e;
+  /* Full background Persian Indigo */
+  color: #ffffff;
+  /* Teks murni Putih sesuai permintaan */
+}
+
+html {
+  scroll-behavior: smooth !important;
+  scroll-padding-top: 6rem !important;
+}
+
 /* Buat class global untuk section yang ada hewannya */
 .aquarium-section {
   position: relative; /* Wajib, agar hewannya absolute terhadap section ini */
@@ -17,6 +31,93 @@ body {
   position: relative;
   z-index: 10;
 }
+
+/* 1. Atur Section Home sebagai "Kandang" */
+#home {
+  position: relative; /* Wajib, agar fish-tank absolute mengikuti kotak ini */
+  width: 100%;
+  height: 100vh; /* Sesuaikan tinggi section home kamu, misal 100vh untuk full screen */
+  overflow: hidden; /* ⚠️ SANGAT PENTING: Mencegah ikan/hiu bocor keluar section */
+  background-color: transparent; /* Warna ungu/biru background dasar kamu */
+}
+
+/* 2. Pastikan konten Home berada di atas animasi */
+.home-content {
+  position: relative;
+  z-index: 10; /* Biar teks dan tombol bisa diklik dan tidak tertutup ikan */
+}
+
+/* Styling Section Kandang Kura-Kura */
+.tech-stack-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(
+    to top,
+    rgba(0, 25, 45, 1) 0%,
+    rgba(14, 71, 117, 1) 35%,
+    rgba(26, 126, 174, 1) 70%,
+    rgba(62, 168, 220, 1) 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* === 2. KOMPONEN UI (Glassmorphism, Button, dll) === */
+
+/* ==========================================
+   ESTETIKA: EFEK HOVER PADA GLASS CARD
+   ========================================== */
+/* Penyesuaian Glass Card untuk Latar Persian Indigo */
+.glass-card {
+  background: rgba(247, 247, 255, 0.08);
+  /* Ghost White transparan */
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(247, 247, 255, 0.15);
+  /* Border Ghost White tipis */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Animasi membal (bouncy) halus */
+}
+
+.glass-card:hover {
+  transform: translateY(-8px); /* Elemen sedikit terangkat ke atas */
+  box-shadow: 0 15px 35px rgba(247, 247, 255, 0.2) !important; /* Cahaya putih memancar ke bawah */
+  border-color: rgba(
+    247,
+    247,
+    255,
+    0.4
+  ) !important; /* Border putih menjadi lebih jelas */
+}
+
+/* ==========================================
+   ESTETIKA: CUSTOM SCROLLBAR TEMA LAUT
+   ========================================== */
+::-webkit-scrollbar {
+  width: 12px; /* Lebar scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #1b105a; /* Warna background track (lebih gelap dari warna utama) */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(247, 247, 255, 0.3); /* Warna scrollbar (putih transparan) */
+  border-radius: 10px; /* Membuat ujung scrollbar membulat */
+  border: 3px solid #1b105a; /* Memberi jarak/padding efek */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(
+    247,
+    247,
+    255,
+    0.6
+  ); /* Lebih terang saat kursor diletakkan di atasnya */
+}
+
+/* === 3. ANIMASI DASAR (Gelembung & Air) === */
 
 #global-bubbles {
   position: fixed; /* Menempel pada layar pengguna */
@@ -69,35 +170,10 @@ body {
   height: 15px;
 }
 
-/* Animasi Naik */
-@keyframes g-bubble-rise {
-  0% {
-    transform: translateY(0px);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-110vh);
-    opacity: 0;
-  }
-}
-
-/* Animasi Goyang Kanan-Kiri */
-@keyframes g-bubble-wobble {
-  0% {
-    transform: translateX(10px);
-  }
-  50% {
-    transform: translateX(-10px);
-  }
-  100% {
-    transform: translateX(10px);
-  }
+#bubble-field {
+  width: 100%;
+  height: 100%;
+  position: fixed;
 }
 
 /*** BUBBLES ***/
@@ -110,6 +186,12 @@ body {
   opacity: 0;
 }
 
+.bubbles.mirror {
+  left: auto;
+  right: 22vmin;
+  transform: rotateY(180deg);
+}
+
 .bubble {
   height: 4vmin;
   width: 4vmin;
@@ -117,6 +199,12 @@ body {
     bubble-down 5s linear 1.5s infinite,
     bubble-side 3s ease-in-out infinite alternate;
   opacity: 1;
+  box-shadow: 0px 0px 12px 5px inset rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: bubble 2s ease 0s infinite normal;
+  will-change: transform;
 }
 .bubble:before {
   content: "";
@@ -128,26 +216,16 @@ body {
   left: 25%;
 }
 
-@keyframes bubble-down {
-  0% {
-    transform: translateY(0);
-  }
-  20%,
-  70% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(50vmin);
-    opacity: 0;
-  }
-}
-@keyframes bubble-side {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(10px);
-  }
+.bubble:after {
+  content: "";
+  position: absolute;
+  background-color: white;
+  width: 13px;
+  height: 8px;
+  top: 10%;
+  right: 21%;
+  border-radius: 50%;
+  transform: rotateZ(30deg) scaleY(0.7);
 }
 
 /* Variasi Gelembung b2 - b10 tetap sama, hanya class diubah */
@@ -215,12 +293,6 @@ body {
   height: 1vmin;
 }
 
-.bubbles.mirror {
-  left: auto;
-  right: 22vmin;
-  transform: rotateY(180deg);
-}
-
 .bubble-rise:nth-child(even) .bubble {
   width: 25px;
   height: 25px;
@@ -236,10 +308,57 @@ body {
   animation: bubble-rise 2s cubic-bezier(0.3, 0, 0.7, 0.75) 0s infinite normal;
 }
 
-#bubble-field {
-  width: 100%;
-  height: 100%;
-  position: fixed;
+/* Animasi Naik */
+@keyframes g-bubble-rise {
+  0% {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
+
+/* Animasi Goyang Kanan-Kiri */
+@keyframes g-bubble-wobble {
+  0% {
+    transform: translateX(10px);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes bubble-down {
+  0% {
+    transform: translateY(0);
+  }
+  20%,
+  70% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(50vmin);
+    opacity: 0;
+  }
+}
+@keyframes bubble-side {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(10px);
+  }
 }
 
 @keyframes bubble {
@@ -252,27 +371,6 @@ body {
   100% {
     transform: translateX(10px);
   }
-}
-
-.bubble {
-  box-shadow: 0px 0px 12px 5px inset rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  animation: bubble 2s ease 0s infinite normal;
-  will-change: transform;
-}
-
-.bubble:after {
-  content: "";
-  position: absolute;
-  background-color: white;
-  width: 13px;
-  height: 8px;
-  top: 10%;
-  right: 21%;
-  border-radius: 50%;
-  transform: rotateZ(30deg) scaleY(0.7);
 }
 
 @keyframes bubble-rise {
@@ -292,38 +390,7 @@ body {
   }
 }
 
-/* 1. Atur Section Home sebagai "Kandang" */
-#home {
-  position: relative; /* Wajib, agar fish-tank absolute mengikuti kotak ini */
-  width: 100%;
-  height: 100vh; /* Sesuaikan tinggi section home kamu, misal 100vh untuk full screen */
-  overflow: hidden; /* ⚠️ SANGAT PENTING: Mencegah ikan/hiu bocor keluar section */
-  background-color: transparent; /* Warna ungu/biru background dasar kamu */
-}
-
-/* 2. Pastikan konten Home berada di atas animasi */
-.home-content {
-  position: relative;
-  z-index: 10; /* Biar teks dan tombol bisa diklik dan tidak tertutup ikan */
-}
-
-/* Styling Section Kandang Kura-Kura */
-.tech-stack-section {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  overflow: hidden;
-  background: linear-gradient(
-    to top,
-    rgba(0, 25, 45, 1) 0%,
-    rgba(14, 71, 117, 1) 35%,
-    rgba(26, 126, 174, 1) 70%,
-    rgba(62, 168, 220, 1) 100%
-  );
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+/* === 4. ANIMASI HEWAN (Kura-kura, Paus, Kapal Selam) === */
 
 /* Container utama kura-kura */
 .turtle-aquarium {
@@ -373,40 +440,11 @@ body {
   margin-left: -35vmin; /* Menengahkan posisi horizontal */
 }
 
-/* Animasi dari kanan ke kiri, balik badan, lalu dari kiri ke kanan */
-@keyframes turtlePatrol {
-  0% {
-    transform: translateX(140vw) scaleX(1);
-  }
-  48% {
-    transform: translateX(-40vw) scaleX(1);
-  }
-  50% {
-    transform: translateX(-40vw) scaleX(-1);
-  }
-  98% {
-    transform: translateX(140vw) scaleX(-1);
-  }
-  100% {
-    transform: translateX(140vw) scaleX(1);
-  }
-}
-
 .turtle-m {
   width: 70vmin;
   height: 60vmin;
   position: relative !important; /* Agar children absolute terhadap ini */
   animation: swim 5s ease-in-out 0s infinite;
-}
-
-@keyframes swim {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  30% {
-    transform: translateY(-3vmin);
-  }
 }
 
 .body-m {
@@ -693,21 +731,6 @@ body {
   animation: legfour 5s 0s infinite;
 }
 
-@keyframes legthree {
-  50% {
-    transform: rotate(-5deg);
-  }
-}
-@keyframes legfour {
-  0%,
-  100% {
-    transform: rotate(5deg) rotateY(180deg);
-  }
-  50% {
-    transform: rotate(3deg) rotateY(180deg);
-  }
-}
-
 .tail-m {
   background:
     radial-gradient(circle at 30% 22%, var(--green3) 4%, transparent 5%),
@@ -754,6 +777,50 @@ body {
 .trail:after {
   left: 13vmin;
   transform: rotate(-1deg);
+}
+
+/* Animasi dari kanan ke kiri, balik badan, lalu dari kiri ke kanan */
+@keyframes turtlePatrol {
+  0% {
+    transform: translateX(140vw) scaleX(1);
+  }
+  48% {
+    transform: translateX(-40vw) scaleX(1);
+  }
+  50% {
+    transform: translateX(-40vw) scaleX(-1);
+  }
+  98% {
+    transform: translateX(140vw) scaleX(-1);
+  }
+  100% {
+    transform: translateX(140vw) scaleX(1);
+  }
+}
+
+@keyframes swim {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-3vmin);
+  }
+}
+
+@keyframes legthree {
+  50% {
+    transform: rotate(-5deg);
+  }
+}
+@keyframes legfour {
+  0%,
+  100% {
+    transform: rotate(5deg) rotateY(180deg);
+  }
+  50% {
+    transform: rotate(3deg) rotateY(180deg);
+  }
 }
 
 @keyframes trail-down {
@@ -1586,58 +1653,6 @@ body {
   z-index: 1; /* Di bawah konten home, tapi di atas background */
 }
 
-/* Animasi goyang natural air */
-@keyframes wobble {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(20px);
-  }
-}
-
-@keyframes fish {
-  0% {
-    transform: translate(-20vw);
-  }
-  10% {
-    transform: translate(20vw, -125px);
-  }
-  20% {
-    transform: translate(40vw, -45px) rotateZ(22deg);
-  }
-  30% {
-    transform: translate(60vw, -250px);
-  }
-  40% {
-    transform: translate(80vw, -80px) rotateZ(22deg);
-  }
-  50% {
-    transform: translate(120vw, -145px);
-  }
-  51% {
-    transform: translate(120vw, -145px) rotateY(180deg);
-  }
-  60% {
-    transform: translate(80vw, -80px) rotateY(180deg) rotateZ(22deg);
-  }
-  70% {
-    transform: translate(60vw, -250px) rotateY(180deg);
-  }
-  80% {
-    transform: translate(40vw, -45px) rotateY(180deg) rotateZ(22deg);
-  }
-  90% {
-    transform: translate(20vw, -125px) rotateY(180deg);
-  }
-  99% {
-    transform: translate(-20vw) rotateY(180deg) rotateZ(22deg);
-  }
-  100% {
-    transform: translate(-20vw);
-  }
-}
-
 .fish {
   position: absolute;
   left: 0px;
@@ -1706,21 +1721,6 @@ body {
   background-color: #0098e0;
 }
 
-@keyframes tail-fin {
-  0% {
-    transform: rotate(25deg) skewX(-18deg) skewY(-5deg);
-    left: -35px;
-  }
-  50% {
-    transform: rotate(25deg) skewX(-18deg) skewY(-15deg);
-    left: -33px;
-  }
-  100% {
-    transform: rotate(25deg) skewX(-18deg) skewY(-5deg);
-    left: -35px;
-  }
-}
-
 .tail-fin {
   position: absolute;
   left: -35px;
@@ -1753,19 +1753,6 @@ body {
 
 .blue-fish .tail-fin:before {
   background-color: #0098e0;
-}
-
-/* Sirip Samping */
-@keyframes side-fin {
-  0% {
-    transform: rotate(15deg) skewX(-18deg) skewY(-15deg);
-  }
-  50% {
-    transform: rotate(25deg) skewX(-18deg) skewY(-15deg);
-  }
-  100% {
-    transform: rotate(15deg) skewX(-18deg) skewY(-15deg);
-  }
 }
 
 .side-fin {
@@ -1810,6 +1797,87 @@ body {
   left: 53px;
   bottom: -37px;
 }
+
+/* Animasi goyang natural air */
+@keyframes wobble {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(20px);
+  }
+}
+
+@keyframes fish {
+  0% {
+    transform: translate(-20vw);
+  }
+  10% {
+    transform: translate(20vw, -125px);
+  }
+  20% {
+    transform: translate(40vw, -45px) rotateZ(22deg);
+  }
+  30% {
+    transform: translate(60vw, -250px);
+  }
+  40% {
+    transform: translate(80vw, -80px) rotateZ(22deg);
+  }
+  50% {
+    transform: translate(120vw, -145px);
+  }
+  51% {
+    transform: translate(120vw, -145px) rotateY(180deg);
+  }
+  60% {
+    transform: translate(80vw, -80px) rotateY(180deg) rotateZ(22deg);
+  }
+  70% {
+    transform: translate(60vw, -250px) rotateY(180deg);
+  }
+  80% {
+    transform: translate(40vw, -45px) rotateY(180deg) rotateZ(22deg);
+  }
+  90% {
+    transform: translate(20vw, -125px) rotateY(180deg);
+  }
+  99% {
+    transform: translate(-20vw) rotateY(180deg) rotateZ(22deg);
+  }
+  100% {
+    transform: translate(-20vw);
+  }
+}
+
+@keyframes tail-fin {
+  0% {
+    transform: rotate(25deg) skewX(-18deg) skewY(-5deg);
+    left: -35px;
+  }
+  50% {
+    transform: rotate(25deg) skewX(-18deg) skewY(-15deg);
+    left: -33px;
+  }
+  100% {
+    transform: rotate(25deg) skewX(-18deg) skewY(-5deg);
+    left: -35px;
+  }
+}
+
+/* Sirip Samping */
+@keyframes side-fin {
+  0% {
+    transform: rotate(15deg) skewX(-18deg) skewY(-15deg);
+  }
+  50% {
+    transform: rotate(25deg) skewX(-18deg) skewY(-15deg);
+  }
+  100% {
+    transform: rotate(15deg) skewX(-18deg) skewY(-15deg);
+  }
+}
+
 /* ==========================================
    WADAH HIU & ANIMASI BERENANG LINTAS LAYAR
 ========================================== */
@@ -1820,6 +1888,74 @@ body {
   z-index: -1;
   pointer-events: none;
   animation: sharkSwimAcross 24s linear infinite;
+}
+
+/* ==========================================
+   UKURAN HIU
+========================================== */
+#sharky {
+  position: absolute;
+  width: 450px; /* ⚠️ Ubah angka ini untuk membesarkan/mengecilkan hiu */
+  display: flex;
+}
+
+/* ==========================================
+   ANIMASI INTERNAL SVG HIU (Ekor, Sirip, Mata, dll)
+========================================== */
+#layer12 {
+  perspective: 1000;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-origin: right;
+  animation: tail-swim 2s ease-in-out infinite;
+}
+
+#layer1 {
+  perspective: 1000;
+  will-change: transform;
+  transform-origin: center;
+  backface-visibility: hidden;
+  animation: fin-swim 2s ease-in-out infinite;
+}
+
+#path4561,
+#path4567 {
+  perspective: 1000;
+  backface-visibility: hidden;
+  will-change: transform;
+  animation: eye-move 2s ease-in-out infinite;
+}
+
+#path4569 {
+  perspective: 1000;
+  backface-visibility: hidden;
+  will-change: transform;
+  animation: eye-move-2 2s ease-in-out infinite;
+}
+
+#layer7 {
+  perspective: 1000;
+  backface-visibility: hidden;
+  will-change: transform;
+  transform-origin: center;
+  animation: gills-move 2s linear infinite;
+}
+
+#layer8 {
+  perspective: 1000;
+  backface-visibility: hidden;
+  will-change: transform;
+  transform-origin: right center;
+  animation: lines-move 1s ease infinite;
+}
+
+#layer13 {
+  perspective: 1000;
+  backface-visibility: hidden;
+  opacity: 0;
+  will-change: transform;
+  transform-origin: right center;
+  animation: lines-move 1s ease infinite 0.5s;
 }
 
 @keyframes sharkSwimAcross {
@@ -1842,25 +1978,6 @@ body {
     transform: translateX(-400px) translateY(0) scaleX(-1);
   }
 }
-/* ==========================================
-   UKURAN HIU
-========================================== */
-#sharky {
-  position: absolute;
-  width: 450px; /* ⚠️ Ubah angka ini untuk membesarkan/mengecilkan hiu */
-  display: flex;
-}
-
-/* ==========================================
-   ANIMASI INTERNAL SVG HIU (Ekor, Sirip, Mata, dll)
-========================================== */
-#layer12 {
-  perspective: 1000;
-  will-change: transform;
-  backface-visibility: hidden;
-  transform-origin: right;
-  animation: tail-swim 2s ease-in-out infinite;
-}
 
 @keyframes tail-swim {
   0% {
@@ -1872,14 +1989,6 @@ body {
   100% {
     transform: rotateY(-10deg);
   }
-}
-
-#layer1 {
-  perspective: 1000;
-  will-change: transform;
-  transform-origin: center;
-  backface-visibility: hidden;
-  animation: fin-swim 2s ease-in-out infinite;
 }
 
 @keyframes fin-swim {
@@ -1894,25 +2003,10 @@ body {
   }
 }
 
-#path4561,
-#path4567 {
-  perspective: 1000;
-  backface-visibility: hidden;
-  will-change: transform;
-  animation: eye-move 2s ease-in-out infinite;
-}
-
 @keyframes eye-move {
   50% {
     transform: translateX(-10px);
   }
-}
-
-#path4569 {
-  perspective: 1000;
-  backface-visibility: hidden;
-  will-change: transform;
-  animation: eye-move-2 2s ease-in-out infinite;
 }
 
 @keyframes eye-move-2 {
@@ -1921,35 +2015,10 @@ body {
   }
 }
 
-#layer7 {
-  perspective: 1000;
-  backface-visibility: hidden;
-  will-change: transform;
-  transform-origin: center;
-  animation: gills-move 2s linear infinite;
-}
-
 @keyframes gills-move {
   50% {
     transform: translateX(-3px) scale(1.01);
   }
-}
-
-#layer8 {
-  perspective: 1000;
-  backface-visibility: hidden;
-  will-change: transform;
-  transform-origin: right center;
-  animation: lines-move 1s ease infinite;
-}
-
-#layer13 {
-  perspective: 1000;
-  backface-visibility: hidden;
-  opacity: 0;
-  will-change: transform;
-  transform-origin: right center;
-  animation: lines-move 1s ease infinite 0.5s;
 }
 
 @keyframes lines-move {
@@ -1979,39 +2048,6 @@ body {
   animation: turnAround 26s ease-in-out infinite;
 }
 
-/* 3. KEYFRAMES BOLAK-BALIK ORCA */
-@keyframes patrolX {
-  0% {
-    transform: translateX(120vw);
-  }
-  45% {
-    transform: translateX(-50vw);
-  }
-  50% {
-    transform: translateX(-50vw);
-  }
-  95% {
-    transform: translateX(120vw);
-  }
-  100% {
-    transform: translateX(120vw);
-  }
-}
-
-@keyframes turnAround {
-  0%,
-  45% {
-    transform: rotateY(180deg);
-  }
-  50%,
-  95% {
-    transform: rotateY(0deg);
-  }
-  100% {
-    transform: rotateY(180deg);
-  }
-}
-
 /* ORCA: Fokus pada ayunan bernapas (Bobbing) */
 #orca {
   width: 0px;
@@ -2019,22 +2055,6 @@ body {
   --color-light: #ffffff; /* Warna putih orca */
   position: relative;
   animation: swimBob 4s ease-in-out infinite;
-}
-
-@keyframes swimBob {
-  0%,
-  100% {
-    transform: scale(0.4) translateY(0px) rotateZ(0deg);
-  }
-  25% {
-    transform: scale(0.4) translateY(-35px) rotateZ(-3deg);
-  }
-  50% {
-    transform: scale(0.4) translateY(0px) rotateZ(0deg);
-  }
-  75% {
-    transform: scale(0.4) translateY(35px) rotateZ(3deg);
-  }
 }
 
 /* ==========================================
@@ -2095,21 +2115,6 @@ body {
   animation: finStream 1.4s linear infinite 0.6s;
 }
 
-@keyframes finStream {
-  0% {
-    opacity: 0;
-    transform: translateX(0px) scaleX(0.5);
-  }
-  20% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-350px) scaleX(1.3);
-  }
-}
-/* ========================================== */
-
 /* head */
 .head {
   width: 420px;
@@ -2119,22 +2124,6 @@ body {
   border-top: 85px solid var(--color-dark);
   border-right: 3px solid var(--color-dark);
   animation: headBob 4s ease-in-out infinite;
-}
-
-@keyframes headBob {
-  0%,
-  100% {
-    transform: rotateZ(0deg);
-  }
-  25% {
-    transform: rotateZ(0.3deg);
-  }
-  50% {
-    transform: rotateZ(-0.2deg);
-  }
-  75% {
-    transform: rotateZ(0.4deg);
-  }
 }
 
 /* white spot */
@@ -2153,16 +2142,6 @@ body {
   animation: spotShine 3s ease-in-out infinite;
 }
 
-@keyframes spotShine {
-  0%,
-  100% {
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
-  }
-}
-
 /* flipper front */
 .front-flipper-perspective {
   perspective: 120px;
@@ -2178,22 +2157,6 @@ body {
   border-radius: 20% 20% 60% 20%;
   transform: rotateX(40deg);
   animation: frontFlipper 2s ease-in-out infinite;
-}
-
-@keyframes frontFlipper {
-  0%,
-  100% {
-    transform: rotateX(40deg) rotateZ(0deg);
-  }
-  25% {
-    transform: rotateX(38deg) rotateZ(-2deg);
-  }
-  50% {
-    transform: rotateX(42deg) rotateZ(1deg);
-  }
-  75% {
-    transform: rotateX(39deg) rotateZ(-1deg);
-  }
 }
 
 /* flipper back */
@@ -2227,16 +2190,6 @@ body {
   transform: rotateZ(3deg);
 }
 
-@keyframes backFlipper {
-  0%,
-  100% {
-    transform: rotateX(20deg) rotateZ(0deg);
-  }
-  50% {
-    transform: rotateX(22deg) rotateZ(1deg);
-  }
-}
-
 /* spine 1 */
 .spine-perspective {
   perspective: 100;
@@ -2253,16 +2206,6 @@ body {
   animation: spineWave 2s ease-in-out infinite;
 }
 
-@keyframes spineWave {
-  0%,
-  100% {
-    border-radius: 100% 100% 0 0;
-  }
-  50% {
-    border-radius: 90% 110% 0 0;
-  }
-}
-
 /* spine 2 */
 .spine-back {
   width: 940px;
@@ -2276,19 +2219,6 @@ body {
   top: -30px;
   transform: rotateZ(-20deg);
   animation: spineBackSway 4.5s ease-in-out infinite;
-}
-
-@keyframes spineBackSway {
-  0%,
-  100% {
-    transform: rotateZ(-20deg);
-  }
-  33% {
-    transform: rotateZ(-19deg);
-  }
-  66% {
-    transform: rotateZ(-21deg);
-  }
 }
 
 /* dorsal fin */
@@ -2311,26 +2241,6 @@ body {
   animation: finFlex 2.8s ease-in-out infinite;
 }
 
-@keyframes dorsalFin {
-  0%,
-  100% {
-    transform: rotateZ(-10deg);
-  }
-  50% {
-    transform: rotateZ(-8deg);
-  }
-}
-
-@keyframes finFlex {
-  0%,
-  100% {
-    transform: rotateX(40deg);
-  }
-  50% {
-    transform: rotateX(38deg);
-  }
-}
-
 /* belly */
 .belly {
   width: 710px;
@@ -2345,16 +2255,6 @@ body {
   transform: rotateZ(-20deg);
   z-index: -1;
   animation: bellyBreathe 4s ease-in-out infinite;
-}
-
-@keyframes bellyBreathe {
-  0%,
-  100% {
-    transform: rotateZ(-20deg) scaleY(1);
-  }
-  50% {
-    transform: rotateZ(-20deg) scaleY(1.02);
-  }
 }
 
 .extra {
@@ -2382,16 +2282,6 @@ body {
   transform: rotateZ(-3deg);
 }
 
-@keyframes extraShine {
-  0%,
-  100% {
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-  }
-}
-
 .u-b {
   width: 500px;
   height: 140px;
@@ -2402,16 +2292,6 @@ body {
   position: absolute;
   transform: rotateZ(-18deg);
   animation: uBWave 3.2s ease-in-out infinite;
-}
-
-@keyframes uBWave {
-  0%,
-  100% {
-    border-radius: 90%;
-  }
-  50% {
-    border-radius: 85% 95%;
-  }
 }
 
 .u-b-t {
@@ -2427,16 +2307,6 @@ body {
   animation: uBTMove 3.5s ease-in-out infinite;
 }
 
-@keyframes uBTMove {
-  0%,
-  100% {
-    transform: rotateZ(-36deg);
-  }
-  50% {
-    transform: rotateZ(-35deg);
-  }
-}
-
 .u-b-w {
   position: absolute;
   width: 400px;
@@ -2447,16 +2317,6 @@ body {
   left: -588px;
   top: 200px;
   animation: uBWShine 3.8s ease-in-out infinite;
-}
-
-@keyframes uBWShine {
-  0%,
-  100% {
-    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
-  }
-  50% {
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
-  }
 }
 
 /* Tail */
@@ -2490,6 +2350,242 @@ body {
   top: -70px;
   left: 60px;
   animation: tailTip 2s ease-in-out infinite;
+}
+
+/* Breathing effect front */
+#orca::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: breathe 4s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+/* Water ripple effect base */
+body::after {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.1));
+  animation: waterRipple 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* 3. KEYFRAMES BOLAK-BALIK ORCA */
+@keyframes patrolX {
+  0% {
+    transform: translateX(120vw);
+  }
+  45% {
+    transform: translateX(-50vw);
+  }
+  50% {
+    transform: translateX(-50vw);
+  }
+  95% {
+    transform: translateX(120vw);
+  }
+  100% {
+    transform: translateX(120vw);
+  }
+}
+
+@keyframes turnAround {
+  0%,
+  45% {
+    transform: rotateY(180deg);
+  }
+  50%,
+  95% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
+
+@keyframes swimBob {
+  0%,
+  100% {
+    transform: scale(0.4) translateY(0px) rotateZ(0deg);
+  }
+  25% {
+    transform: scale(0.4) translateY(-35px) rotateZ(-3deg);
+  }
+  50% {
+    transform: scale(0.4) translateY(0px) rotateZ(0deg);
+  }
+  75% {
+    transform: scale(0.4) translateY(35px) rotateZ(3deg);
+  }
+}
+
+@keyframes finStream {
+  0% {
+    opacity: 0;
+    transform: translateX(0px) scaleX(0.5);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-350px) scaleX(1.3);
+  }
+}
+/* ========================================== */
+
+@keyframes headBob {
+  0%,
+  100% {
+    transform: rotateZ(0deg);
+  }
+  25% {
+    transform: rotateZ(0.3deg);
+  }
+  50% {
+    transform: rotateZ(-0.2deg);
+  }
+  75% {
+    transform: rotateZ(0.4deg);
+  }
+}
+
+@keyframes spotShine {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+  }
+}
+
+@keyframes frontFlipper {
+  0%,
+  100% {
+    transform: rotateX(40deg) rotateZ(0deg);
+  }
+  25% {
+    transform: rotateX(38deg) rotateZ(-2deg);
+  }
+  50% {
+    transform: rotateX(42deg) rotateZ(1deg);
+  }
+  75% {
+    transform: rotateX(39deg) rotateZ(-1deg);
+  }
+}
+
+@keyframes backFlipper {
+  0%,
+  100% {
+    transform: rotateX(20deg) rotateZ(0deg);
+  }
+  50% {
+    transform: rotateX(22deg) rotateZ(1deg);
+  }
+}
+
+@keyframes spineWave {
+  0%,
+  100% {
+    border-radius: 100% 100% 0 0;
+  }
+  50% {
+    border-radius: 90% 110% 0 0;
+  }
+}
+
+@keyframes spineBackSway {
+  0%,
+  100% {
+    transform: rotateZ(-20deg);
+  }
+  33% {
+    transform: rotateZ(-19deg);
+  }
+  66% {
+    transform: rotateZ(-21deg);
+  }
+}
+
+@keyframes dorsalFin {
+  0%,
+  100% {
+    transform: rotateZ(-10deg);
+  }
+  50% {
+    transform: rotateZ(-8deg);
+  }
+}
+
+@keyframes finFlex {
+  0%,
+  100% {
+    transform: rotateX(40deg);
+  }
+  50% {
+    transform: rotateX(38deg);
+  }
+}
+
+@keyframes bellyBreathe {
+  0%,
+  100% {
+    transform: rotateZ(-20deg) scaleY(1);
+  }
+  50% {
+    transform: rotateZ(-20deg) scaleY(1.02);
+  }
+}
+
+@keyframes extraShine {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes uBWave {
+  0%,
+  100% {
+    border-radius: 90%;
+  }
+  50% {
+    border-radius: 85% 95%;
+  }
+}
+
+@keyframes uBTMove {
+  0%,
+  100% {
+    transform: rotateZ(-36deg);
+  }
+  50% {
+    transform: rotateZ(-35deg);
+  }
+}
+
+@keyframes uBWShine {
+  0%,
+  100% {
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
+  }
 }
 
 @keyframes tailSwish {
@@ -2538,20 +2634,6 @@ body {
   }
 }
 
-/* Breathing effect front */
-#orca::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  animation: breathe 4s ease-in-out infinite;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-}
-
 @keyframes breathe {
   0%,
   100% {
@@ -2562,19 +2644,6 @@ body {
     opacity: 1;
     transform: scale(1.5) translateY(-2px);
   }
-}
-
-/* Water ripple effect base */
-body::after {
-  content: "";
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100px;
-  background: linear-gradient(transparent, rgba(255, 255, 255, 0.1));
-  animation: waterRipple 3s ease-in-out infinite;
-  pointer-events: none;
 }
 
 @keyframes waterRipple {
@@ -2637,6 +2706,17 @@ body::after {
     opacity 0.8s ease-out,
     visibility 0.8s ease-out;
   font-family: sans-serif;
+  transition:
+    opacity 0.8s ease-in-out,
+    backdrop-filter 0.8s ease-in-out,
+    visibility 0.8s;
+}
+
+/* Class ini akan ditambahkan oleh JavaScript Anda saat loading selesai */
+#preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  backdrop-filter: blur(0px); /* Efek blur perlahan menghilang */
 }
 
 /* Memastikan wadah lurus di tengah layar */
@@ -3077,22 +3157,22 @@ body::after {
    ========================================== */
 .mouse-bubble {
   position: absolute;
+  background: rgba(247, 247, 255, 0.4); /* Warna secondary transparan */
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.8);
-  pointer-events: none; /* SANGAT PENTING: Agar tidak mengganggu saat klik/hover */
-  z-index: 9998; /* Di bawah navbar tapi di atas laut */
-  animation: mouseBubbleRise 1s ease-out forwards;
+  pointer-events: none;
+  z-index: 9999;
+  animation: mouse-bubble-rise 1s ease-out forwards;
 }
 
-@keyframes mouseBubbleRise {
+@keyframes mouse-bubble-rise {
   0% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
   100% {
     opacity: 0;
-    transform: translateY(-80px) scale(1.5);
+    transform: translateY(-50px) scale(1.5); /* Melayang ke atas lalu hilang */
   }
 }
 
@@ -3312,5 +3392,41 @@ body::after {
   }
   100% {
     transform: skewX(8deg);
+  }
+}
+
+/* ==========================================
+   CLASS UTILITY UNTUK PERFORMA (JEDA ANIMASI)
+   ========================================== */
+.pause-animation,
+.pause-animation * {
+  animation-play-state: paused !important;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Hentikan semua animasi CSS */
+  *,
+  ::before,
+  ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    transition-delay: 0s !important;
+    transition-duration: 0s !important;
+  }
+
+  /* Sembunyikan gelembung yang melayang agar layar lebih statis */
+  .mouse-bubble,
+  .g-bubble-rise {
+    display: none !important;
   }
 }

@@ -1,36 +1,87 @@
 // ==========================================
-// EFEK MOUSE TRAIL (GELEMBUNG MENGIKUTI KURSOR)
+// OPTIMASI PERFORMA: Auto-Pause Animasi untuk SEMUA Section
 // ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Ambil semua elemen <section> yang ada di HTML (home, team, tech-stack, dll)
+  const allSections = document.querySelectorAll("section");
+
+  // 2. Buat satu Observer untuk memantau semuanya sekaligus
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // JIKA SECTION MASUK KE LAYAR: Hapus efek pause (Semua animasi di dalamnya bergerak)
+          entry.target.classList.remove("pause-animation");
+        } else {
+          // JIKA SECTION KELUAR DARI LAYAR: Tambahkan efek pause (Semua animasi di dalamnya membeku)
+          entry.target.classList.add("pause-animation");
+        }
+      });
+    },
+    {
+      // Angka 0.05 berarti kode akan terpicu jika minimal 5% bagian section terlihat di layar
+      threshold: 0.05,
+    },
+  );
+
+  // 3. Pasang observer ke masing-masing section
+  allSections.forEach((section) => {
+    observer.observe(section);
+  });
+});
+
+// ==========================================
+// EFEK MOUSE TRAIL (OPTIMIZED WITH OBJECT POOLING)
+// ==========================================
+const bubblePool = [];
+const maxBubbles = 15; // Jumlah maksimal gelembung yang aktif di layar
 let lastBubbleTime = 0;
+let currentBubbleIdx = 0;
+
+// 1. Inisialisasi: Buat elemen di awal dan simpan dalam array (Pool)
+for (let i = 0; i < maxBubbles; i++) {
+  const b = document.createElement("div");
+  b.className = "mouse-bubble";
+  b.style.display = "none"; // Sembunyikan di awal
+  b.style.position = "absolute"; // Pastikan absolut
+  b.style.pointerEvents = "none"; // Agar tidak mengganggu klik mouse
+  document.body.appendChild(b);
+  bubblePool.push(b);
+}
 
 document.addEventListener("mousemove", (e) => {
   const now = Date.now();
-  // Batasi hanya membuat 1 gelembung setiap 50ms agar performa web tetap ringan (tidak lag)
-  if (now - lastBubbleTime < 50) return;
+  // Batasi pembuatan gelembung (Throttle)
+  if (now - lastBubbleTime < 80) return;
   lastBubbleTime = now;
 
-  // 1. Buat elemen div untuk gelembung
-  const bubble = document.createElement("div");
-  bubble.className = "mouse-bubble";
+  // 2. Ambil elemen dari pool (daripada create baru)
+  const bubble = bubblePool[currentBubbleIdx];
 
-  // 2. Acak ukuran gelembung antara 5px sampai 15px
+  // 3. Atur ulang properti gelembung
   const size = Math.random() * 10 + 5;
+  const offsetX = (Math.random() - 0.5) * 20;
+
   bubble.style.width = `${size}px`;
   bubble.style.height = `${size}px`;
-
-  // 3. Posisikan tepat di kursor dengan sedikit acakan (offset) agar terlihat menyebar
-  const offsetX = (Math.random() - 0.5) * 20;
   bubble.style.left = `${e.pageX + offsetX}px`;
   bubble.style.top = `${e.pageY}px`;
 
-  // 4. Masukkan ke dalam DOM
-  document.body.appendChild(bubble);
+  // Tampilkan dan jalankan ulang animasi
+  bubble.style.display = "block";
 
-  // 5. Bersihkan/Hapus gelembung dari DOM setelah animasi CSS selesai (1000ms = 1 detik)
-  // Ini penting agar elemen HTML tidak menumpuk dan bikin memori penuh
+  // Trick untuk me-restart animasi CSS:
+  bubble.style.animation = "none";
+  bubble.offsetHeight; // trigger reflow
+  bubble.style.animation = null;
+
+  // 4. Sembunyikan kembali setelah 1 detik (tanpa menghapus dari DOM)
   setTimeout(() => {
-    bubble.remove();
+    bubble.style.display = "none";
   }, 1000);
+
+  // Pindah ke index berikutnya dalam pool (looping balik ke 0 jika sudah mencapai max)
+  currentBubbleIdx = (currentBubbleIdx + 1) % maxBubbles;
 });
 
 // ==========================================
@@ -61,21 +112,20 @@ window.addEventListener("load", () => {
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
 
-  // Pastikan memilih SEMUA kartu di dalam grid
+  // --- ANIMASI KARTU TIM YANG BARU (LEBIH SIMPEL & ELEGAN) ---
   const teamCards = document.querySelectorAll("#team-grid .floating-card");
 
-  // Hapus atau comment kode teamTl (Timeline) lama Anda, ganti dengan ini:
   gsap.from(teamCards, {
     scrollTrigger: {
-      trigger: "#team-grid", // Animasi terpicu saat bungkus grid masuk layar
-      start: "top 80%", // Mulai saat bagian atas grid menyentuh 80% dari atas layar
-      toggleActions: "play none none none", // Hanya play sekali, ganti ke "play none none reverse" kalau mau berulang saat di-scroll naik
+      trigger: "#team-grid",
+      start: "top 85%", // Mulai sedikit lebih cepat saat grid terlihat
+      toggleActions: "play none none none",
     },
-    x: -150, // Muncul dari arah kiri sejauh 150px (jangan pakai -100vw)
-    opacity: 0, // Mulai dari transparan
-    duration: 1.2, // Durasi pergerakan yang santai dan mulus
-    ease: "power2.out", // Gaya pengereman mulus seperti kapal selam
-    stagger: 0.3, // INI KUNCINYA: Jeda 0.3 detik antar kartu. Rikaz -> Ihsan -> Hilal
+    y: 30, // Hanya sedikit bergerak dari bawah (30px)
+    opacity: 0, // Mulai dari transparan (tidak kelihatan)
+    duration: 1, // Durasi 1 detik agar mulus
+    ease: "power2.out", // Pengereman halus di akhir
+    stagger: 0.2, // Muncul satu per satu dengan jeda 0.2 detik
   });
 
   // 1. Buat Timeline dengan Infinite Loop (repeat: -1)
@@ -221,18 +271,21 @@ let isMenuOpen = false;
 function toggleMenu() {
   isMenuOpen = !isMenuOpen;
 
+  // Update atribut ARIA untuk aksesibilitas
+  mobileMenuBtn.setAttribute("aria-expanded", isMenuOpen);
+
   if (isMenuOpen) {
     // Buka Menu
     mobileMenu.classList.remove("-translate-y-full", "opacity-0");
     mobileMenu.classList.add("translate-y-0", "opacity-100");
-    menuIcon.innerText = "close"; // Ganti icon jadi X
-    document.body.style.overflow = "hidden"; // Kunci scroll
+    menuIcon.innerText = "close";
+    document.body.style.overflow = "hidden";
   } else {
     // Tutup Menu
     mobileMenu.classList.add("-translate-y-full", "opacity-0");
     mobileMenu.classList.remove("translate-y-0", "opacity-100");
-    menuIcon.innerText = "menu"; // Kembali ke icon hamburger
-    document.body.style.overflow = "auto"; // Buka scroll
+    menuIcon.innerText = "menu";
+    document.body.style.overflow = "auto";
   }
 }
 
