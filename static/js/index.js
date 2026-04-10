@@ -55,11 +55,28 @@ window.addEventListener("load", () => {
 });
 
 // ==========================================
-// GSAP STORYTELLING: KAPAL SELAM & HIU (UPDATE LOOP & PERFORMA)
+// GSAP STORYTELLING Section TEAM
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
+
+  // Pastikan memilih SEMUA kartu di dalam grid
+  const teamCards = document.querySelectorAll("#team-grid .floating-card");
+
+  // Hapus atau comment kode teamTl (Timeline) lama Anda, ganti dengan ini:
+  gsap.from(teamCards, {
+    scrollTrigger: {
+      trigger: "#team-grid", // Animasi terpicu saat bungkus grid masuk layar
+      start: "top 80%", // Mulai saat bagian atas grid menyentuh 80% dari atas layar
+      toggleActions: "play none none none", // Hanya play sekali, ganti ke "play none none reverse" kalau mau berulang saat di-scroll naik
+    },
+    x: -150, // Muncul dari arah kiri sejauh 150px (jangan pakai -100vw)
+    opacity: 0, // Mulai dari transparan
+    duration: 1.2, // Durasi pergerakan yang santai dan mulus
+    ease: "power2.out", // Gaya pengereman mulus seperti kapal selam
+    stagger: 0.3, // INI KUNCINYA: Jeda 0.3 detik antar kartu. Rikaz -> Ihsan -> Hilal
+  });
 
   // 1. Buat Timeline dengan Infinite Loop (repeat: -1)
   const tl = gsap.timeline({
