@@ -1,1015 +1,913 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Project PKL | Portofolio Tim</title>
 
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Project PKL | Portofolio Tim</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
-    />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#27187E" /* PERSIAN INDIGO - Background Utama */,
-              secondary: "#F7F7FF" /* GHOST WHITE - Aksen & Sorotan */,
-              surface: "#27187E",
-              "surface-container-low": "#27187E",
-              "surface-container-high": "#1b105a" /* Indigo lebih gelap */,
-              "on-surface-variant": "#F7F7FF",
-              "on-surface": "#FFFFFF",
-              "outline-variant": "#F7F7FF",
-            },
-            fontFamily: {
-              headline: ["Poppins"],
-              body: ["Inter"],
-              label: ["Inter"],
-            },
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" />
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#27187E" /* PERSIAN INDIGO - Background Utama */,
+            secondary: "#F7F7FF" /* GHOST WHITE - Aksen & Sorotan */,
+            surface: "#27187E",
+            "surface-container-low": "#27187E",
+            "surface-container-high": "#1b105a" /* Indigo lebih gelap */,
+            "on-surface-variant": "#F7F7FF",
+            "on-surface": "#FFFFFF",
+            "outline-variant": "#F7F7FF",
+          },
+          fontFamily: {
+            headline: ["Poppins"],
+            body: ["Inter"],
+            label: ["Inter"],
           },
         },
-      };
-    </script>
-    <link rel="stylesheet" href="/static/css/index.css" />
-    <style>
-      /* Penyesuaian Glass Card untuk Latar Persian Indigo */
-      .glass-card {
-        background: rgba(247, 247, 255, 0.08); /* Ghost White transparan */
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(247, 247, 255, 0.15); /* Border Ghost White tipis */
-      }
-      .material-symbols-outlined {
-        font-variation-settings:
-          "FILL" 0,
-          "wght" 400,
-          "GRAD" 0,
-          "opsz" 24;
-      }
-      html {
-        scroll-behavior: smooth !important;
-        scroll-padding-top: 6rem !important;
-      }
-      body {
-        background-color: #27187e; /* Full background Persian Indigo */
-        color: #ffffff; /* Teks murni Putih sesuai permintaan */
-      }
-    </style>
-  </head>
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="/static/css/index.css" />
+  <style>
+    /* Penyesuaian Glass Card untuk Latar Persian Indigo */
+    .glass-card {
+      background: rgba(247, 247, 255, 0.08);
+      /* Ghost White transparan */
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(247, 247, 255, 0.15);
+      /* Border Ghost White tipis */
+    }
 
-  <body class="font-body selection:bg-secondary selection:text-primary">
-    <div id="preloader">
-      <div class="loading-Container">
-        <div class="puzzle">
-          <div id="pz1" class="item">
-            <svg width="40" height="40" viewBox="-50 -40 260 260">
-              <path stroke-width="1.5" d="M 0,0 L 70,0 C 70,18.5 74.5,44 100,44 C 125.5,44 130,18.5 130,0 L 200,0 L 200,70 C 181.5,70 156,74.5 156,100 C 156,125.5 181.5,130 200,130 L 200,200 L 130,200 C 130,181.5 125.5,156 100,156 C 74.5,156 70,181.5 70,200 L 0,200 L 0,130 C -18.5,130 -44,125.5 -44,100 C -44,74.5 -18.5,70 0,70 Z "/>
-            </svg>
-          </div>
-          <div id="pz2" class="item">
-            <svg width="40" height="40" viewBox="-50 -50 260 260">
-              <path stroke-width="1.5" d="M 0,0 L 70,0 C 70,-18.5 74.5,-44 100,-44 C 125.5,-44 130,-18.5 130,0 L 200,0 L 200,70 C 181.5,70 156,74.5 156,100 C 156,125.5 181.5,130 200,130 L 200,200 L 130,200 C 130,181.5 125.5,156 100,156 C 74.5,156 70,181.5 70,200 L 0,200 L 0,130 C -18.5,130 -44,125.5 -44,100 C -44,74.5 -18.5,70 0,70 Z "/>
-            </svg>
-          </div>
-          <div id="pz3" class="item">
-            <svg width="40" height="50" viewBox="-40 -40 260 260">
-              <path stroke-width="1.5" d="M 0,0 L 70,0 C 70,-18.5 74.5,-44 100,-44 C 125.5,-44 130,-18.5 130,0 L 200,0 L 200,70 C 181.5,70 156,74.5 156,100 C 156,125.5 181.5,130 200,130 L 200,200 L 130,200 C 130,218.5 125.5,244 100,244 C 74.5,244 70,218.5 70,200 L 0,200 L 0,130 C 18.5,130 44,125.5 44,100 C 44,74.5 18.5,70 0,70 Z "/>
-            </svg>
-          </div>
-          <div id="pz4" class="item">
-            <svg width="40" height="40" viewBox="-40 -40 260 260">
-              <path stroke-width="1.5" d="M 0,0 L 200,0 L 200,200 L 130,200 C 130,181.5 125.5,156 100,156 C 74.5,156 70,181.5 70,200 L 0,200 L 0,130 C 18.5,130 44,125.5 44,100 C 44,74.5 18.5,70 0,70 Z "/>
-            </svg>
-          </div>
+    .material-symbols-outlined {
+      font-variation-settings:
+        "FILL" 0,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 24;
+    }
+
+    html {
+      scroll-behavior: smooth !important;
+      scroll-padding-top: 6rem !important;
+    }
+
+    body {
+      background-color: #27187e;
+      /* Full background Persian Indigo */
+      color: #ffffff;
+      /* Teks murni Putih sesuai permintaan */
+    }
+  </style>
+</head>
+
+<body class="font-body selection:bg-secondary selection:text-primary ">
+  <div id="preloader">
+    <div class="loading-Container">
+      <div class="puzzle">
+        <div id="pz1" class="item">
+          <svg width="40" height="40" viewBox="-50 -40 260 260">
+            <path stroke-width="1.5"
+              d="M 0,0 L 70,0 C 70,18.5 74.5,44 100,44 C 125.5,44 130,18.5 130,0 L 200,0 L 200,70 C 181.5,70 156,74.5 156,100 C 156,125.5 181.5,130 200,130 L 200,200 L 130,200 C 130,181.5 125.5,156 100,156 C 74.5,156 70,181.5 70,200 L 0,200 L 0,130 C -18.5,130 -44,125.5 -44,100 C -44,74.5 -18.5,70 0,70 Z " />
+          </svg>
         </div>
+        <div id="pz2" class="item">
+          <svg width="40" height="40" viewBox="-50 -50 260 260">
+            <path stroke-width="1.5"
+              d="M 0,0 L 70,0 C 70,-18.5 74.5,-44 100,-44 C 125.5,-44 130,-18.5 130,0 L 200,0 L 200,70 C 181.5,70 156,74.5 156,100 C 156,125.5 181.5,130 200,130 L 200,200 L 130,200 C 130,181.5 125.5,156 100,156 C 74.5,156 70,181.5 70,200 L 0,200 L 0,130 C -18.5,130 -44,125.5 -44,100 C -44,74.5 -18.5,70 0,70 Z " />
+          </svg>
+        </div>
+        <div id="pz3" class="item">
+          <svg width="40" height="50" viewBox="-40 -40 260 260">
+            <path stroke-width="1.5"
+              d="M 0,0 L 70,0 C 70,-18.5 74.5,-44 100,-44 C 125.5,-44 130,-18.5 130,0 L 200,0 L 200,70 C 181.5,70 156,74.5 156,100 C 156,125.5 181.5,130 200,130 L 200,200 L 130,200 C 130,218.5 125.5,244 100,244 C 74.5,244 70,218.5 70,200 L 0,200 L 0,130 C 18.5,130 44,125.5 44,100 C 44,74.5 18.5,70 0,70 Z " />
+          </svg>
+        </div>
+        <div id="pz4" class="item">
+          <svg width="40" height="40" viewBox="-40 -40 260 260">
+            <path stroke-width="1.5"
+              d="M 0,0 L 200,0 L 200,200 L 130,200 C 130,181.5 125.5,156 100,156 C 74.5,156 70,181.5 70,200 L 0,200 L 0,130 C 18.5,130 44,125.5 44,100 C 44,74.5 18.5,70 0,70 Z " />
+          </svg>
+        </div>
+      </div>
       <div class="progress-line"></div>
     </div>
   </div>
-    <div id="global-bubbles">
-      <div class="g-bubble-rise" style="left: 10%; animation-duration: 4s;">
-        <div class="g-bubble"></div>
-      </div>
-      
-      <div class="g-bubble-rise" style="left: 30%; animation-duration: 3s; animation-delay: 1s;">
-        <div class="g-bubble"></div>
-      </div>
-      
-      <div class="g-bubble-rise" style="left: 55%; animation-duration: 5s; animation-delay: 0.5s;">
-        <div class="g-bubble"></div>
-      </div>
-
-      <div class="g-bubble-rise" style="left: 80%; animation-duration: 3.5s; animation-delay: 2s;">
-        <div class="g-bubble"></div>
-      </div>
-      
-      <div class="g-bubble-rise" style="left: 90%; animation-duration: 4.5s; animation-delay: 1.5s;">
-        <div class="g-bubble"></div>
-      </div>
+  <div id="global-bubbles">
+    <div class="g-bubble-rise" style="left: 10%; animation-duration: 4s;">
+      <div class="g-bubble"></div>
     </div>
-    <nav
-      class="fixed top-0 w-full z-50 bg-primary/80 backdrop-blur-md border-b border-secondary/10 shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
-    >
-      <div
-        class="flex justify-between items-center px-6 md:px-8 h-20 max-w-7xl mx-auto"
-      >
-        <div
-          class="text-2xl font-bold tracking-tighter text-white flex items-center gap-2 z-50"
-        >
-          <span class="material-symbols-outlined text-secondary">work</span>
-          <span
-            >PKL <span class="opacity-70 text-secondary">Showcase</span></span
-          >
-        </div>
 
-        <div class="hidden md:flex items-center space-y-0 space-x-12">
-          <a
-            class="nav-link text-white border-b-2 border-secondary pb-1 tracking-wider uppercase text-xs font-semibold transition-all duration-300"
-            href="#home"
-            >Beranda</a
-          >
-          <a
-            class="nav-link text-white/60 hover:text-white pb-1 tracking-wider uppercase text-xs font-semibold hover:scale-105 duration-300 transition-all"
-            href="#team"
-            >Tim</a
-          >
-          <a
-            class="nav-link text-white/60 hover:text-white pb-1 tracking-wider uppercase text-xs font-semibold hover:scale-105 duration-300 transition-all"
-            href="#projects"
-            >Proyek</a
-          >
-          <a
-            href="#projects"
-            class="bg-secondary text-primary px-6 py-2.5 rounded-full font-semibold hover:scale-105 hover:bg-opacity-90 transition-all duration-300 shadow-lg shadow-secondary/20"
-          >
-            Lihat Proyek
-          </a>
-        </div>
+    <div class="g-bubble-rise" style="left: 30%; animation-duration: 3s; animation-delay: 1s;">
+      <div class="g-bubble"></div>
+    </div>
 
-        <button
-          id="mobileMenuBtn"
-          class="md:hidden flex items-center justify-center p-2 text-white hover:text-secondary transition-colors z-50"
-        >
-          <span id="menuIcon" class="material-symbols-outlined text-3xl"
-            >menu</span
-          >
-        </button>
+    <div class="g-bubble-rise" style="left: 55%; animation-duration: 5s; animation-delay: 0.5s;">
+      <div class="g-bubble"></div>
+    </div>
+
+    <div class="g-bubble-rise" style="left: 80%; animation-duration: 3.5s; animation-delay: 2s;">
+      <div class="g-bubble"></div>
+    </div>
+
+    <div class="g-bubble-rise" style="left: 90%; animation-duration: 4.5s; animation-delay: 1.5s;">
+      <div class="g-bubble"></div>
+    </div>
+  </div>
+  <nav
+    class="fixed top-0 w-full z-50 bg-primary/80 backdrop-blur-md border-b border-secondary/10 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
+    <div class="flex justify-between items-center px-6 md:px-8 h-20 max-w-7xl mx-auto">
+      <div class="text-2xl font-bold tracking-tighter text-white flex items-center gap-2 z-50">
+        <span class="material-symbols-outlined text-secondary">work</span>
+        <span>PKL <span class="opacity-70 text-secondary">Showcase</span></span>
       </div>
 
-      <div
-        id="mobileMenu"
-        class="absolute top-0 left-0 w-full bg-primary/95 backdrop-blur-xl border-b border-secondary/20 flex flex-col items-center justify-center space-y-6 pt-24 pb-8 transition-all duration-300 ease-in-out -translate-y-full opacity-0 -z-10 shadow-2xl"
-      >
-        <a
-          href="#home"
-          class="mobile-link text-white text-lg font-bold tracking-widest uppercase hover:text-secondary transition-colors"
-          >Beranda</a
-        >
-        <a
-          href="#team"
-          class="mobile-link text-white/80 text-lg font-bold tracking-widest uppercase hover:text-secondary transition-colors"
-          >Tim</a
-        >
-        <a
-          href="#projects"
-          class="mobile-link text-white/80 text-lg font-bold tracking-widest uppercase hover:text-secondary transition-colors"
-          >Proyek</a
-        >
-        <a
-          href="#projects"
-          class="mobile-link mt-4 bg-secondary text-primary px-8 py-3 rounded-full font-bold shadow-lg shadow-secondary/20"
-        >
+      <div class="hidden md:flex items-center space-y-0 space-x-12">
+        <a class="nav-link text-white border-b-2 border-secondary pb-1 tracking-wider uppercase text-xs font-semibold transition-all duration-300"
+          href="#home">Beranda</a>
+        <a class="nav-link text-white/60 hover:text-white pb-1 tracking-wider uppercase text-xs font-semibold hover:scale-105 duration-300 transition-all"
+          href="#team">Tim</a>
+        <a class="nav-link text-white/60 hover:text-white pb-1 tracking-wider uppercase text-xs font-semibold hover:scale-105 duration-300 transition-all"
+          href="#projects">Proyek</a>
+        <a href="#projects"
+          class="bg-secondary text-primary px-6 py-2.5 rounded-full font-semibold hover:scale-105 hover:bg-opacity-90 transition-all duration-300 shadow-lg shadow-secondary/20">
           Lihat Proyek
         </a>
       </div>
-    </nav>
 
-    <section
-      class="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden"
-      id="home"
-    >
-    <div class="light-rays-container">
-      <div class="light-rays"></div>
+      <button id="mobileMenuBtn"
+        class="md:hidden flex items-center justify-center p-2 text-white hover:text-secondary transition-colors z-50">
+        <span id="menuIcon" class="material-symbols-outlined text-3xl">menu</span>
+      </button>
     </div>
-      <div class="absolute inset-0 z-0">
-        <div
-          class="absolute top-1/4 left-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-[120px]"
-        ></div>
-        <div
-          class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-[120px]"
-        ></div>
+
+    <div id="mobileMenu"
+      class="absolute top-0 left-0 w-full bg-primary/95 backdrop-blur-xl border-b border-secondary/20 flex flex-col items-center justify-center space-y-6 pt-24 pb-8 transition-all duration-300 ease-in-out -translate-y-full opacity-0 -z-10 shadow-2xl">
+      <a href="#home"
+        class="mobile-link text-white text-lg font-bold tracking-widest uppercase hover:text-secondary transition-colors">Beranda</a>
+      <a href="#team"
+        class="mobile-link text-white/80 text-lg font-bold tracking-widest uppercase hover:text-secondary transition-colors">Tim</a>
+      <a href="#projects"
+        class="mobile-link text-white/80 text-lg font-bold tracking-widest uppercase hover:text-secondary transition-colors">Proyek</a>
+      <a href="#projects"
+        class="mobile-link mt-4 bg-secondary text-primary px-8 py-3 rounded-full font-bold shadow-lg shadow-secondary/20">
+        Lihat Proyek
+      </a>
+    </div>
+  </nav>
+
+  <section class="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden" id="home">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-[120px]"></div>
+    </div>
+    <!-- Ini Fish tank -->
+    <div id="fish-tank">
+      <div id="bubble-field"></div>
+
+      <div class="fish">
+        <div class="top-fin"></div>
+        <div class="fish-body"></div>
+        <div class="tail-fin"></div>
+        <div class="side-fin"></div>
+        <div class="scale scale-1"></div>
+        <div class="scale scale-2"></div>
+        <div class="scale scale-3"></div>
       </div>
-      <!-- Ini Fish tank -->
+
+
+      <div class="fish blue-fish">
+        <div class="top-fin"></div>
+        <div class="fish-body"></div>
+        <div class="tail-fin"></div>
+        <div class="side-fin"></div>
+        <div class="scale scale-1"></div>
+        <div class="scale scale-2"></div>
+        <div class="scale scale-3"></div>
+      </div>
+    </div>
+
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
       <div
-          id="fish-tank"
-        >
-          <div id="bubble-field"></div>
-
-          <div class="fish">
-            <div class="top-fin"></div>
-            <div class="fish-body"></div>
-            <div class="tail-fin"></div>
-            <div class="side-fin"></div>
-            <div class="scale scale-1"></div>
-            <div class="scale scale-2"></div>
-            <div class="scale scale-3"></div>
-          </div>
-          
-            
-          <div class="fish blue-fish">
-            <div class="top-fin"></div>
-            <div class="fish-body"></div>
-            <div class="tail-fin"></div>
-            <div class="side-fin"></div>
-            <div class="scale scale-1"></div>
-            <div class="scale scale-2"></div>
-            <div class="scale scale-3"></div>
-          </div>
+        class="inline-flex items-center gap-2 px-6 py-2 mb-8 rounded-full glass-card floating-card text-white text-sm font-label tracking-widest uppercase shadow-sm font-semibold">
+        <span class="material-symbols-outlined text-sm text-secondary">calendar_month</span>
+        5 Januari - 17 April
       </div>
 
-      <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        <div
-          class="inline-flex items-center gap-2 px-6 py-2 mb-8 rounded-full glass-card floating-card text-white text-sm font-label tracking-widest uppercase shadow-sm font-semibold"
-        >
-          <span class="material-symbols-outlined text-sm text-secondary"
-            >calendar_month</span
-          >
-          5 Januari - 17 April
-        </div>
+      <h1 class="font-headline text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight text-white">
+        <span>Portofolio Proyek</span><br />
+        <span class="teks-animasi-bg">Praktik Kerja Lapangan</span>
+      </h1>
 
-        <h1
-          class="font-headline text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight text-white"
-        >
-          <span>Portofolio Proyek</span><br />
-          <span class="text-secondary opacity-90">Praktik Kerja Lapangan</span>
-        </h1>
+      <p class="text-white/80 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed mb-12">
+        Dokumentasi perjalanan teknis dan kumpulan inovasi digital yang
+        dibangun selama masa PKL. Menyatukan teori dan implementasi industri.
+      </p>
 
-        <p
-          class="text-white/80 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed mb-12"
-        >
-          Dokumentasi perjalanan teknis dan kumpulan inovasi digital yang
-          dibangun selama masa PKL. Menyatukan teori dan implementasi industri.
-        </p>
-
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            class="bg-secondary text-primary px-10 py-4 rounded-full font-bold shadow-lg shadow-secondary/20 hover:scale-105 hover:bg-opacity-90 transition-all"
-            href="#projects"
-          >
-            Jelajahi Karya Kami
-          </a>
-        </div>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a class="bg-secondary text-primary px-10 py-4 rounded-full font-bold shadow-lg shadow-secondary/20 hover:scale-105 hover:bg-opacity-90 transition-all"
+          href="#projects">
+          Jelajahi Karya Kami
+        </a>
       </div>
+    </div>
 
-      <div
-        class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-60 text-secondary"
-      >
-        <span class="material-symbols-outlined text-3xl">expand_more</span>
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-60 text-secondary">
+      <span class="material-symbols-outlined text-3xl">expand_more</span>
+    </div>
+  </section>
+
+  <section class="py-24 overflow-hidden bg-black/10 backdrop-blur-sm" id="team">
+    <div class="max-w-7xl mx-auto px-8">
+      <div class="mb-16 text-center md:text-left">
+        <h2 class="font-headline text-4xl font-bold mb-4 text-white">
+          Tim Pengembang
+        </h2>
+        <div class="w-20 h-1.5 bg-secondary opacity-50 rounded-full mx-auto md:mx-0"></div>
       </div>
-    </section>
-
-    <section class="py-24 overflow-hidden bg-black/10 backdrop-blur-sm" id="team">
-      <div class="max-w-7xl mx-auto px-8">
-        <div class="mb-16 text-center md:text-left">
-          <h2 class="font-headline text-4xl font-bold mb-4 text-white">
-            Tim Pengembang
-          </h2>
-          <div
-            class="w-20 h-1.5 bg-secondary opacity-50 rounded-full mx-auto md:mx-0"
-          ></div>
-        </div>
-        <!-- GSAP CERITA -->
-        <div class="absolute inset-0 z-0 pointer-events-none">
-          <div id="gsap-sub" class="absolute top-1/2 -mt-10 left-0">
-                <div class="submarine-swimmer" style="position:relative; left:0; top:0; animation:none; margin:0;">
-                  <div class="submarine">
-                    <div class="top"><div class="pipe"><div class="light"></div></div></div>
-                    <div class="window window-1"><div class="shine"></div></div>
-                    <div class="window window-2"><div class="shine"></div></div>
-                    <div class="shadow"></div>
-                    <div class="propeller">
-                      <div class="back"></div><div class="wing"></div>
-                    </div>
-                  </div>
-                </div>
-                <div id="torpedo-bubbles" class="absolute top-1/2 -right-10 flex gap-2 opacity-0">
-                  <div class="w-4 h-4 bg-white/70 rounded-full"></div>
-                  <div class="w-3 h-3 bg-white/70 rounded-full mt-1"></div>
-                  <div class="w-5 h-5 bg-white/70 rounded-full -mt-1"></div>
-                </div>
-          </div>
-
-          <div id="gsap-shark" class="absolute top-[30%] left-0 w-[400px] h-[250px]">
-            <div id="shark-container" style="position:relative; top:0; left:0; animation:none; z-index:1;">
-            <div id="sharky">
-                <svg xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" id="svg3713" width="100%" height="100%" viewBox="0 0 1000 644" sodipodi:docname="sharky.svg" inkscape:version="0.92.3 (2405546, 2018-03-11)" enable-background="new">
-                    <metadata id="metadata3719">
-                        <rdf:RDF>
-                            <cc:Work rdf:about="">
-                                <dc:format>image/svg+xml</dc:format>
-                                <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-                                <dc:title />
-                            </cc:Work>
-                        </rdf:RDF>
-                    </metadata>
-                    <defs id="defs3717">
-                        <linearGradient inkscape:collect="always" id="linearGradient2175">
-                            <stop style="stop-color:#deebeb;stop-opacity:1;" offset="0" id="stop2171" />
-                            <stop style="stop-color:#deebeb;stop-opacity:0;" offset="1" id="stop2173" />
-                        </linearGradient>
-                        <linearGradient id="linearGradient4835" osb:paint="solid">
-                            <stop style="stop-color:#009deb;stop-opacity:1;" offset="0" id="stop4833" />
-                        </linearGradient>
-                        <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072" x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
-                            <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074" />
-                        </filter>
-                        <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2177" x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" gradientUnits="userSpaceOnUse" />
-                        <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072-0" x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
-                            <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074-2" />
-                        </filter>
-                        <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2208" gradientUnits="userSpaceOnUse" x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" />
-                        <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072-2" x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
-                            <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074-7" />
-                        </filter>
-                        <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2224" gradientUnits="userSpaceOnUse" x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" />
-                        <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072-8" x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
-                            <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074-5" />
-                        </filter>
-                        <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2240" gradientUnits="userSpaceOnUse" x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" />
-                        <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072-02" x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
-                            <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074-3" />
-                        </filter>
-                        <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2256" gradientUnits="userSpaceOnUse" x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" />
-                        <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072-24" x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
-                            <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074-33" />
-                        </filter>
-                        <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2272" gradientUnits="userSpaceOnUse" x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" />
-                        <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072-1" x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
-                            <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074-71" />
-                        </filter>
-                        <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2288" gradientUnits="userSpaceOnUse" x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" />
-                    </defs>
-                    <g inkscape:groupmode="layer" id="layer12" inkscape:label="tail">
-                        <g style="display:inline;opacity:1" id="g6447" transform="translate(-966.49691,250.85113)">
-                            <path sodipodi:nodetypes="ccscccscscc" inkscape:connector-curvature="0" id="path6440" d="m 1248.8891,46.325478 c -31.2107,-24.59472 -56.1938,-1.604553 -85.4363,22.023584 -4.9679,3.7004 -6.5607,1.043768 -7.1086,-3.206187 -3.1721,-24.604388 14.0179,-45.389826 29.8916,-63.2442834 -13.7127,-52.5286296 -19.7856,-94.4634496 -18.1612,-138.5276016 1.987,-1.30125 4.2724,-1.84302 8.5058,1.96403 14.6206,26.19002 30.8925,46.938636 38.1718,67.103643 8.9126,24.689619 25.88,51.691212 38.5932,47.790997 24.3268,8.366659 61.961,-0.399789 70.4293,15.4146249 9.5872,17.9037471 -6.4877,72.8018641 -14.1872,99.6573401 z" style="fill:#009deb;fill-opacity:1;stroke:none;" />
-                            <path sodipodi:nodetypes="cscsccccc" inkscape:connector-curvature="0" id="path6442" d="m 1253.974,12.295934 c -51.9972,-10.6739789 -76.8616,-112.108481 -85.8994,-148.924944 -0.3459,-1.40889 5.1359,-1.31659 6.0822,0.20038 -1.1513,-0.73385 1.3403,0.43966 2.5772,2.03867 16.0628,20.76396 25.8327,42.437667 38.0182,66.828623 12.2988,20.754979 20.3714,49.759983 38.5932,47.790997 76.0669,6.603019 119.5016,3.280546 125.0092,11.9878337 L 1325.168,13.014343 c -8.6797,1.570911 -46.3234,4.602766 -71.194,-0.718409 z" style="fill:#00b3f7;fill-opacity:1;stroke:none;" />
-                        </g>
-                    </g>
-                    <g inkscape:groupmode="layer" id="layer6" inkscape:label="spinefin">
-                        <g id="g890" transform="translate(-837.52372,-2.093098)">
-                            <path sodipodi:nodetypes="ccscc" inkscape:connector-curvature="0" id="path854" d="m 1227.8526,227.2873 c 0.4474,-46.89705 1.7496,-78.12816 -34.3681,-114.91819 -3.5809,-7.69805 -3.1911,-16.490321 10.203,-16.378526 51.8323,0.432623 120.6243,52.247226 158.4153,114.381186 z" style="fill:#00b3f7;fill-opacity:1;stroke:none;" />
-                            <path sodipodi:nodetypes="cccc" inkscape:connector-curvature="0" id="path856" d="m 1226.6972,180.00941 c 28.502,0.88405 59.653,2.77247 107.077,33.93176 -34.3779,4.33162 -68.74,8.66125 -105.9216,13.34613 0.4684,-15.56509 0.4996,-31.67816 -1.1554,-47.27789 z" style="display:inline;opacity:1;fill:#009deb;fill-opacity:1;stroke:none;" />
-                        </g>
-                    </g>
-                    <g inkscape:groupmode="layer" id="layer4" inkscape:label="body" style="display:inline;opacity:1">
-                        <g id="g6381" transform="translate(93.488295,75.269549)">
-                            <path sodipodi:nodetypes="cccscccccccssccc" inkscape:connector-curvature="0" id="path4585" d="m 469.28,123.11098 c 79.5093,-4.9539 158.9761,-9.01033 230.0532,4.74271 14.6526,5.14375 53.412,6.09218 57.9961,32.75705 0.09,3.7937 0.2151,6.79562 -0.7243,9.22502 -21.3713,55.26399 -42.2799,59.38542 -62.8288,88.00192 -15.6446,9.116 -24.0866,24.1973 -27.1675,37.59007 -1.5213,7.35138 -4.0244,11.72563 -3.3197,20.88067 -18.0232,7.58431 -37.3174,14.24055 -57.3614,17.78339 3.8869,19.3835 16.88477,27.8421 27.69614,43.43751 0.3839,4.10453 -1.13715,11.90182 -3.13405,15.05404 -77.59503,75.97706 -239.77503,63.88906 -288.76649,5.41156 -44.1141,-41.74341 -76.62008,-105.84563 -127.9635,-153.39799 -4.40536,-4.08008 -5.5387,2.39899 -21.3767,-0.40671 -7.21908,-1.27886 -26.6872,-52.4542 17.1458,-102.56716 10.5787,3.62097 17.6493,7.94353 23.1832,12.57345 167.8114,-30.1297 177.9428,-25.21943 236.568,-31.08553 z" style="opacity:1;fill:#009deb;fill-opacity:1;stroke:none;" />
-                            <path sodipodi:nodetypes="ccsccccsc" inkscape:connector-curvature="0" id="path4587" d="m 185.2535,185.15175 c 38.271,14.48697 207.4724,14.97566 567.6835,-6.3085 7.2332,-15.9604 4.42272,-24.21508 -1.1828,-30.44958 -9.92632,-11.04013 -30.3479,-16.30658 -52.421,-20.53998 -11.4268,-2.22038 -21.7796,-3.38561 -32.3149,-4.73014 -86.5756,-9.42185 -171.9215,-2.4009 -258.8861,4.86296 -61.318,5.20509 -116.9895,17.42032 -175.4202,26.21 -5.0998,-5.36008 -13.55061,-15.15103 -23.1832,-12.57345 -16.06593,4.29907 -18.7286,22.97925 -24.2753,43.52869 z" style="opacity:1;fill:#00b3f7;fill-opacity:1;stroke:none;" />
-                            <path sodipodi:nodetypes="cccccssccc" inkscape:connector-curvature="0" id="path4603" d="m 693.77624,257.83768 c -53.537,6.41361 -107.7145,13.43571 -181.0785,38.68496 l -42.1486,15.94812 c -54.3486,27.10267 -108.99077,53.09904 -176.21563,31.66824 9.7708,12.33477 26.72362,34.81191 47.38969,53.85592 59.18457,73.09742 242.62382,59.80399 291.39604,-8.81445 3.34924,-4.7121 2.56373,-8.40639 0.5045,-11.65115 -15.6877,-24.71939 -24.77728,-28.67257 -27.6961,-43.43751 20.90462,-3.74125 39.9328,-10.19309 57.3614,-17.78339 1.0719,-29.18415 18.6392,-40.778 30.4872,-58.47074 z" style="opacity:1;fill:#deebeb;fill-opacity:1;stroke:none;" />
-                        </g>
-                    </g>
-                    <g inkscape:groupmode="layer" id="layer7" inkscape:label="gills">
-                        <g style="display:inline;opacity:1" id="g923" transform="translate(-960.69981,-20.699836)">
-                            <path sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0" id="path897" d="m 1485.076,264.34036 c -5.7188,21.48017 -6.1384,46.27236 -0.4027,74.91163 l 5.3699,-1.74525 c -3.954,-23.28788 -5.9314,-46.84841 0.4028,-71.55537 z" style="fill:#008ae0;fill-opacity:1;stroke:none;" />
-                            <path sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0" id="path897-7" d="m 1467.0035,264.73207 c -5.7188,21.48017 -6.1384,46.27236 -0.4027,74.91163 l 5.3699,-1.74525 c -3.954,-23.28788 -5.9314,-46.84841 0.4028,-71.55537 z" style="display:inline;opacity:1;fill:#008ae0;fill-opacity:1;stroke:none;" />
-                            <path sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0" id="path897-1" d="m 1504.1908,264.59783 c -5.7188,21.48017 -6.1384,46.27236 -0.4027,74.91163 l 5.3699,-1.74525 c -3.954,-23.28788 -5.9314,-46.84841 0.4028,-71.55537 z" style="display:inline;opacity:1;fill:#008ae0;fill-opacity:1;stroke:none;" />
-                        </g>
-                    </g>
-                    <g inkscape:groupmode="layer" id="layer2" inkscape:label="eye" style="display:inline">
-                        <g id="g4575" transform="translate(-493.02389,44.623131)">
-                            <ellipse ry="55.438675" rx="53.729954" cy="224.03302" cx="1153.0104" id="path4559" style="fill:#ffffff;fill-opacity:1;stroke:none;" />
-                            <ellipse ry="40.157127" rx="39.967266" cy="218.33727" cx="1160.6049" id="path4561" style="fill:#ffde39;fill-opacity:1;stroke:none;" />
-                            <ellipse ry="28.151949" rx="28.127871" cy="217.49199" cx="1165.2455" id="path4567" style="fill:#443e74;fill-opacity:1;stroke:none;" />
-                            <ellipse ry="8.9528923" rx="9.0686188" cy="221.95604" cx="1150.6288" id="path4569" style="fill:#ffffff;fill-opacity:1;stroke:none;" />
-                        </g>
-                    </g>
-                    <g inkscape:groupmode="layer" id="layer1" inkscape:label="fin" style="display:inline">
-                        <g id="g3747" transform="translate(2.8309148,-133.74858)">
-                            <g id="g4552">
-                                <path sodipodi:nodetypes="cssscc" inkscape:connector-curvature="0" id="path3724" d="m 388.07075,528.94575 c -1.72947,-8.77404 53.00919,-20.39692 58.6233,22.51334 2.69459,20.59553 -8.34034,34.90859 -25.86514,44.2145 -2.48545,1.31981 -5.10144,2.5389 -7.82732,3.66092 -53.59378,22.06009 -149.66531,6.59415 -131.25158,-18.74725 41.90812,-10.0601 83.08977,-20.6673 106.98981,-53.84341" style="fill:#009deb;fill-opacity:1;stroke:none;" />
-                                <path style="fill:#00b3f7;fill-opacity:1;stroke:none;" d="m 386.9491,530.46853 c 114.94367,39.5159 -60.24611,85.52555 -103.91865,51.41839 -1.22495,-0.95665 -2.00946,-0.72826 -1.28044,-1.29966 5.5284,-4.33315 65.36742,-6.0669 104.40758,-50.4294" id="path3726" inkscape:connector-curvature="0" sodipodi:nodetypes="cssc" />
-                            </g>
-                        </g>
-                    </g>
-                    <g inkscape:groupmode="layer" id="layer11" inkscape:label="jaws 3">
-                        <g id="g6438" transform="translate(-907.91491,-109.82297)">
-                            <path sodipodi:nodetypes="cccccc" inkscape:connector-curvature="0" id="path6398" d="m 1600.8868,519.45283 c 5.9715,14.91295 11.8765,29.89239 22.783,39.87028 5.6611,5.53706 10.5535,9.88173 -0.7594,18.22642 -100.3008,38.00175 -158.9937,-40.34714 -149.6085,-114.67453 3.1819,-8.03678 10.2286,-14.14487 21.2642,-4.17688 15.9327,25.93872 40.8688,61.00402 106.3207,60.75471 z" style="fill:#fb90c5;fill-opacity:1;stroke:none;" />
-                            <path sodipodi:nodetypes="ccc" inkscape:connector-curvature="0" id="path6387" d="m 1477.9469,515.43559 c 43.7356,11.70371 87.1739,26.38052 127.9184,67.99481 -72.2317,15.88002 -112.5717,-20.5648 -127.9184,-67.99481 z" style="display:inline;opacity:1;fill:#eb64a7;fill-opacity:1;stroke:none;" />
-                            <path sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0" id="path6385" d="m 1484.1168,531.06331 c 26.1798,-13.03623 20.968,5.62749 21.0552,19.65025 18.0448,-8.36021 31.4779,-10.1871 25.441,15.56839 22.8135,-11.5331 31.2275,-10.48255 27.2135,20.12797 -56.2044,-8.81867 -70.5113,-49.80257 -73.7097,-55.34661 z" style="display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;" />
-                        </g>
-                    </g>
-                    <g inkscape:groupmode="layer" id="layer8" inkscape:label="lines">
-                        <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2208);filter:url(#filter2072-0)" id="rect1552-8" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357" transform="matrix(-0.85445125,0,0,1.0479948,492.33442,344.26572)" />
-                        <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2256);filter:url(#filter2072-02)" id="rect1552-6" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357" transform="matrix(-0.85445125,0,0,1.0479948,718.82293,131.46389)" />
-                        <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2288);filter:url(#filter2072-1)" id="rect1552-83" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357" transform="matrix(-0.85445125,0,0,1.0479948,531.33429,179.02648)" />
-                    </g>
-                    <g inkscape:groupmode="layer" id="layer13" inkscape:label="lines 2">
-                        <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2177);filter:url(#filter2072)" id="rect1552" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357" transform="matrix(-0.85445125,0,0,1.0479948,439.66879,23.524771)" />
-                        <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2224);filter:url(#filter2072-2)" id="rect1552-4" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357" transform="matrix(-0.85445125,0,0,1.0479948,626.26758,268.05022)" />
-                        <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2240);filter:url(#filter2072-8)" id="rect1552-1" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357" transform="matrix(-0.85445125,0,0,1.0479948,408.92167,251.34409)" />
-                        <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2272);filter:url(#filter2072-24)" id="rect1552-5" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357" transform="matrix(-0.85445125,0,0,1.0479948,635.298,433.4407)" />
-                    </g>
-                </svg>
-            </div>
-            </div>
-          </div>
-        </div>
-        <!-- GSAP CERITA -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <div
-            class="group floating-card relative bg-secondary/5 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(247,247,255,0.05)] border border-secondary/10 shadow-sm"
-          >
-            <div class="flex flex-col items-center text-center">
-              <div
-                class="w-24 h-24 rounded-full bg-secondary flex items-center justify-center text-3xl font-bold text-primary mb-6 shadow-lg border-4 border-primary"
-              >
-                M
-              </div>
-              <h3 class="text-xl font-headline font-bold mb-1 text-white">
-                Muhamad Hilal Diyaul Haq
-              </h3>
-              <p
-                class="text-secondary/80 text-xs font-label uppercase tracking-widest mb-4 font-semibold"
-              >
-                Developer
-              </p>
-              <a
-                href="https://github.com/hilalcolp123-dot"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-white/60 hover:text-white transition-colors duration-300 transform hover:scale-110"
-              >
-                <i class="fa-brands fa-github text-2xl"></i>
-              </a>
-            </div>
-          </div>
-
-          <div
-            class="group floating-card relative bg-secondary/5 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(247,247,255,0.05)] border border-secondary/10 shadow-sm"
-          >
-            <div class="flex flex-col items-center text-center">
-              <div
-                class="w-24 h-24 rounded-full bg-secondary flex items-center justify-center text-3xl font-bold text-primary mb-6 shadow-lg border-4 border-primary"
-              >
-                I
-              </div>
-              <h3 class="text-xl font-headline font-bold mb-1 text-white">
-                Ihsan Faturrahman
-              </h3>
-              <p
-                class="text-secondary/80 text-xs font-label uppercase tracking-widest mb-4 font-semibold"
-              >
-                Developer
-              </p>
-              <a
-                href="https://github.com/IhsanFathurrahman"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-white/60 hover:text-white transition-colors duration-300 transform hover:scale-110"
-              >
-                <i class="fa-brands fa-github text-2xl"></i>
-              </a>
-            </div>
-          </div>
-
-          <div
-            class="group floating-card relative bg-secondary/5 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(247,247,255,0.05)] border border-secondary/10 shadow-sm"
-          >
-            <div class="flex flex-col items-center text-center">
-              <div
-                class="w-24 h-24 rounded-full bg-secondary flex items-center justify-center text-3xl font-bold text-primary mb-6 shadow-lg border-4 border-primary"
-              >
-                R
-              </div>
-              <h3 class="text-xl font-headline font-bold mb-1 text-white">
-                Rikaz Putra Erdiansyah
-              </h3>
-              <p
-                class="text-secondary/80 text-xs font-label uppercase tracking-widest mb-4 font-semibold"
-              >
-                Developer
-              </p>
-              <a
-                href="https://github.com/rikazpe7jpp"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-white/60 hover:text-white transition-colors duration-300 transform hover:scale-110"
-              >
-                <i class="fa-brands fa-github text-2xl"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-24 relative overflow-hidden" id="tech-stack">
-      <!-- turle disini -->
-      <div class="turtle-aquarium"> 
-        
-        <div class="turtle-mover">
-
-            <div class="turtle-rotation">
-
-                <div class="bubbles">
-                    <div class="bubble b1"></div>
-                    <div class="bubble b2"></div>
-                    <div class="bubble b3"></div>
-                    <div class="bubble b4"></div>
-                    <div class="bubble b5"></div>
-                    <div class="bubble b6"></div>
-                    <div class="bubble b7"></div>
-                    <div class="bubble b8"></div>
-                    <div class="bubble b9"></div>
-                    <div class="bubble b10"></div>
-                </div>
-                <div class="bubbles mirror">
-                    <div class="bubble b1"></div>
-                    <div class="bubble b2"></div>
-                    <div class="bubble b3"></div>
-                    <div class="bubble b4"></div>
-                    <div class="bubble b5"></div>
-                    <div class="bubble b6"></div>
-                    <div class="bubble b7"></div>
-                    <div class="bubble b8"></div>
-                    <div class="bubble b9"></div>
-                    <div class="bubble b10"></div>
-                </div>
-
-                <div class="trail"></div>
-
-                <div class="turtle-m">
-                    <div class="head-m">
-                        <div class="eyes-m"></div>
-                    </div>      
-                    <div class="leg1-m"></div>    
-                    <div class="leg2-m"></div>
-                    <div class="leg3-m"></div>    
-                    <div class="leg4-m"></div>
-                    <div class="tail-m"></div>
-                    <div class="body-m">
-                        <span></span>
-                    </div>
-                    <div class="body-tail-m"></div>
-                </div>
-            </div>
-        </div>
-      </div>
-      <div
-        class="absolute inset-0 z-0 flex justify-center items-center opacity-10"
-      >
-        <div
-          class="w-full max-w-3xl h-48 bg-secondary blur-[100px] rounded-full"
-        ></div>
-      </div>
-
-      <div class="max-w-7xl mx-auto px-8 relative z-10">
-        <div class="mb-16 text-center">
-          <h2
-            class="font-headline text-3xl md:text-4xl font-bold mb-4 text-white"
-          >
-            Teknologi & Bahasa
-          </h2>
-          <div
-            class="w-20 h-1.5 bg-secondary opacity-50 rounded-full mx-auto mb-6"
-          ></div>
-          <p
-            class="text-white/80 max-w-2xl mx-auto text-sm md:text-base font-medium"
-          >
-            Fondasi teknologi, Framework, dan bahasa pemrograman yang kami
-            gunakan untuk membangun seluruh ekosistem proyek selama masa PKL.
-          </p>
-        </div>
-
-        <div
-          class="flex flex-wrap justify-center gap-4 sm:gap-6 max-w-4xl mx-auto"
-        >
-          <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" class="block"
-            ><div
-              class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
-            >
-              <i
-                class="fa-brands fa-html5 text-orange-400 text-3xl group-hover:scale-110 transition-transform"
-              ></i
-              ><span class="font-bold text-white tracking-wide">HTML5</span>
-            </div></a
-          >
-          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" class="block"
-            ><div
-              class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
-            >
-              <i
-                class="fa-brands fa-css3-alt text-blue-400 text-3xl group-hover:scale-110 transition-transform"
-              ></i
-              ><span class="font-bold text-white tracking-wide">CSS3</span>
-            </div></a
-          >
-          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" class="block"
-            ><div
-              class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
-            >
-              <i
-                class="fa-brands fa-js text-yellow-300 text-3xl group-hover:scale-110 transition-transform"
-              ></i
-              ><span class="font-bold text-white tracking-wide"
-                >JavaScript</span
-              >
-            </div></a
-          >
-          <a href="https://getbootstrap.com/" class="block"
-            ><div
-              class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
-            >
-              <i
-                class="fa-brands fa-bootstrap text-purple-400 text-3xl group-hover:scale-110 transition-transform"
-              ></i
-              ><span class="font-bold text-white tracking-wide">Bootstrap</span>
-            </div></a
-          >
-          <a href="https://tailwindcss.com/" class="block"
-            ><div
-              class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
-            >
-              <img
-                src="/static/images/tailwind-svgrepo-com.svg"
-                alt="Tailwind CSS"
-                class="w-8 h-8 object-contain group-hover:scale-110 transition-transform brightness-110"
-              /><span class="font-bold text-white tracking-wide">Tailwind</span>
-            </div></a
-          >
-          <a href="https://www.php.net/" class="block"
-            ><div
-              class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
-            >
-              <img
-                src="/static/images/php-fill-svgrepo-com.svg"
-                alt="PHP"
-                class="w-8 h-8 object-contain group-hover:scale-110 transition-transform brightness-110"
-              /><span class="font-bold text-white tracking-wide">PHP</span>
-            </div></a
-          >
-          <a href="https://laravel.com/" class="block"
-            ><div
-              class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
-            >
-              <i
-                class="fa-brands fa-laravel text-red-400 text-3xl group-hover:scale-110 transition-transform"
-              ></i
-              ><span class="font-bold text-white tracking-wide">Laravel</span>
-            </div></a
-          >
-          <a href="https://www.python.org/" class="block"
-            ><div
-              class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
-            >
-              <img
-                src="/static/images/python-svgrepo-com.svg"
-                alt="Python"
-                class="w-8 h-8 object-contain group-hover:scale-110 transition-transform brightness-110"
-              /><span class="font-bold text-white tracking-wide">Python</span>
-            </div></a
-          >
-          <a href="https://nodejs.org/en" class="block"
-            ><div
-              class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
-            >
-              <i
-                class="fa-brands fa-node-js text-green-400 text-3xl group-hover:scale-110 transition-transform"
-              ></i
-              ><span class="font-bold text-white tracking-wide">Node.js</span>
-            </div></a
-          >
-          <a href="https://gradle.org/" class="block"
-            ><div
-              class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
-            >
-              <img
-                src="/static/images/gradle-svgrepo-com.svg"
-                alt="Gradle"
-                class="w-8 h-8 object-contain group-hover:scale-110 transition-transform brightness-110"
-              /><span class="font-bold text-white tracking-wide">Gradle</span>
-            </div></a
-          >
-          <a href="https://git-scm.com/" class="block"
-            ><div
-              class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all"
-            >
-              <i
-                class="fa-brands fa-git-alt text-orange-500 text-3xl group-hover:scale-110 transition-transform"
-              ></i
-              ><span class="font-bold text-white tracking-wide">Git</span>
-            </div></a
-          >
-        </div>
-      </div>
-    </section>
-
-    <section class="py-24 bg-black/10 backdrop-blur-sm relative overflow-hidden" id="projects">
-      <div class="max-w-7xl mx-auto px-8 relative z-10">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div>
-            <h2 class="font-headline text-4xl font-bold mb-4 text-white">
-              Daftar Proyek
-            </h2>
-            <p class="text-white/80 max-w-lg font-medium">
-              Koleksi 17 solusi aplikasi dan tools yang dikembangkan dengan
-              fokus pada performa dan utilitas.
-            </p>
-          </div>
-          <div class="flex gap-2">
-            <span class="px-4 py-2 rounded-lg bg-secondary text-primary text-xs font-bold uppercase tracking-tighter shadow-sm">
-              17 Total Works
-            </span>
-          </div>
-        </div>
-        
-        <div id="project-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-      </div>
-      <!-- submarine atau kapal selam disini -->
-    <div class="submarine-path">
-        <div class="submarine-swimmer">
-            
+      <!-- GSAP CERITA -->
+      <div class="absolute inset-0 z-0 pointer-events-none">
+        <div id="gsap-sub" class="absolute top-1/2 -mt-10 left-0">
+          <div class="submarine-swimmer" style="position:relative; left:0; top:0; animation:none; margin:0;">
             <div class="submarine">
-                <div class="water-trail"></div>
-                
-                <div class="top">
-                    <div class="pipe">
-                        <div class="light"></div>
-                    </div>
+              <div class="top">
+                <div class="pipe">
+                  <div class="light"></div>
                 </div>
-                <div class="window window-1">
-                    <div class="shine"></div>
-                </div>
-                <div class="window window-2">
-                    <div class="shine"></div>
-                </div>
-                <div class="shadow"></div>
-                <div class="propeller">
-                    <div class="back"></div>
-                    <div class="wing"></div>
-                    <div class="bubble bubble-1"></div>
-                    <div class="bubble bubble-2"></div>
-                    <div class="bubble bubble-3"></div>
-                </div>
+              </div>
+              <div class="window window-1">
+                <div class="shine"></div>
+              </div>
+              <div class="window window-2">
+                <div class="shine"></div>
+              </div>
+              <div class="shadow"></div>
+              <div class="propeller">
+                <div class="back"></div>
+                <div class="wing"></div>
+              </div>
             </div>
-
+          </div>
+          <div id="torpedo-bubbles" class="absolute top-1/2 -right-10 flex gap-2 opacity-0">
+            <div class="w-4 h-4 bg-white/70 rounded-full"></div>
+            <div class="w-3 h-3 bg-white/70 rounded-full mt-1"></div>
+            <div class="w-5 h-5 bg-white/70 rounded-full -mt-1"></div>
+          </div>
         </div>
-    </div>
-    <!-- paus html nya disini -->
-      <div class="whale-path">
-        <div class="whale-swimmer">
-          <div id='whale-container' class='whale'>
-            <div class='whale whole-tail'>
-              <div class='whale tail-stem'></div>
-              <div class='whale tail-flipper'></div>
-              <div class='whale tail-flipper2'></div>
-            </div>
-            <div class='whale tail-connector'></div>
-            <div class='whale left-flipper'></div>
-            <div class='whale body-bottom'>
-              <div class='whale lines-container'>
-                <div class='whale line5'></div> 
-                <div class='whale line6'></div>
-                <div class='whale line7'></div>
-                <div class='whale line8'></div>
-                <div class='whale line9'></div>
-                <div class='whale line10'></div>
-                <div class='whale cover-lines'></div>
-              </div>
-              <div class='whale body-top'>
-                <div class='whale body-top-main'></div>
-                <div class='whale body-top-point'></div>
-              </div>
-              <div class='whale right-flipper'></div>
-              <div class='whale whale-eye'></div>
-              <div class='whale spout'></div>
+
+        <div id="gsap-shark" class="absolute top-[30%] left-0 w-[400px] h-[250px]">
+          <div id="shark-container" style="position:relative; top:0; left:0; animation:none; z-index:1;">
+            <div id="sharky">
+              <svg xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" id="svg3713" width="100%"
+                height="100%" viewBox="0 0 1000 644" sodipodi:docname="sharky.svg"
+                inkscape:version="0.92.3 (2405546, 2018-03-11)" enable-background="new">
+                <metadata id="metadata3719">
+                  <rdf:RDF>
+                    <cc:Work rdf:about="">
+                      <dc:format>image/svg+xml</dc:format>
+                      <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                      <dc:title />
+                    </cc:Work>
+                  </rdf:RDF>
+                </metadata>
+                <defs id="defs3717">
+                  <linearGradient inkscape:collect="always" id="linearGradient2175">
+                    <stop style="stop-color:#deebeb;stop-opacity:1;" offset="0" id="stop2171" />
+                    <stop style="stop-color:#deebeb;stop-opacity:0;" offset="1" id="stop2173" />
+                  </linearGradient>
+                  <linearGradient id="linearGradient4835" osb:paint="solid">
+                    <stop style="stop-color:#009deb;stop-opacity:1;" offset="0" id="stop4833" />
+                  </linearGradient>
+                  <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072"
+                    x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
+                    <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074" />
+                  </filter>
+                  <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2177"
+                    x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" gradientUnits="userSpaceOnUse" />
+                  <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072-0"
+                    x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
+                    <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074-2" />
+                  </filter>
+                  <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2208"
+                    gradientUnits="userSpaceOnUse" x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" />
+                  <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072-2"
+                    x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
+                    <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074-7" />
+                  </filter>
+                  <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2224"
+                    gradientUnits="userSpaceOnUse" x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" />
+                  <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072-8"
+                    x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
+                    <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074-5" />
+                  </filter>
+                  <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2240"
+                    gradientUnits="userSpaceOnUse" x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" />
+                  <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072-02"
+                    x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
+                    <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074-3" />
+                  </filter>
+                  <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2256"
+                    gradientUnits="userSpaceOnUse" x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" />
+                  <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072-24"
+                    x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
+                    <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074-33" />
+                  </filter>
+                  <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2272"
+                    gradientUnits="userSpaceOnUse" x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" />
+                  <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter2072-1"
+                    x="-0.012448598" width="1.0248972" y="-0.333" height="1.666">
+                    <feGaussianBlur inkscape:collect="always" stdDeviation="0.84297166" id="feGaussianBlur2074-71" />
+                  </filter>
+                  <linearGradient inkscape:collect="always" xlink:href="#linearGradient2175" id="linearGradient2288"
+                    gradientUnits="userSpaceOnUse" x1="95.943848" y1="79.740578" x2="262.50898" y2="79.740578" />
+                </defs>
+                <g inkscape:groupmode="layer" id="layer12" inkscape:label="tail">
+                  <g style="display:inline;opacity:1" id="g6447" transform="translate(-966.49691,250.85113)">
+                    <path sodipodi:nodetypes="ccscccscscc" inkscape:connector-curvature="0" id="path6440"
+                      d="m 1248.8891,46.325478 c -31.2107,-24.59472 -56.1938,-1.604553 -85.4363,22.023584 -4.9679,3.7004 -6.5607,1.043768 -7.1086,-3.206187 -3.1721,-24.604388 14.0179,-45.389826 29.8916,-63.2442834 -13.7127,-52.5286296 -19.7856,-94.4634496 -18.1612,-138.5276016 1.987,-1.30125 4.2724,-1.84302 8.5058,1.96403 14.6206,26.19002 30.8925,46.938636 38.1718,67.103643 8.9126,24.689619 25.88,51.691212 38.5932,47.790997 24.3268,8.366659 61.961,-0.399789 70.4293,15.4146249 9.5872,17.9037471 -6.4877,72.8018641 -14.1872,99.6573401 z"
+                      style="fill:#009deb;fill-opacity:1;stroke:none;" />
+                    <path sodipodi:nodetypes="cscsccccc" inkscape:connector-curvature="0" id="path6442"
+                      d="m 1253.974,12.295934 c -51.9972,-10.6739789 -76.8616,-112.108481 -85.8994,-148.924944 -0.3459,-1.40889 5.1359,-1.31659 6.0822,0.20038 -1.1513,-0.73385 1.3403,0.43966 2.5772,2.03867 16.0628,20.76396 25.8327,42.437667 38.0182,66.828623 12.2988,20.754979 20.3714,49.759983 38.5932,47.790997 76.0669,6.603019 119.5016,3.280546 125.0092,11.9878337 L 1325.168,13.014343 c -8.6797,1.570911 -46.3234,4.602766 -71.194,-0.718409 z"
+                      style="fill:#00b3f7;fill-opacity:1;stroke:none;" />
+                  </g>
+                </g>
+                <g inkscape:groupmode="layer" id="layer6" inkscape:label="spinefin">
+                  <g id="g890" transform="translate(-837.52372,-2.093098)">
+                    <path sodipodi:nodetypes="ccscc" inkscape:connector-curvature="0" id="path854"
+                      d="m 1227.8526,227.2873 c 0.4474,-46.89705 1.7496,-78.12816 -34.3681,-114.91819 -3.5809,-7.69805 -3.1911,-16.490321 10.203,-16.378526 51.8323,0.432623 120.6243,52.247226 158.4153,114.381186 z"
+                      style="fill:#00b3f7;fill-opacity:1;stroke:none;" />
+                    <path sodipodi:nodetypes="cccc" inkscape:connector-curvature="0" id="path856"
+                      d="m 1226.6972,180.00941 c 28.502,0.88405 59.653,2.77247 107.077,33.93176 -34.3779,4.33162 -68.74,8.66125 -105.9216,13.34613 0.4684,-15.56509 0.4996,-31.67816 -1.1554,-47.27789 z"
+                      style="display:inline;opacity:1;fill:#009deb;fill-opacity:1;stroke:none;" />
+                  </g>
+                </g>
+                <g inkscape:groupmode="layer" id="layer4" inkscape:label="body" style="display:inline;opacity:1">
+                  <g id="g6381" transform="translate(93.488295,75.269549)">
+                    <path sodipodi:nodetypes="cccscccccccssccc" inkscape:connector-curvature="0" id="path4585"
+                      d="m 469.28,123.11098 c 79.5093,-4.9539 158.9761,-9.01033 230.0532,4.74271 14.6526,5.14375 53.412,6.09218 57.9961,32.75705 0.09,3.7937 0.2151,6.79562 -0.7243,9.22502 -21.3713,55.26399 -42.2799,59.38542 -62.8288,88.00192 -15.6446,9.116 -24.0866,24.1973 -27.1675,37.59007 -1.5213,7.35138 -4.0244,11.72563 -3.3197,20.88067 -18.0232,7.58431 -37.3174,14.24055 -57.3614,17.78339 3.8869,19.3835 16.88477,27.8421 27.69614,43.43751 0.3839,4.10453 -1.13715,11.90182 -3.13405,15.05404 -77.59503,75.97706 -239.77503,63.88906 -288.76649,5.41156 -44.1141,-41.74341 -76.62008,-105.84563 -127.9635,-153.39799 -4.40536,-4.08008 -5.5387,2.39899 -21.3767,-0.40671 -7.21908,-1.27886 -26.6872,-52.4542 17.1458,-102.56716 10.5787,3.62097 17.6493,7.94353 23.1832,12.57345 167.8114,-30.1297 177.9428,-25.21943 236.568,-31.08553 z"
+                      style="opacity:1;fill:#009deb;fill-opacity:1;stroke:none;" />
+                    <path sodipodi:nodetypes="ccsccccsc" inkscape:connector-curvature="0" id="path4587"
+                      d="m 185.2535,185.15175 c 38.271,14.48697 207.4724,14.97566 567.6835,-6.3085 7.2332,-15.9604 4.42272,-24.21508 -1.1828,-30.44958 -9.92632,-11.04013 -30.3479,-16.30658 -52.421,-20.53998 -11.4268,-2.22038 -21.7796,-3.38561 -32.3149,-4.73014 -86.5756,-9.42185 -171.9215,-2.4009 -258.8861,4.86296 -61.318,5.20509 -116.9895,17.42032 -175.4202,26.21 -5.0998,-5.36008 -13.55061,-15.15103 -23.1832,-12.57345 -16.06593,4.29907 -18.7286,22.97925 -24.2753,43.52869 z"
+                      style="opacity:1;fill:#00b3f7;fill-opacity:1;stroke:none;" />
+                    <path sodipodi:nodetypes="cccccssccc" inkscape:connector-curvature="0" id="path4603"
+                      d="m 693.77624,257.83768 c -53.537,6.41361 -107.7145,13.43571 -181.0785,38.68496 l -42.1486,15.94812 c -54.3486,27.10267 -108.99077,53.09904 -176.21563,31.66824 9.7708,12.33477 26.72362,34.81191 47.38969,53.85592 59.18457,73.09742 242.62382,59.80399 291.39604,-8.81445 3.34924,-4.7121 2.56373,-8.40639 0.5045,-11.65115 -15.6877,-24.71939 -24.77728,-28.67257 -27.6961,-43.43751 20.90462,-3.74125 39.9328,-10.19309 57.3614,-17.78339 1.0719,-29.18415 18.6392,-40.778 30.4872,-58.47074 z"
+                      style="opacity:1;fill:#deebeb;fill-opacity:1;stroke:none;" />
+                  </g>
+                </g>
+                <g inkscape:groupmode="layer" id="layer7" inkscape:label="gills">
+                  <g style="display:inline;opacity:1" id="g923" transform="translate(-960.69981,-20.699836)">
+                    <path sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0" id="path897"
+                      d="m 1485.076,264.34036 c -5.7188,21.48017 -6.1384,46.27236 -0.4027,74.91163 l 5.3699,-1.74525 c -3.954,-23.28788 -5.9314,-46.84841 0.4028,-71.55537 z"
+                      style="fill:#008ae0;fill-opacity:1;stroke:none;" />
+                    <path sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0" id="path897-7"
+                      d="m 1467.0035,264.73207 c -5.7188,21.48017 -6.1384,46.27236 -0.4027,74.91163 l 5.3699,-1.74525 c -3.954,-23.28788 -5.9314,-46.84841 0.4028,-71.55537 z"
+                      style="display:inline;opacity:1;fill:#008ae0;fill-opacity:1;stroke:none;" />
+                    <path sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0" id="path897-1"
+                      d="m 1504.1908,264.59783 c -5.7188,21.48017 -6.1384,46.27236 -0.4027,74.91163 l 5.3699,-1.74525 c -3.954,-23.28788 -5.9314,-46.84841 0.4028,-71.55537 z"
+                      style="display:inline;opacity:1;fill:#008ae0;fill-opacity:1;stroke:none;" />
+                  </g>
+                </g>
+                <g inkscape:groupmode="layer" id="layer2" inkscape:label="eye" style="display:inline">
+                  <g id="g4575" transform="translate(-493.02389,44.623131)">
+                    <ellipse ry="55.438675" rx="53.729954" cy="224.03302" cx="1153.0104" id="path4559"
+                      style="fill:#ffffff;fill-opacity:1;stroke:none;" />
+                    <ellipse ry="40.157127" rx="39.967266" cy="218.33727" cx="1160.6049" id="path4561"
+                      style="fill:#ffde39;fill-opacity:1;stroke:none;" />
+                    <ellipse ry="28.151949" rx="28.127871" cy="217.49199" cx="1165.2455" id="path4567"
+                      style="fill:#443e74;fill-opacity:1;stroke:none;" />
+                    <ellipse ry="8.9528923" rx="9.0686188" cy="221.95604" cx="1150.6288" id="path4569"
+                      style="fill:#ffffff;fill-opacity:1;stroke:none;" />
+                  </g>
+                </g>
+                <g inkscape:groupmode="layer" id="layer1" inkscape:label="fin" style="display:inline">
+                  <g id="g3747" transform="translate(2.8309148,-133.74858)">
+                    <g id="g4552">
+                      <path sodipodi:nodetypes="cssscc" inkscape:connector-curvature="0" id="path3724"
+                        d="m 388.07075,528.94575 c -1.72947,-8.77404 53.00919,-20.39692 58.6233,22.51334 2.69459,20.59553 -8.34034,34.90859 -25.86514,44.2145 -2.48545,1.31981 -5.10144,2.5389 -7.82732,3.66092 -53.59378,22.06009 -149.66531,6.59415 -131.25158,-18.74725 41.90812,-10.0601 83.08977,-20.6673 106.98981,-53.84341"
+                        style="fill:#009deb;fill-opacity:1;stroke:none;" />
+                      <path style="fill:#00b3f7;fill-opacity:1;stroke:none;"
+                        d="m 386.9491,530.46853 c 114.94367,39.5159 -60.24611,85.52555 -103.91865,51.41839 -1.22495,-0.95665 -2.00946,-0.72826 -1.28044,-1.29966 5.5284,-4.33315 65.36742,-6.0669 104.40758,-50.4294"
+                        id="path3726" inkscape:connector-curvature="0" sodipodi:nodetypes="cssc" />
+                    </g>
+                  </g>
+                </g>
+                <g inkscape:groupmode="layer" id="layer11" inkscape:label="jaws 3">
+                  <g id="g6438" transform="translate(-907.91491,-109.82297)">
+                    <path sodipodi:nodetypes="cccccc" inkscape:connector-curvature="0" id="path6398"
+                      d="m 1600.8868,519.45283 c 5.9715,14.91295 11.8765,29.89239 22.783,39.87028 5.6611,5.53706 10.5535,9.88173 -0.7594,18.22642 -100.3008,38.00175 -158.9937,-40.34714 -149.6085,-114.67453 3.1819,-8.03678 10.2286,-14.14487 21.2642,-4.17688 15.9327,25.93872 40.8688,61.00402 106.3207,60.75471 z"
+                      style="fill:#fb90c5;fill-opacity:1;stroke:none;" />
+                    <path sodipodi:nodetypes="ccc" inkscape:connector-curvature="0" id="path6387"
+                      d="m 1477.9469,515.43559 c 43.7356,11.70371 87.1739,26.38052 127.9184,67.99481 -72.2317,15.88002 -112.5717,-20.5648 -127.9184,-67.99481 z"
+                      style="display:inline;opacity:1;fill:#eb64a7;fill-opacity:1;stroke:none;" />
+                    <path sodipodi:nodetypes="ccccc" inkscape:connector-curvature="0" id="path6385"
+                      d="m 1484.1168,531.06331 c 26.1798,-13.03623 20.968,5.62749 21.0552,19.65025 18.0448,-8.36021 31.4779,-10.1871 25.441,15.56839 22.8135,-11.5331 31.2275,-10.48255 27.2135,20.12797 -56.2044,-8.81867 -70.5113,-49.80257 -73.7097,-55.34661 z"
+                      style="display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;" />
+                  </g>
+                </g>
+                <g inkscape:groupmode="layer" id="layer8" inkscape:label="lines">
+                  <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2208);filter:url(#filter2072-0)"
+                    id="rect1552-8" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357"
+                    transform="matrix(-0.85445125,0,0,1.0479948,492.33442,344.26572)" />
+                  <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2256);filter:url(#filter2072-02)"
+                    id="rect1552-6" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357"
+                    transform="matrix(-0.85445125,0,0,1.0479948,718.82293,131.46389)" />
+                  <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2288);filter:url(#filter2072-1)"
+                    id="rect1552-83" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357"
+                    transform="matrix(-0.85445125,0,0,1.0479948,531.33429,179.02648)" />
+                </g>
+                <g inkscape:groupmode="layer" id="layer13" inkscape:label="lines 2">
+                  <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2177);filter:url(#filter2072)"
+                    id="rect1552" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357"
+                    transform="matrix(-0.85445125,0,0,1.0479948,439.66879,23.524771)" />
+                  <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2224);filter:url(#filter2072-2)"
+                    id="rect1552-4" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357"
+                    transform="matrix(-0.85445125,0,0,1.0479948,626.26758,268.05022)" />
+                  <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2240);filter:url(#filter2072-8)"
+                    id="rect1552-1" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357"
+                    transform="matrix(-0.85445125,0,0,1.0479948,408.92167,251.34409)" />
+                  <rect style="display:inline;opacity:0.5;fill:url(#linearGradient2272);filter:url(#filter2072-24)"
+                    id="rect1552-5" width="162.51886" height="6.0754714" x="97.96698" y="76.702843" ry="3.0377357"
+                    transform="matrix(-0.85445125,0,0,1.0479948,635.298,433.4407)" />
+                </g>
+              </svg>
             </div>
           </div>
         </div>
       </div>
-      <!-- orca html nya disini -->
-      <div id="orca-position">
-          <div id="orca-direction">
-              <div id="orca">
-                  <div class="water-lines">
-                      <div class="water-line wl-dorsal-1"></div>
-                      <div class="water-line wl-dorsal-2"></div>
-                      <div class="water-line wl-dorsal-3"></div>
-                      <div class="water-line wl-flipper-1"></div>
-                      <div class="water-line wl-flipper-2"></div>
-                  </div>
-                  <div class="head"></div>
-                  <div class="whitespot"></div>
-                  <div class="front-flipper-perspective"><div class="front-flipper"></div></div>
-                  <div class="back-flipper-perspective"><div class="back-flipper"></div></div>
-                  <div class="spine-perspective"><div class="spine"></div></div>
-                  <div class="dorsalfin-perspective"><div class="dorsalfin"></div></div>
-                  <div class="spine-back"></div>
-                  <div class="belly"></div>
-                  <div class="extra"></div>
-                  <div class="u-b"></div>
-                  <div class="u-b-t"></div>
-                  <div class="u-b-w"></div>
-                  <div class="tail-perspective"><div class="tail"></div></div>
-              </div>
-          </div>
-      </div>
-    </section>
-
-    <footer class="bg-primary border-t border-secondary/10 w-full py-12">
-      <div
-        class="max-w-7xl mx-auto px-8 flex flex-col items-center justify-center text-center space-y-4"
-      >
+      <!-- GSAP CERITA -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
         <div
-          class="flex items-center justify-center gap-2 text-white/80 mb-2 font-medium"
-        >
-          <span class="material-symbols-outlined text-secondary">code</span>
-          Dibuat dengan dedikasi selama masa PKL
-        </div>
-        <div class="text-white/50 font-body text-sm">
-          © 2026 Tim Pengembang PKL. All rights reserved.
-        </div>
-      </div>
-    </footer>
-
-    <div
-      id="projectModal"
-      class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6"
-    >
-      <div
-        id="modalBackdrop"
-        class="absolute inset-0 bg-black/60 backdrop-blur-md cursor-pointer opacity-0 transition-opacity duration-300"
-        onclick="closeModal()"
-      ></div>
-
-      <div
-        id="modalContentBox"
-        class="relative bg-primary w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl transition-all duration-300 ease-out opacity-0 scale-95 translate-y-4 border border-secondary/20"
-      >
-        <button
-          onclick="closeModal()"
-          class="absolute top-4 right-4 z-10 text-white/60 hover:text-white bg-secondary/10 hover:bg-secondary/20 transition-colors p-2 rounded-full flex items-center"
-        >
-          <span class="material-symbols-outlined">close</span>
-        </button>
-
-        <div class="p-6 sm:p-8">
-          <div
-            class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-6 mt-2 sm:mt-0"
-          >
+          class="group floating-card relative bg-secondary/5 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(247,247,255,0.05)] border border-secondary/10 shadow-sm">
+          <div class="flex flex-col items-center text-center">
             <div
-              class="w-20 h-20 bg-secondary/10 rounded-2xl flex items-center justify-center shrink-0 border border-secondary/20"
-            >
-              <span
-                id="modalIcon"
-                class="material-symbols-outlined text-4xl text-secondary"
-                >code</span
-              >
+              class="w-24 h-24 rounded-full bg-secondary flex items-center justify-center text-3xl font-bold text-primary mb-6 shadow-lg border-4 border-primary">
+              M
             </div>
-            <div>
-              <h2
-                id="modalTitle"
-                class="text-2xl sm:text-3xl font-headline font-bold text-white mb-2"
-              >
-                Judul Proyek
-              </h2>
-              <div class="flex flex-wrap gap-2">
-                <span
-                  id="modalCategory"
-                  class="text-primary font-label text-[10px] sm:text-xs uppercase tracking-widest bg-secondary border border-secondary/20 px-3 py-1 rounded-full font-bold"
-                >
-                  Web Application
-                </span>
-                <span
-                  class="text-secondary font-label text-[10px] sm:text-xs uppercase tracking-widest bg-secondary/10 border border-secondary/20 px-3 py-1 rounded-full flex items-center gap-1 font-bold"
-                >
-                  <span class="material-symbols-outlined text-[12px] sm:text-sm"
-                    >person</span
-                  >
-                  <span id="modalDeveloper">Nama Developer</span>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="relative w-full h-48 sm:h-64 mb-6 rounded-xl overflow-hidden group bg-black/30 border border-secondary/10 flex items-center justify-center"
-          >
-            <img
-              id="modalSliderImage"
-              src=""
-              alt="Project Screenshot"
-              class="w-full h-full object-cover transition-opacity duration-300 opacity-90 hover:opacity-100"
-            />
-
-            <button
-              onclick="prevImage()"
-              id="btnPrev"
-              class="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/80 hover:bg-secondary text-white hover:text-primary p-2 rounded-full backdrop-blur-md transition-all hidden group-hover:block shadow-md border border-secondary/20"
-            >
-              <span class="material-symbols-outlined">chevron_left</span>
-            </button>
-            <button
-              onclick="nextImage()"
-              id="btnNext"
-              class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/80 hover:bg-secondary text-white hover:text-primary p-2 rounded-full backdrop-blur-md transition-all hidden group-hover:block shadow-md border border-secondary/20"
-            >
-              <span class="material-symbols-outlined">chevron_right</span>
-            </button>
-            <div
-              id="sliderDots"
-              class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10"
-            ></div>
-          </div>
-
-          <div
-            class="text-white/90 leading-relaxed bg-secondary/5 p-5 sm:p-6 rounded-xl border border-secondary/10 mb-4"
-          >
-            <h4
-              class="text-secondary text-xs sm:text-sm font-bold uppercase tracking-wider mb-2"
-            >
-              Deskripsi
-            </h4>
-            <p id="modalDesc" class="text-sm font-medium">
-              Deskripsi detail proyek akan muncul di sini.
+            <h3 class="text-xl font-headline font-bold mb-1 text-white">
+              Muhamad Hilal Diyaul Haq
+            </h3>
+            <p class="text-secondary/80 text-xs font-label uppercase tracking-widest mb-4 font-semibold">
+              Developer
             </p>
+            <a href="https://github.com/hilalcolp123-dot" target="_blank" rel="noopener noreferrer"
+              class="text-white/60 hover:text-white transition-colors duration-300 transform hover:scale-110">
+              <i class="fa-brands fa-github text-2xl"></i>
+            </a>
           </div>
+        </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+        <div
+          class="group floating-card relative bg-secondary/5 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(247,247,255,0.05)] border border-secondary/10 shadow-sm">
+          <div class="flex flex-col items-center text-center">
             <div
-              class="bg-secondary/5 p-5 rounded-xl border border-secondary/10 border-t-4 border-t-secondary"
-            >
-              <div class="flex items-center gap-2 mb-3">
-                <span
-                  class="material-symbols-outlined text-secondary text-lg sm:text-xl"
-                  >warning</span
-                >
-                <h4
-                  class="text-[10px] sm:text-xs font-bold text-secondary uppercase tracking-widest"
-                >
-                  Problem Statement
-                </h4>
-              </div>
-              <p
-                id="modalProblem"
-                class="text-sm text-white/80 leading-relaxed font-medium"
-              >
-                Masalah apa yang kalian coba pecahkan akan muncul di sini.
-              </p>
+              class="w-24 h-24 rounded-full bg-secondary flex items-center justify-center text-3xl font-bold text-primary mb-6 shadow-lg border-4 border-primary">
+              I
             </div>
-
-            <div
-              class="bg-secondary/5 p-5 rounded-xl border border-secondary/10 border-t-4 border-t-secondary opacity-90"
-            >
-              <div class="flex items-center gap-2 mb-3">
-                <span
-                  class="material-symbols-outlined text-secondary text-lg sm:text-xl"
-                  >lightbulb</span
-                >
-                <h4
-                  class="text-[10px] sm:text-xs font-bold text-secondary uppercase tracking-widest"
-                >
-                  Solution
-                </h4>
-              </div>
-              <p
-                id="modalSolution"
-                class="text-sm text-white/80 leading-relaxed font-medium"
-              >
-                Bagaimana proyek ini membantu akan muncul di sini.
-              </p>
-            </div>
+            <h3 class="text-xl font-headline font-bold mb-1 text-white">
+              Ihsan Faturrahman
+            </h3>
+            <p class="text-secondary/80 text-xs font-label uppercase tracking-widest mb-4 font-semibold">
+              Developer
+            </p>
+            <a href="https://github.com/IhsanFathurrahman" target="_blank" rel="noopener noreferrer"
+              class="text-white/60 hover:text-white transition-colors duration-300 transform hover:scale-110">
+              <i class="fa-brands fa-github text-2xl"></i>
+            </a>
           </div>
+        </div>
 
-          <div class="mt-8">
-            <a
-              id="modalLink"
-              href="#"
-              target="_blank"
-              class="w-full sm:w-auto bg-secondary text-primary px-6 py-4 rounded-xl text-center font-bold hover:bg-opacity-90 transition-all shadow-lg shadow-secondary/20 flex justify-center items-center gap-2"
-            >
-              <span class="material-symbols-outlined">open_in_new</span> Buka
-              Aplikasi / Demo
+        <div
+          class="group floating-card relative bg-secondary/5 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(247,247,255,0.05)] border border-secondary/10 shadow-sm">
+          <div class="flex flex-col items-center text-center">
+            <div
+              class="w-24 h-24 rounded-full bg-secondary flex items-center justify-center text-3xl font-bold text-primary mb-6 shadow-lg border-4 border-primary">
+              R
+            </div>
+            <h3 class="text-xl font-headline font-bold mb-1 text-white">
+              Rikaz Putra Erdiansyah
+            </h3>
+            <p class="text-secondary/80 text-xs font-label uppercase tracking-widest mb-4 font-semibold">
+              Developer
+            </p>
+            <a href="https://github.com/rikazpe7jpp" target="_blank" rel="noopener noreferrer"
+              class="text-white/60 hover:text-white transition-colors duration-300 transform hover:scale-110">
+              <i class="fa-brands fa-github text-2xl"></i>
             </a>
           </div>
         </div>
       </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/3.9.1/tsparticles.bundle.min.js"></script>
-    <script src="/static/js/index.js"></script>
-  </body>
+  </section>
+
+  <section class="py-24 relative overflow-hidden" id="tech-stack">
+    <!-- turle disini -->
+    <div class="turtle-aquarium">
+
+      <div class="turtle-mover">
+
+        <div class="turtle-rotation">
+
+          <div class="bubbles">
+            <div class="bubble b1"></div>
+            <div class="bubble b2"></div>
+            <div class="bubble b3"></div>
+            <div class="bubble b4"></div>
+            <div class="bubble b5"></div>
+            <div class="bubble b6"></div>
+            <div class="bubble b7"></div>
+            <div class="bubble b8"></div>
+            <div class="bubble b9"></div>
+            <div class="bubble b10"></div>
+          </div>
+          <div class="bubbles mirror">
+            <div class="bubble b1"></div>
+            <div class="bubble b2"></div>
+            <div class="bubble b3"></div>
+            <div class="bubble b4"></div>
+            <div class="bubble b5"></div>
+            <div class="bubble b6"></div>
+            <div class="bubble b7"></div>
+            <div class="bubble b8"></div>
+            <div class="bubble b9"></div>
+            <div class="bubble b10"></div>
+          </div>
+
+          <div class="trail"></div>
+
+          <div class="turtle-m">
+            <div class="head-m">
+              <div class="eyes-m"></div>
+            </div>
+            <div class="leg1-m"></div>
+            <div class="leg2-m"></div>
+            <div class="leg3-m"></div>
+            <div class="leg4-m"></div>
+            <div class="tail-m"></div>
+            <div class="body-m">
+              <span></span>
+            </div>
+            <div class="body-tail-m"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute inset-0 z-0 flex justify-center items-center opacity-10">
+      <div class="w-full max-w-3xl h-48 bg-secondary blur-[100px] rounded-full"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-8 relative z-10">
+      <div class="mb-16 text-center">
+        <h2 class="font-headline text-3xl md:text-4xl font-bold mb-4 text-white">
+          Teknologi & Bahasa
+        </h2>
+        <div class="w-20 h-1.5 bg-secondary opacity-50 rounded-full mx-auto mb-6"></div>
+        <p class="text-white/80 max-w-2xl mx-auto text-sm md:text-base font-medium">
+          Fondasi teknologi, Framework, dan bahasa pemrograman yang kami
+          gunakan untuk membangun seluruh ekosistem proyek selama masa PKL.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-4 sm:gap-6 max-w-4xl mx-auto">
+        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" class="block">
+          <div
+            class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all">
+            <i class="fa-brands fa-html5 text-orange-400 text-3xl group-hover:scale-110 transition-transform"></i><span
+              class="font-bold text-white tracking-wide">HTML5</span>
+          </div>
+        </a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" class="block">
+          <div
+            class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all">
+            <i class="fa-brands fa-css3-alt text-blue-400 text-3xl group-hover:scale-110 transition-transform"></i><span
+              class="font-bold text-white tracking-wide">CSS3</span>
+          </div>
+        </a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" class="block">
+          <div
+            class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all">
+            <i class="fa-brands fa-js text-yellow-300 text-3xl group-hover:scale-110 transition-transform"></i><span
+              class="font-bold text-white tracking-wide">JavaScript</span>
+          </div>
+        </a>
+        <a href="https://getbootstrap.com/" class="block">
+          <div
+            class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all">
+            <i
+              class="fa-brands fa-bootstrap text-purple-400 text-3xl group-hover:scale-110 transition-transform"></i><span
+              class="font-bold text-white tracking-wide">Bootstrap</span>
+          </div>
+        </a>
+        <a href="https://tailwindcss.com/" class="block">
+          <div
+            class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all">
+            <img src="/static/images/tailwind-svgrepo-com.svg" alt="Tailwind CSS"
+              class="w-8 h-8 object-contain group-hover:scale-110 transition-transform brightness-110" /><span
+              class="font-bold text-white tracking-wide">Tailwind</span>
+          </div>
+        </a>
+        <a href="https://www.php.net/" class="block">
+          <div
+            class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all">
+            <img src="/static/images/php-fill-svgrepo-com.svg" alt="PHP"
+              class="w-8 h-8 object-contain group-hover:scale-110 transition-transform brightness-110" /><span
+              class="font-bold text-white tracking-wide">PHP</span>
+          </div>
+        </a>
+        <a href="https://laravel.com/" class="block">
+          <div
+            class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all">
+            <i class="fa-brands fa-laravel text-red-400 text-3xl group-hover:scale-110 transition-transform"></i><span
+              class="font-bold text-white tracking-wide">Laravel</span>
+          </div>
+        </a>
+        <a href="https://www.python.org/" class="block">
+          <div
+            class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all">
+            <img src="/static/images/python-svgrepo-com.svg" alt="Python"
+              class="w-8 h-8 object-contain group-hover:scale-110 transition-transform brightness-110" /><span
+              class="font-bold text-white tracking-wide">Python</span>
+          </div>
+        </a>
+        <a href="https://nodejs.org/en" class="block">
+          <div
+            class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all">
+            <i class="fa-brands fa-node-js text-green-400 text-3xl group-hover:scale-110 transition-transform"></i><span
+              class="font-bold text-white tracking-wide">Node.js</span>
+          </div>
+        </a>
+        <a href="https://gradle.org/" class="block">
+          <div
+            class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all">
+            <img src="/static/images/gradle-svgrepo-com.svg" alt="Gradle"
+              class="w-8 h-8 object-contain group-hover:scale-110 transition-transform brightness-110" /><span
+              class="font-bold text-white tracking-wide">Gradle</span>
+          </div>
+        </a>
+        <a href="https://git-scm.com/" class="block">
+          <div
+            class="group floating-card flex items-center gap-3 bg-secondary/10 backdrop-blur-sm px-6 py-4 rounded-xl border border-secondary/20 hover:-translate-y-2 hover:border-secondary hover:shadow-[0_10px_20px_rgba(247,247,255,0.1)] transition-all">
+            <i
+              class="fa-brands fa-git-alt text-orange-500 text-3xl group-hover:scale-110 transition-transform"></i><span
+              class="font-bold text-white tracking-wide">Git</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-black/10 backdrop-blur-sm relative overflow-hidden" id="projects">
+    <div class="max-w-7xl mx-auto px-8 relative z-10">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <h2 class="font-headline text-4xl font-bold mb-4 text-white">
+            Daftar Proyek
+          </h2>
+          <p class="text-white/80 max-w-lg font-medium">
+            Koleksi 17 solusi aplikasi dan tools yang dikembangkan dengan
+            fokus pada performa dan utilitas.
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <span
+            class="px-4 py-2 rounded-lg bg-secondary text-primary text-xs font-bold uppercase tracking-tighter shadow-sm">
+            17 Total Works
+          </span>
+        </div>
+      </div>
+
+      <div id="project-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </div>
+    <!-- submarine atau kapal selam disini -->
+    <div class="submarine-path">
+      <div class="submarine-swimmer">
+
+        <div class="submarine">
+          <div class="water-trail"></div>
+
+          <div class="top">
+            <div class="pipe">
+              <div class="light"></div>
+            </div>
+          </div>
+          <div class="window window-1">
+            <div class="shine"></div>
+          </div>
+          <div class="window window-2">
+            <div class="shine"></div>
+          </div>
+          <div class="shadow"></div>
+          <div class="propeller">
+            <div class="back"></div>
+            <div class="wing"></div>
+            <div class="bubble bubble-1"></div>
+            <div class="bubble bubble-2"></div>
+            <div class="bubble bubble-3"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- paus html nya disini -->
+    <div class="whale-path">
+      <div class="whale-swimmer">
+        <div id='whale-container' class='whale'>
+          <div class='whale whole-tail'>
+            <div class='whale tail-stem'></div>
+            <div class='whale tail-flipper'></div>
+            <div class='whale tail-flipper2'></div>
+          </div>
+          <div class='whale tail-connector'></div>
+          <div class='whale left-flipper'></div>
+          <div class='whale body-bottom'>
+            <div class='whale lines-container'>
+              <div class='whale line5'></div>
+              <div class='whale line6'></div>
+              <div class='whale line7'></div>
+              <div class='whale line8'></div>
+              <div class='whale line9'></div>
+              <div class='whale line10'></div>
+              <div class='whale cover-lines'></div>
+            </div>
+            <div class='whale body-top'>
+              <div class='whale body-top-main'></div>
+              <div class='whale body-top-point'></div>
+            </div>
+            <div class='whale right-flipper'></div>
+            <div class='whale whale-eye'></div>
+            <div class='whale spout'></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- orca html nya disini -->
+    <div id="orca-position">
+      <div id="orca-direction">
+        <div id="orca">
+          <div class="water-lines">
+            <div class="water-line wl-dorsal-1"></div>
+            <div class="water-line wl-dorsal-2"></div>
+            <div class="water-line wl-dorsal-3"></div>
+            <div class="water-line wl-flipper-1"></div>
+            <div class="water-line wl-flipper-2"></div>
+          </div>
+          <div class="head"></div>
+          <div class="whitespot"></div>
+          <div class="front-flipper-perspective">
+            <div class="front-flipper"></div>
+          </div>
+          <div class="back-flipper-perspective">
+            <div class="back-flipper"></div>
+          </div>
+          <div class="spine-perspective">
+            <div class="spine"></div>
+          </div>
+          <div class="dorsalfin-perspective">
+            <div class="dorsalfin"></div>
+          </div>
+          <div class="spine-back"></div>
+          <div class="belly"></div>
+          <div class="extra"></div>
+          <div class="u-b"></div>
+          <div class="u-b-t"></div>
+          <div class="u-b-w"></div>
+          <div class="tail-perspective">
+            <div class="tail"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-primary border-t border-secondary/10 w-full py-12">
+    <div class="max-w-7xl mx-auto px-8 flex flex-col items-center justify-center text-center space-y-4">
+      <div class="flex items-center justify-center gap-2 text-white/80 mb-2 font-medium">
+        <span class="material-symbols-outlined text-secondary">code</span>
+        Dibuat dengan dedikasi selama masa PKL
+      </div>
+      <div class="text-white/50 font-body text-sm">
+        © 2026 Tim Pengembang PKL. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <div id="projectModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6">
+    <div id="modalBackdrop"
+      class="absolute inset-0 bg-black/60 backdrop-blur-md cursor-pointer opacity-0 transition-opacity duration-300"
+      onclick="closeModal()"></div>
+
+    <div id="modalContentBox"
+      class="relative bg-primary w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl transition-all duration-300 ease-out opacity-0 scale-95 translate-y-4 border border-secondary/20">
+      <button onclick="closeModal()"
+        class="absolute top-4 right-4 z-10 text-white/60 hover:text-white bg-secondary/10 hover:bg-secondary/20 transition-colors p-2 rounded-full flex items-center">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+
+      <div class="p-6 sm:p-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-6 mt-2 sm:mt-0">
+          <div
+            class="w-20 h-20 bg-secondary/10 rounded-2xl flex items-center justify-center shrink-0 border border-secondary/20">
+            <span id="modalIcon" class="material-symbols-outlined text-4xl text-secondary">code</span>
+          </div>
+          <div>
+            <h2 id="modalTitle" class="text-2xl sm:text-3xl font-headline font-bold text-white mb-2">
+              Judul Proyek
+            </h2>
+            <div class="flex flex-wrap gap-2">
+              <span id="modalCategory"
+                class="text-primary font-label text-[10px] sm:text-xs uppercase tracking-widest bg-secondary border border-secondary/20 px-3 py-1 rounded-full font-bold">
+                Web Application
+              </span>
+              <span
+                class="text-secondary font-label text-[10px] sm:text-xs uppercase tracking-widest bg-secondary/10 border border-secondary/20 px-3 py-1 rounded-full flex items-center gap-1 font-bold">
+                <span class="material-symbols-outlined text-[12px] sm:text-sm">person</span>
+                <span id="modalDeveloper">Nama Developer</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="relative w-full h-48 sm:h-64 mb-6 rounded-xl overflow-hidden group bg-black/30 border border-secondary/10 flex items-center justify-center">
+          <img id="modalSliderImage" src="" alt="Project Screenshot"
+            class="w-full h-full object-cover transition-opacity duration-300 opacity-90 hover:opacity-100" />
+
+          <button onclick="prevImage()" id="btnPrev"
+            class="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/80 hover:bg-secondary text-white hover:text-primary p-2 rounded-full backdrop-blur-md transition-all hidden group-hover:block shadow-md border border-secondary/20">
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+          <button onclick="nextImage()" id="btnNext"
+            class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/80 hover:bg-secondary text-white hover:text-primary p-2 rounded-full backdrop-blur-md transition-all hidden group-hover:block shadow-md border border-secondary/20">
+            <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+          <div id="sliderDots" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10"></div>
+        </div>
+
+        <div class="text-white/90 leading-relaxed bg-secondary/5 p-5 sm:p-6 rounded-xl border border-secondary/10 mb-4">
+          <h4 class="text-secondary text-xs sm:text-sm font-bold uppercase tracking-wider mb-2">
+            Deskripsi
+          </h4>
+          <p id="modalDesc" class="text-sm font-medium">
+            Deskripsi detail proyek akan muncul di sini.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+          <div class="bg-secondary/5 p-5 rounded-xl border border-secondary/10 border-t-4 border-t-secondary">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="material-symbols-outlined text-secondary text-lg sm:text-xl">warning</span>
+              <h4 class="text-[10px] sm:text-xs font-bold text-secondary uppercase tracking-widest">
+                Problem Statement
+              </h4>
+            </div>
+            <p id="modalProblem" class="text-sm text-white/80 leading-relaxed font-medium">
+              Masalah apa yang kalian coba pecahkan akan muncul di sini.
+            </p>
+          </div>
+
+          <div
+            class="bg-secondary/5 p-5 rounded-xl border border-secondary/10 border-t-4 border-t-secondary opacity-90">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="material-symbols-outlined text-secondary text-lg sm:text-xl">lightbulb</span>
+              <h4 class="text-[10px] sm:text-xs font-bold text-secondary uppercase tracking-widest">
+                Solution
+              </h4>
+            </div>
+            <p id="modalSolution" class="text-sm text-white/80 leading-relaxed font-medium">
+              Bagaimana proyek ini membantu akan muncul di sini.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <a id="modalLink" href="#" target="_blank"
+            class="w-full sm:w-auto bg-secondary text-primary px-6 py-4 rounded-xl text-center font-bold hover:bg-opacity-90 transition-all shadow-lg shadow-secondary/20 flex justify-center items-center gap-2">
+            <span class="material-symbols-outlined">open_in_new</span> Buka
+            Aplikasi / Demo
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/3.9.1/tsparticles.bundle.min.js"></script>
+  <script src="/static/js/index.js"></script>
+</body>
+
 </html>

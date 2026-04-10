@@ -3140,61 +3140,68 @@ body::after {
 }
 
 /* ==========================================
-   EFEK CAHAYA SOROT BAWAH LAUT (LIGHT RAYS)
+   EFEK TEXT BACKGROUND ANIMATION (TEMA LAUT)
    ========================================== */
-.light-rays-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* Agar tidak menghalangi tombol saat diklik */
-  z-index: 1; /* Taruh di bawah teks dan gambar */
-  overflow: hidden;
+.teks-animasi-bg {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+
+  /* Gambar Air Laut */
+  background-image: url("/static/images/airkocak.png");
+  background-repeat: repeat;
+  background-size: 2048px;
+
+  /* Ubah nama animasi menjadi 'ocean-light' agar sesuai */
+  -webkit-animation:
+    72s diagonal-flow infinite linear,
+    15s ocean-light infinite ease-in-out;
+  animation:
+    72s diagonal-flow infinite linear,
+    15s ocean-light infinite ease-in-out;
 }
 
-.light-rays {
-  position: absolute;
-  top: -20%;
-  left: -20%;
-  width: 140%; /* Sengaja dibuat lebih lebar dari layar untuk animasi */
-  height: 140%;
-  /* Membuat garis-garis cahaya miring */
-  background: repeating-linear-gradient(
-    -35deg,
-    transparent 0%,
-    transparent 10%,
-    rgba(255, 255, 255, 0.08) 15%,
-    rgba(255, 255, 255, 0.25) 20%,
-    /* Inti cahaya terang */ transparent 25%,
-    transparent 40%,
-    rgba(255, 255, 255, 0.12) 45%,
-    /* Cahaya sekunder agak redup */ transparent 50%
-  );
-  mix-blend-mode: color-dodge; /* Membuat cahayanya menyala di air gelap */
-
-  /* Efek Gradasi: Cahaya terang di atas, perlahan memudar dan hilang di bawah */
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0) 80%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0) 80%
-  );
-
-  /* Animasi sinar bergerak perlahan */
-  animation: raysPassing 15s ease-in-out infinite alternate;
-}
-
-/* Animasi cahaya mengayun/bergerak ke kiri dan kanan perlahan */
-@keyframes raysPassing {
+/* Animasi Pergerakan Diagonal Latar (Tetap) */
+@keyframes diagonal-flow {
   0% {
-    transform: translateX(-5%) rotate(0deg);
+    background-position: 100px 100px;
   }
   100% {
-    transform: translateX(5%) rotate(2deg);
+    background-position: -5020px 4196px;
+  }
+}
+@-webkit-keyframes diagonal-flow {
+  0% {
+    background-position: 100px 100px;
+  }
+  100% {
+    background-position: -5020px 4196px;
+  }
+}
+
+/* Animasi Perubahan Warna Laut yang Natural */
+@keyframes ocean-light {
+  0% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  50% {
+    filter: hue-rotate(-15deg) brightness(1.3);
+  } /* Berubah sedikit ke warna Teal/Cyan dan lebih terang/bercahaya */
+  100% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+}
+@-webkit-keyframes ocean-light {
+  0% {
+    -webkit-filter: hue-rotate(0deg) brightness(1);
+  }
+  50% {
+    -webkit-filter: hue-rotate(-15deg) brightness(1.3);
+  }
+  100% {
+    -webkit-filter: hue-rotate(0deg) brightness(1);
   }
 }
